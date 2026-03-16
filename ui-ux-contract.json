@@ -1,0 +1,624 @@
+{
+  "contract_version": 1,
+  "product": {
+    "name": "AI Dev Template Configurator",
+    "goal": "Generate a valid .ai-dev-template.config.json for AI-dev-template repositories."
+  },
+  "design_principles": [
+    "Use a step-by-step wizard with progressive disclosure.",
+    "Ask only questions that affect the generated config.",
+    "Hide irrelevant questions when a parent feature is disabled.",
+    "Prefer fixed answer options over free text wherever possible.",
+    "Show a live config summary and a final JSON preview."
+  ],
+  "output": {
+    "format": "json",
+    "target_file_name": ".ai-dev-template.config.json",
+    "schema_root": "ai_dev_template_config"
+  },
+  "screens": [
+    {
+      "id": "welcome",
+      "type": "intro",
+      "title": "Configure Repository Workflow",
+      "description": "Set language, workflow mode, PR policy, artifact persistence, and RAG policy for a new AI Dev Template repository.",
+      "primary_action": "Start configuration"
+    },
+    {
+      "id": "language",
+      "type": "form",
+      "title": "Language",
+      "description": "Choose the language used by repository artifacts. Labels remain in English.",
+      "fields": [
+        {
+          "id": "language.documentation",
+          "component": "segmented_control",
+          "label": "Documentation language",
+          "required": true,
+          "default": "en",
+          "options": [
+            { "value": "en", "label": "English" },
+            { "value": "ru", "label": "Russian" }
+          ]
+        },
+        {
+          "id": "language.issues",
+          "component": "segmented_control",
+          "label": "Issue language",
+          "required": true,
+          "default": "en",
+          "options": [
+            { "value": "en", "label": "English" },
+            { "value": "ru", "label": "Russian" }
+          ]
+        },
+        {
+          "id": "language.pull_requests",
+          "component": "segmented_control",
+          "label": "Pull request language",
+          "required": true,
+          "default": "en",
+          "options": [
+            { "value": "en", "label": "English" },
+            { "value": "ru", "label": "Russian" }
+          ]
+        },
+        {
+          "id": "language.comments",
+          "component": "segmented_control",
+          "label": "Agent comment language",
+          "required": true,
+          "default": "en",
+          "options": [
+            { "value": "en", "label": "English" },
+            { "value": "ru", "label": "Russian" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "execution_mode",
+      "type": "form",
+      "title": "Execution Mode",
+      "description": "Choose how autonomous the agent should be.",
+      "fields": [
+        {
+          "id": "workflow.execution_mode",
+          "component": "card_radio_group",
+          "label": "Execution mode",
+          "required": true,
+          "default": "hybrid",
+          "options": [
+            {
+              "value": "autonomous",
+              "label": "Autonomous",
+              "description": "Agent moves through the workflow without stage-by-stage approval, except for configured guardrails."
+            },
+            {
+              "value": "hybrid",
+              "label": "Hybrid",
+              "description": "Agent works autonomously for normal tasks and pauses only on configured high-risk checkpoints."
+            },
+            {
+              "value": "staged",
+              "label": "Staged",
+              "description": "Agent pauses for explicit approval between major stages."
+            }
+          ]
+        },
+        {
+          "id": "workflow.human_checkpoints",
+          "component": "checkbox_group",
+          "label": "High-risk checkpoints",
+          "required": true,
+          "default": [
+            "architecture_changes",
+            "infra_changes",
+            "schema_migrations",
+            "external_integrations",
+            "security_sensitive_changes"
+          ],
+          "help_text": "These are the guardrails that still require human approval in autonomous or hybrid mode.",
+          "visibility": {
+            "any_of": [
+              {
+                "field": "workflow.execution_mode",
+                "operator": "equals",
+                "value": "autonomous"
+              },
+              {
+                "field": "workflow.execution_mode",
+                "operator": "equals",
+                "value": "hybrid"
+              }
+            ]
+          },
+          "options": [
+            {
+              "value": "architecture_changes",
+              "label": "Architecture changes"
+            },
+            {
+              "value": "infra_changes",
+              "label": "Infrastructure changes"
+            },
+            {
+              "value": "schema_migrations",
+              "label": "Schema migrations"
+            },
+            {
+              "value": "external_integrations",
+              "label": "External integrations"
+            },
+            {
+              "value": "security_sensitive_changes",
+              "label": "Security-sensitive changes"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pull_requests",
+      "type": "form",
+      "title": "Pull Requests",
+      "description": "Choose whether the repository uses a PR-based delivery flow.",
+      "fields": [
+        {
+          "id": "pull_requests.enabled",
+          "component": "card_radio_group",
+          "label": "Use pull requests",
+          "required": true,
+          "default": true,
+          "options": [
+            {
+              "value": true,
+              "label": "Yes",
+              "description": "Use branch, PR, review, and merge workflow."
+            },
+            {
+              "value": false,
+              "label": "No",
+              "description": "Work is tracked through docs, issues, and commits without PR stages."
+            }
+          ]
+        },
+        {
+          "id": "pull_requests.creation_mode",
+          "component": "segmented_control",
+          "label": "When to create PRs",
+          "required": true,
+          "default": "for_major_changes",
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          },
+          "options": [
+            { "value": "always", "label": "Always" },
+            { "value": "for_major_changes", "label": "Major changes only" },
+            { "value": "manual", "label": "Manual decision" }
+          ]
+        },
+        {
+          "id": "pull_requests.draft_first",
+          "component": "switch",
+          "label": "Open PRs as draft first",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "review_merge",
+      "type": "form",
+      "title": "Review And Merge",
+      "description": "Review policy is only needed when pull requests are enabled.",
+      "fields": [
+        {
+          "id": "pull_requests.review.required",
+          "component": "card_radio_group",
+          "label": "Require review",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          },
+          "options": [
+            {
+              "value": true,
+              "label": "Yes",
+              "description": "A PR cannot be merged until review policy is satisfied."
+            },
+            {
+              "value": false,
+              "label": "No",
+              "description": "PRs may exist, but formal review is optional."
+            }
+          ]
+        },
+        {
+          "id": "pull_requests.review.reviewers",
+          "component": "segmented_control",
+          "label": "Reviewer type",
+          "required": true,
+          "default": "human",
+          "visibility": {
+            "field": "pull_requests.review.required",
+            "operator": "equals",
+            "value": true
+          },
+          "options": [
+            { "value": "human", "label": "Human" },
+            { "value": "ai", "label": "AI" },
+            { "value": "both", "label": "Both" }
+          ]
+        },
+        {
+          "id": "pull_requests.review.agent_must_read_comments",
+          "component": "switch",
+          "label": "Agent must read PR comments",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
+          "id": "pull_requests.review.agent_must_reply_to_comments",
+          "component": "switch",
+          "label": "Agent must reply to PR comments",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
+          "id": "pull_requests.review.agent_must_apply_accepted_feedback",
+          "component": "switch",
+          "label": "Agent must apply accepted feedback",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
+          "id": "pull_requests.merge.strategy",
+          "component": "segmented_control",
+          "label": "Merge strategy",
+          "required": true,
+          "default": "squash",
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          },
+          "options": [
+            { "value": "squash", "label": "Squash" },
+            { "value": "merge", "label": "Merge commit" },
+            { "value": "rebase", "label": "Rebase" }
+          ]
+        },
+        {
+          "id": "pull_requests.merge.min_approvals",
+          "component": "stepper",
+          "label": "Required approvals",
+          "required": true,
+          "default": 1,
+          "min": 0,
+          "max": 3,
+          "visibility": {
+            "all_of": [
+              {
+                "field": "pull_requests.enabled",
+                "operator": "equals",
+                "value": true
+              },
+              {
+                "field": "pull_requests.review.required",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "pull_requests.merge.require_green_checks",
+          "component": "switch",
+          "label": "Require green checks before merge",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
+          "id": "pull_requests.merge.allow_agent_self_merge",
+          "component": "switch",
+          "label": "Allow agent self-merge",
+          "required": true,
+          "default": false,
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "artifacts",
+      "type": "form",
+      "title": "Artifact Persistence",
+      "description": "Decide which AI-generated repository artifacts must stay in Git and which can remain local.",
+      "fields": [
+        {
+          "id": "artifacts.persist_docs_to_repo",
+          "component": "switch",
+          "label": "Persist docs to repository",
+          "required": true,
+          "default": true,
+          "help_text": "Recommended. Docs are the long-lived source of truth for future sessions."
+        },
+        {
+          "id": "artifacts.persist_agent_contract_to_repo",
+          "component": "switch",
+          "label": "Persist AGENTS contract to repository",
+          "required": true,
+          "default": true,
+          "help_text": "Recommended. Without this, new agent sessions lose the operating contract."
+        },
+        {
+          "id": "artifacts.persist_temporary_workfiles_to_repo",
+          "component": "switch",
+          "label": "Persist temporary AI workfiles to repository",
+          "required": true,
+          "default": false,
+          "help_text": "Scratch notes, drafts, logs, and temporary generation files usually should stay local."
+        }
+      ]
+    },
+    {
+      "id": "rag",
+      "type": "form",
+      "title": "RAG And Vector DB",
+      "description": "Decide whether retrieval support may be considered for this repository.",
+      "fields": [
+        {
+          "id": "rag.mode",
+          "component": "card_radio_group",
+          "label": "RAG policy",
+          "required": true,
+          "default": "optional",
+          "options": [
+            {
+              "value": "off",
+              "label": "Off",
+              "description": "Do not consider RAG or vector DB in this repository."
+            },
+            {
+              "value": "optional",
+              "label": "Optional",
+              "description": "RAG may be considered later if the documented use case justifies it."
+            },
+            {
+              "value": "required",
+              "label": "Required",
+              "description": "The repository should plan for retrieval support as part of the delivery model."
+            }
+          ]
+        },
+        {
+          "id": "rag.allow_vector_db",
+          "component": "switch",
+          "label": "Allow vector DB as an implementation option",
+          "required": true,
+          "default": false,
+          "visibility": {
+            "field": "rag.mode",
+            "operator": "not_equals",
+            "value": "off"
+          }
+        },
+        {
+          "id": "rag.activation_requires_user_approval",
+          "component": "switch",
+          "label": "Require explicit user approval before activation",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "rag.mode",
+            "operator": "not_equals",
+            "value": "off"
+          }
+        }
+      ]
+    },
+    {
+      "id": "github_permissions",
+      "type": "summary",
+      "title": "GitHub Token Requirements",
+      "description": "Show which token scopes the repository expects. This is explanatory and not user-editable in the first version.",
+      "display_blocks": [
+        {
+          "title": "Required scopes",
+          "items": ["repo", "project"]
+        },
+        {
+          "title": "Recommended scopes",
+          "items": ["read:org", "workflow"]
+        },
+        {
+          "title": "Notes",
+          "items": [
+            "Scopes do not guarantee repository-specific write access.",
+            "Branch protection and project write permissions must still be checked separately."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "type": "review",
+      "title": "Review Configuration",
+      "description": "Show a human-readable summary before generating the final JSON.",
+      "sections": [
+        "Language",
+        "Execution mode",
+        "Pull requests",
+        "Review and merge",
+        "Artifact persistence",
+        "RAG policy",
+        "GitHub token requirements"
+      ],
+      "primary_action": "Generate config"
+    },
+    {
+      "id": "result",
+      "type": "result",
+      "title": "Configuration Generated",
+      "description": "Display the final JSON and provide copy and download actions.",
+      "actions": [
+        "Copy JSON",
+        "Download .ai-dev-template.config.json",
+        "Start over"
+      ]
+    }
+  ],
+  "conditional_logic_rules": [
+    {
+      "rule_id": "hide_review_if_pr_disabled",
+      "when": {
+        "field": "pull_requests.enabled",
+        "operator": "equals",
+        "value": false
+      },
+      "effect": {
+        "hide_fields": [
+          "pull_requests.creation_mode",
+          "pull_requests.draft_first",
+          "pull_requests.review.required",
+          "pull_requests.review.reviewers",
+          "pull_requests.review.agent_must_read_comments",
+          "pull_requests.review.agent_must_reply_to_comments",
+          "pull_requests.review.agent_must_apply_accepted_feedback",
+          "pull_requests.merge.strategy",
+          "pull_requests.merge.min_approvals",
+          "pull_requests.merge.require_green_checks",
+          "pull_requests.merge.allow_agent_self_merge"
+        ]
+      }
+    },
+    {
+      "rule_id": "hide_approvals_if_review_not_required",
+      "when": {
+        "field": "pull_requests.review.required",
+        "operator": "equals",
+        "value": false
+      },
+      "effect": {
+        "hide_fields": [
+          "pull_requests.review.reviewers",
+          "pull_requests.merge.min_approvals"
+        ]
+      }
+    },
+    {
+      "rule_id": "hide_guardrails_if_staged",
+      "when": {
+        "field": "workflow.execution_mode",
+        "operator": "equals",
+        "value": "staged"
+      },
+      "effect": {
+        "hide_fields": [
+          "workflow.human_checkpoints"
+        ]
+      }
+    },
+    {
+      "rule_id": "hide_vector_db_controls_if_rag_off",
+      "when": {
+        "field": "rag.mode",
+        "operator": "equals",
+        "value": "off"
+      },
+      "effect": {
+        "hide_fields": [
+          "rag.allow_vector_db",
+          "rag.activation_requires_user_approval"
+        ]
+      }
+    }
+  ],
+  "generated_json_template": {
+    "config_version": 1,
+    "language": {
+      "documentation": "{{language.documentation}}",
+      "issues": "{{language.issues}}",
+      "pull_requests": "{{language.pull_requests}}",
+      "comments": "{{language.comments}}",
+      "labels": "en"
+    },
+    "workflow": {
+      "execution_mode": "{{workflow.execution_mode}}",
+      "human_checkpoints": "{{workflow.human_checkpoints}}",
+      "issue_tracking": "github_issues",
+      "project_tracking": "github_project"
+    },
+    "pull_requests": {
+      "enabled": "{{pull_requests.enabled}}",
+      "creation_mode": "{{pull_requests.creation_mode}}",
+      "draft_first": "{{pull_requests.draft_first}}",
+      "review": {
+        "required": "{{pull_requests.review.required}}",
+        "reviewers": "{{pull_requests.review.reviewers}}",
+        "agent_must_read_comments": "{{pull_requests.review.agent_must_read_comments}}",
+        "agent_must_reply_to_comments": "{{pull_requests.review.agent_must_reply_to_comments}}",
+        "agent_must_apply_accepted_feedback": "{{pull_requests.review.agent_must_apply_accepted_feedback}}"
+      },
+      "merge": {
+        "strategy": "{{pull_requests.merge.strategy}}",
+        "min_approvals": "{{pull_requests.merge.min_approvals}}",
+        "require_green_checks": "{{pull_requests.merge.require_green_checks}}",
+        "allow_agent_self_merge": "{{pull_requests.merge.allow_agent_self_merge}}"
+      }
+    },
+    "artifacts": {
+      "persist_docs_to_repo": "{{artifacts.persist_docs_to_repo}}",
+      "persist_agent_contract_to_repo": "{{artifacts.persist_agent_contract_to_repo}}",
+      "persist_temporary_workfiles_to_repo": "{{artifacts.persist_temporary_workfiles_to_repo}}",
+      "local_artifact_paths": [
+        ".agent-work/",
+        ".ai-local/",
+        "tasks/*.local.*"
+      ]
+    },
+    "rag": {
+      "mode": "{{rag.mode}}",
+      "allow_vector_db": "{{rag.allow_vector_db}}",
+      "activation_requires_user_approval": "{{rag.activation_requires_user_approval}}"
+    },
+    "github": {
+      "required_token_scopes": ["repo", "project"],
+      "recommended_token_scopes": ["read:org", "workflow"]
+    }
+  }
+}
