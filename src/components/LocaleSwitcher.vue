@@ -10,11 +10,11 @@
     :aria-label="t('locale.switcherLabel')"
   >
     <v-btn
-      v-for="option in ['en', 'ru']"
+      v-for="option in localeOptions"
       :key="option"
       :value="option"
       class="locale-switcher__button"
-      @click="changeLocale(option as 'en' | 'ru')"
+      @click="changeLocale(option)"
     >
       {{ t(`locale.${option}`) }}
     </v-btn>
@@ -23,10 +23,12 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { LocaleCode } from '../types/app'
 
 const { locale, t } = useI18n()
+const localeOptions = [LocaleCode.En, LocaleCode.Ru] as const
 
-function changeLocale(nextLocale: 'en' | 'ru') {
+function changeLocale(nextLocale: LocaleCode) {
   locale.value = nextLocale
   localStorage.setItem('ai-dev-template-configurator:locale', nextLocale)
 }

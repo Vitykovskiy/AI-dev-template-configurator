@@ -16,7 +16,9 @@
         <StepProgress
           :current-step="currentScreenIndex"
           :screens="contract.screens"
-          :translate-screen="(screen) => screenText(screen, 'title')"
+          :translate-screen="
+            (screen) => screenText(screen, screenTextKey.Title)
+          "
           @select="goToScreen"
         />
 
@@ -30,20 +32,20 @@
         <div
           class="screen-frame"
           :class="{
-            'screen-frame--welcome': currentScreen.type === 'intro',
-            'screen-frame--result': currentScreen.type === 'result',
+            'screen-frame--welcome': currentScreen.type === screenType.Intro,
+            'screen-frame--result': currentScreen.type === screenType.Result,
           }"
         >
-          <template v-if="currentScreen.type === 'intro'">
+          <template v-if="currentScreen.type === screenType.Intro">
             <section class="welcome-card">
               <div class="welcome-card__icon" aria-hidden="true">
                 <Settings />
               </div>
               <h2 class="screen-title">
-                {{ screenText(currentScreen, 'title') }}
+                {{ screenText(currentScreen, screenTextKey.Title) }}
               </h2>
               <p class="screen-description">
-                {{ screenText(currentScreen, 'description') }}
+                {{ screenText(currentScreen, screenTextKey.Description) }}
               </p>
 
               <v-btn
@@ -52,12 +54,12 @@
                 size="large"
                 @click="primaryAction"
               >
-                {{ screenText(currentScreen, 'primary_action') }}
+                {{ screenText(currentScreen, screenTextKey.PrimaryAction) }}
               </v-btn>
             </section>
           </template>
 
-          <template v-else-if="currentScreen.type === 'result'">
+          <template v-else-if="currentScreen.type === screenType.Result">
             <section class="result-layout">
               <div class="result-hero">
                 <div class="result-hero__icon" aria-hidden="true">
@@ -108,15 +110,18 @@
                   }}
                 </p>
                 <h2 class="screen-title">
-                  {{ screenText(currentScreen, 'title') }}
+                  {{ screenText(currentScreen, screenTextKey.Title) }}
                 </h2>
                 <p class="screen-description">
-                  {{ screenText(currentScreen, 'description') }}
+                  {{ screenText(currentScreen, screenTextKey.Description) }}
                 </p>
               </header>
 
               <section class="content-card">
-                <div v-if="currentScreen.type === 'form'" class="field-stack">
+                <div
+                  v-if="currentScreen.type === screenType.Form"
+                  class="field-stack"
+                >
                   <StepField
                     v-for="field in visibleFields"
                     :key="field.id"
@@ -132,7 +137,7 @@
                 </div>
 
                 <div
-                  v-else-if="currentScreen.type === 'summary'"
+                  v-else-if="currentScreen.type === screenType.Summary"
                   class="info-grid"
                 >
                   <article
@@ -150,7 +155,7 @@
                 </div>
 
                 <div
-                  v-else-if="currentScreen.type === 'review'"
+                  v-else-if="currentScreen.type === screenType.Review"
                   class="summary-grid"
                 >
                   <article
@@ -187,7 +192,7 @@
                   @click="primaryAction"
                 >
                   {{
-                    currentScreen.type === 'review'
+                    currentScreen.type === screenType.Review
                       ? t('chrome.generate')
                       : t('chrome.next')
                   }}
@@ -211,12 +216,28 @@ import StepField from './components/StepField.vue'
 import StepProgress from './components/StepProgress.vue'
 import ThemeSwitcher from './components/ThemeSwitcher.vue'
 import { useConfigurator } from './composables/useConfigurator'
-import type {
-  ContractField,
-  ContractOption,
-  ContractScreen,
-  PrimitiveValue,
+import {
+  ScreenTextKey,
+  ScreenType,
+  type ContractField,
+  type ContractOption,
+  type ContractScreen,
+  type PrimitiveValue,
 } from './types/contract'
+
+const screenTextKey = {
+  Title: ScreenTextKey.Title,
+  Description: ScreenTextKey.Description,
+  PrimaryAction: ScreenTextKey.PrimaryAction,
+} as const
+
+const screenType = {
+  Intro: ScreenType.Intro,
+  Form: ScreenType.Form,
+  Summary: ScreenType.Summary,
+  Review: ScreenType.Review,
+  Result: ScreenType.Result,
+} as const
 
 const { t, te, tm } = useI18n()
 const {
@@ -243,10 +264,7 @@ function i18nKeySegment(key: string) {
   return /^[A-Za-z_]\w*$/.test(key) ? `.${key}` : `['${key}']`
 }
 
-function screenText(
-  screen: ContractScreen,
-  key: 'title' | 'description' | 'primary_action',
-) {
+function screenText(screen: ContractScreen, key: ScreenTextKey) {
   const translationKey = `contract.screens.${screen.id}.${key}`
   const fallback = screen[key] ?? ''
   return te(translationKey) ? t(translationKey) : fallback
@@ -406,7 +424,7 @@ const summaryCards = computed(() => [
 ])
 
 function primaryAction() {
-  if (currentScreen.value.type === 'result') {
+  if (currentScreen.value.type === ScreenType.Result) {
     restart()
     return
   }

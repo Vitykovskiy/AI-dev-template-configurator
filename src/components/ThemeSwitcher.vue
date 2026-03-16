@@ -32,14 +32,15 @@
 import { Monitor, Moon, Sun } from 'lucide-vue-next'
 import { useI18n } from 'vue-i18n'
 import { useTheme } from '../composables/useTheme'
+import { ThemeMode } from '../types/app'
 
 const { t } = useI18n()
 const { theme, setTheme } = useTheme()
 
 const options = [
-  { value: 'light', labelKey: 'theme.light', icon: Sun },
-  { value: 'dark', labelKey: 'theme.dark', icon: Moon },
-  { value: 'system', labelKey: 'theme.system', icon: Monitor },
+  { value: ThemeMode.Light, labelKey: 'theme.light', icon: Sun },
+  { value: ThemeMode.Dark, labelKey: 'theme.dark', icon: Moon },
+  { value: ThemeMode.System, labelKey: 'theme.system', icon: Monitor },
 ] as const
 </script>
 

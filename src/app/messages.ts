@@ -29,11 +29,11 @@ export const messages = {
         'Review the generated JSON, then copy it or download it as a config file.',
       resultTitle: 'Configuration Generated',
       resultText:
-        'Your configuration is ready. Copy the JSON or download the file for the repository root.',
+        'Copy the JSON or download the generated file and add it to the template root.',
       productGoal:
         'Generate a valid `.ai-dev-template.config.json` for AI Dev Template repositories.',
       designPrinciples: [
-        'Use a step-by-step wizard with progressive disclosure.',
+        'Use a step-by-step wizard.',
         'Ask only questions that affect the generated config.',
         'Hide irrelevant questions when a parent feature is disabled.',
         'Prefer fixed answer options over free text wherever possible.',
@@ -57,7 +57,7 @@ export const messages = {
       prFlow: 'Pull requests',
       review: 'Review and merge',
       artifacts: 'Artifact persistence',
-      rag: 'RAG policy',
+      rag: 'RAG mode',
       fields: {
         documentation: 'Documentation',
         issues: 'Issues',
@@ -124,7 +124,7 @@ export const messages = {
         rag: {
           title: 'RAG And Vector DB',
           description:
-            'Decide whether retrieval support may be considered for this repository.',
+            'Choose how RAG is used in this repository’s development workflow.',
         },
         github_permissions: {
           title: 'GitHub Token Requirements',
@@ -190,7 +190,7 @@ export const messages = {
           help_text:
             'Scratch notes, drafts, logs, and temporary generation files usually should stay local.',
         },
-        'rag.mode': { label: 'RAG policy' },
+        'rag.mode': { label: 'RAG mode' },
         'rag.allow_vector_db': {
           label: 'Allow vector DB as an implementation option',
         },
@@ -266,18 +266,18 @@ export const messages = {
         },
         'rag.mode': {
           off: {
-            label: 'Off',
-            description: 'Do not consider RAG or vector DB in this repository.',
+            label: 'Do not use',
+            description: 'Work without RAG in this repository.',
           },
-          optional: {
-            label: 'Optional',
+          on_demand: {
+            label: 'Enable when needed',
             description:
-              'RAG may be considered later if the documented use case justifies it.',
+              'Start without RAG and connect it later if the repository grows beyond direct context.',
           },
-          required: {
-            label: 'Required',
+          from_start: {
+            label: 'Use from start',
             description:
-              'The repository should plan for retrieval support as part of the delivery model.',
+              'Prepare the development workflow to use RAG from the beginning.',
           },
         },
       },
@@ -291,7 +291,7 @@ export const messages = {
       disabled: 'Выключено',
       none: 'Нет',
       allowed: 'Разрешено',
-      notAllowed: 'Не разрешено',
+      notAllowed: 'Запрещено',
     },
     chrome: {
       badge: 'Мастер настройки',
@@ -313,7 +313,7 @@ export const messages = {
         'Проверьте JSON, затем скопируйте его или скачайте готовый файл.',
       resultTitle: 'Конфигурация готова',
       resultText:
-        'JSON можно скопировать или скачать файл для корня репозитория.',
+        'Скопируйте JSON или скачайте готовый файл и добавьте его в корень шаблона.',
       productGoal:
         'Сгенерировать корректный `.ai-dev-template.config.json` для репозитория AI Dev Template.',
       designPrinciples: [
@@ -341,7 +341,7 @@ export const messages = {
       prFlow: 'Пул-реквесты',
       review: 'Ревью и слияние',
       artifacts: 'Хранение артефактов',
-      rag: 'Политика RAG',
+      rag: 'Режим RAG',
       fields: {
         documentation: 'Документация',
         issues: 'Задачи',
@@ -370,7 +370,7 @@ export const messages = {
       label: 'Тема',
       switcherLabel: 'Переключатель темы',
       light: 'Светлая',
-      dark: 'Темная',
+      dark: 'Тёмная',
       system: 'Системная',
     },
     contract: {
@@ -408,12 +408,12 @@ export const messages = {
         rag: {
           title: 'RAG и векторная БД',
           description:
-            'Определите, можно ли использовать для этого репозитория поиск по базе знаний.',
+            'Выберите, как RAG используется в процессе разработки этого репозитория.',
         },
         github_permissions: {
           title: 'Права доступа GitHub',
           description:
-            'Посмотрите, какие права доступа ожидаются от токена. В первой версии этот шаг только информационный.',
+            'Показаны права доступа, которые ожидаются от токена. В первой версии этот шаг только информационный.',
         },
         review: {
           title: 'Проверка конфигурации',
@@ -421,7 +421,8 @@ export const messages = {
         },
         result: {
           title: 'Конфигурация готова',
-          description: 'Посмотрите итоговый JSON и скачайте готовый файл.',
+          description:
+            'Итоговый JSON можно скопировать или скачать готовый файл.',
         },
       },
       fields: {
@@ -476,7 +477,7 @@ export const messages = {
           help_text:
             'Черновики, заметки, логи и временные файлы генерации обычно лучше оставлять локально.',
         },
-        'rag.mode': { label: 'Политика RAG' },
+        'rag.mode': { label: 'Режим RAG' },
         'rag.allow_vector_db': {
           label: 'Разрешить векторную БД как вариант реализации',
         },
@@ -553,19 +554,18 @@ export const messages = {
         },
         'rag.mode': {
           off: {
-            label: 'Выключено',
-            description:
-              'Не использовать RAG и векторную БД в этом репозитории.',
+            label: 'Не использовать',
+            description: 'Работать без RAG в этом репозитории.',
           },
-          optional: {
-            label: 'Опционально',
+          on_demand: {
+            label: 'Подключать при необходимости',
             description:
-              'Можно вернуться к этому позже, если задача действительно этого потребует.',
+              'По умолчанию работать без RAG и подключить его позже, если прямого контекста станет недостаточно.',
           },
-          required: {
-            label: 'Обязательно',
+          from_start: {
+            label: 'Использовать сразу',
             description:
-              'Поиск по базе знаний нужно учитывать как часть рабочего процесса репозитория.',
+              'Сразу готовить процесс разработки с использованием RAG.',
           },
         },
       },

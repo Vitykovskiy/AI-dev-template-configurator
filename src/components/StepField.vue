@@ -1,7 +1,7 @@
 <template>
   <v-card class="field-block" rounded="xl" variant="flat">
     <div class="field-block__header">
-      <template v-if="field.component !== 'switch'">
+      <template v-if="field.component !== fieldComponent.Switch">
         <h3 class="field-block__label">
           {{ translateFieldLabel(field) }}
         </h3>
@@ -12,7 +12,7 @@
     </div>
 
     <v-btn-toggle
-      v-if="field.component === 'segmented_control'"
+      v-if="field.component === fieldComponent.SegmentedControl"
       class="segmented"
       :model-value="modelValue"
       color="primary"
@@ -32,7 +32,7 @@
     </v-btn-toggle>
 
     <v-item-group
-      v-else-if="field.component === 'card_radio_group'"
+      v-else-if="field.component === fieldComponent.CardRadioGroup"
       class="card-grid"
       :model-value="modelValue"
       mandatory
@@ -58,7 +58,10 @@
       </v-item>
     </v-item-group>
 
-    <div v-else-if="field.component === 'checkbox_group'" class="check-grid">
+    <div
+      v-else-if="field.component === fieldComponent.CheckboxGroup"
+      class="check-grid"
+    >
       <v-checkbox
         v-for="option in field.options"
         :key="String(option.value)"
@@ -73,7 +76,10 @@
       />
     </div>
 
-    <div v-else-if="field.component === 'switch'" class="switch-row">
+    <div
+      v-else-if="field.component === fieldComponent.Switch"
+      class="switch-row"
+    >
       <div>
         <span class="field-block__label">{{ translateFieldLabel(field) }}</span>
         <p v-if="translateFieldHelp(field)" class="field-block__help">
@@ -91,7 +97,7 @@
     </div>
 
     <v-number-input
-      v-else-if="field.component === 'stepper'"
+      v-else-if="field.component === fieldComponent.Stepper"
       class="number-input"
       control-variant="split"
       variant="outlined"
@@ -110,11 +116,20 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type {
-  ContractField,
-  ContractOption,
-  PrimitiveValue,
+import {
+  FieldComponent,
+  type ContractField,
+  type ContractOption,
+  type PrimitiveValue,
 } from '../types/contract'
+
+const fieldComponent = {
+  SegmentedControl: FieldComponent.SegmentedControl,
+  CardRadioGroup: FieldComponent.CardRadioGroup,
+  CheckboxGroup: FieldComponent.CheckboxGroup,
+  Switch: FieldComponent.Switch,
+  Stepper: FieldComponent.Stepper,
+} as const
 
 const props = defineProps<{
   field: ContractField

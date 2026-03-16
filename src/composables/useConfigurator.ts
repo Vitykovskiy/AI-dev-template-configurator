@@ -199,7 +199,7 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
     local_artifact_paths: ['.agent-work/', '.ai-local/', 'tasks/*.local.*'],
   },
   rag: {
-    mode: toString(formState.value['rag.mode'], 'optional'),
+    mode: toString(formState.value['rag.mode'], 'on_demand'),
     allow_vector_db: toBoolean(formState.value['rag.allow_vector_db'], false),
     activation_requires_user_approval: toBoolean(
       formState.value['rag.activation_requires_user_approval'],

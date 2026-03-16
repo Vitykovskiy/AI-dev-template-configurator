@@ -1,28 +1,30 @@
 import { computed, ref, watchEffect } from 'vue'
 import { vuetify } from '../app/vuetify'
-
-type ThemeMode = 'light' | 'dark' | 'system'
-type ActualTheme = 'light' | 'dark'
+import { ActualTheme, ThemeMode } from '../types/app'
 
 const storedTheme = localStorage.getItem('ai-dev-template-configurator:theme')
 const theme = ref<ThemeMode>(
-  storedTheme === 'light' || storedTheme === 'dark' || storedTheme === 'system'
+  storedTheme === ThemeMode.Light ||
+    storedTheme === ThemeMode.Dark ||
+    storedTheme === ThemeMode.System
     ? storedTheme
-    : 'system',
+    : ThemeMode.System,
 )
 
 const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
 
 const actualTheme = computed<ActualTheme>(() =>
-  theme.value === 'system'
+  theme.value === ThemeMode.System
     ? mediaQuery.matches
-      ? 'dark'
-      : 'light'
-    : theme.value,
+      ? ActualTheme.Dark
+      : ActualTheme.Light
+    : theme.value === ThemeMode.Light
+      ? ActualTheme.Light
+      : ActualTheme.Dark,
 )
 
 function applyTheme(nextTheme: ActualTheme) {
-  document.documentElement.classList.remove('light', 'dark')
+  document.documentElement.classList.remove(ActualTheme.Light, ActualTheme.Dark)
   document.documentElement.classList.add(nextTheme)
 }
 
@@ -33,7 +35,7 @@ watchEffect(() => {
 })
 
 mediaQuery.addEventListener('change', () => {
-  if (theme.value === 'system') {
+  if (theme.value === ThemeMode.System) {
     applyTheme(actualTheme.value)
   }
 })

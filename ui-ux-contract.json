@@ -5,7 +5,7 @@
     "goal": "Generate a valid .ai-dev-template.config.json for AI-dev-template repositories."
   },
   "design_principles": [
-    "Use a step-by-step wizard with progressive disclosure.",
+    "Use a step-by-step wizard.",
     "Ask only questions that affect the generated config.",
     "Hide irrelevant questions when a parent feature is disabled.",
     "Prefer fixed answer options over free text wherever possible.",
@@ -399,29 +399,29 @@
       "id": "rag",
       "type": "form",
       "title": "RAG And Vector DB",
-      "description": "Decide whether retrieval support may be considered for this repository.",
+      "description": "Choose how RAG is used in the development workflow for this repository.",
       "fields": [
         {
           "id": "rag.mode",
           "component": "card_radio_group",
           "label": "RAG policy",
           "required": true,
-          "default": "optional",
+          "default": "on_demand",
           "options": [
             {
               "value": "off",
-              "label": "Off",
-              "description": "Do not consider RAG or vector DB in this repository."
+              "label": "Do not use",
+              "description": "Work without RAG in this repository."
             },
             {
-              "value": "optional",
-              "label": "Optional",
-              "description": "RAG may be considered later if the documented use case justifies it."
+              "value": "on_demand",
+              "label": "Enable when needed",
+              "description": "Start without RAG and connect it later if the repository grows beyond direct context."
             },
             {
-              "value": "required",
-              "label": "Required",
-              "description": "The repository should plan for retrieval support as part of the delivery model."
+              "value": "from_start",
+              "label": "Use from start",
+              "description": "Prepare the development workflow to use RAG from the beginning."
             }
           ]
         },
@@ -552,7 +552,7 @@
       }
     },
     {
-      "rule_id": "hide_vector_db_controls_if_rag_off",
+      "rule_id": "hide_vector_db_controls_if_rag_disabled",
       "when": {
         "field": "rag.mode",
         "operator": "equals",

@@ -1,9 +1,36 @@
 export type PrimitiveValue = string | number | boolean
 
+export const enum VisibilityOperator {
+  Equals = 'equals',
+  NotEquals = 'not_equals',
+}
+
+export const enum FieldComponent {
+  SegmentedControl = 'segmented_control',
+  CardRadioGroup = 'card_radio_group',
+  CheckboxGroup = 'checkbox_group',
+  Switch = 'switch',
+  Stepper = 'stepper',
+}
+
+export const enum ScreenType {
+  Intro = 'intro',
+  Form = 'form',
+  Summary = 'summary',
+  Review = 'review',
+  Result = 'result',
+}
+
+export const enum ScreenTextKey {
+  Title = 'title',
+  Description = 'description',
+  PrimaryAction = 'primary_action',
+}
+
 export type VisibilityCondition =
   | {
       field: string
-      operator: 'equals' | 'not_equals'
+      operator: VisibilityOperator
       value: PrimitiveValue
     }
   | {
@@ -21,12 +48,7 @@ export interface ContractOption {
 
 export interface ContractField {
   id: string
-  component:
-    | 'segmented_control'
-    | 'card_radio_group'
-    | 'checkbox_group'
-    | 'switch'
-    | 'stepper'
+  component: FieldComponent
   label: string
   required: boolean
   default: PrimitiveValue | PrimitiveValue[]
@@ -40,7 +62,7 @@ export interface ContractField {
 
 export interface ContractScreen {
   id: string
-  type: 'intro' | 'form' | 'summary' | 'review' | 'result'
+  type: ScreenType
   title: string
   description: string
   primary_action?: string
