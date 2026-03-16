@@ -165,9 +165,13 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
       ),
     },
     merge: {
-      strategy: toString(
-        formState.value['pull_requests.merge.strategy'],
-        'squash',
+      squash_commits: toBoolean(
+        formState.value['pull_requests.merge.squash_commits'],
+        true,
+      ),
+      integration_method: toString(
+        formState.value['pull_requests.merge.integration_method'],
+        'merge',
       ),
       min_approvals: toNumber(
         formState.value['pull_requests.merge.min_approvals'],

@@ -310,18 +310,30 @@
           }
         },
         {
-          "id": "pull_requests.merge.strategy",
-          "component": "segmented_control",
-          "label": "Merge strategy",
+          "id": "pull_requests.merge.squash_commits",
+          "component": "checkbox",
+          "label": "Squash commits before merge",
           "required": true,
-          "default": "squash",
+          "default": true,
+          "help_text": "If enabled, multiple commits from the task branch are combined into one before merge.",
+          "visibility": {
+            "field": "pull_requests.enabled",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
+          "id": "pull_requests.merge.integration_method",
+          "component": "segmented_control",
+          "label": "Branch integration method",
+          "required": true,
+          "default": "merge",
           "visibility": {
             "field": "pull_requests.enabled",
             "operator": "equals",
             "value": true
           },
           "options": [
-            { "value": "squash", "label": "Squash" },
             { "value": "merge", "label": "Merge commit" },
             { "value": "rebase", "label": "Rebase" }
           ]
@@ -531,7 +543,8 @@
           "pull_requests.review.agent_must_read_comments",
           "pull_requests.review.agent_must_reply_to_comments",
           "pull_requests.review.agent_must_apply_accepted_feedback",
-          "pull_requests.merge.strategy",
+          "pull_requests.merge.squash_commits",
+          "pull_requests.merge.integration_method",
           "pull_requests.merge.min_approvals",
           "pull_requests.merge.require_green_checks",
           "pull_requests.merge.allow_agent_self_merge"
@@ -605,7 +618,8 @@
         "agent_must_apply_accepted_feedback": "{{pull_requests.review.agent_must_apply_accepted_feedback}}"
       },
       "merge": {
-        "strategy": "{{pull_requests.merge.strategy}}",
+        "squash_commits": "{{pull_requests.merge.squash_commits}}",
+        "integration_method": "{{pull_requests.merge.integration_method}}",
         "min_approvals": "{{pull_requests.merge.min_approvals}}",
         "require_green_checks": "{{pull_requests.merge.require_green_checks}}",
         "allow_agent_self_merge": "{{pull_requests.merge.allow_agent_self_merge}}"

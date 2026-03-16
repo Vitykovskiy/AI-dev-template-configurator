@@ -71,6 +71,8 @@ export const messages = {
         required: 'Review required',
         reviewers: 'Reviewers',
         approvals: 'Required approvals',
+        squash: 'Squash commits',
+        integration: 'Integration method',
         docs: 'Docs to repository',
         agent: 'AGENTS contract to repository',
         temp: 'Temporary workfiles to repository',
@@ -167,7 +169,14 @@ export const messages = {
         'pull_requests.review.agent_must_apply_accepted_feedback': {
           label: 'Agent must apply accepted feedback',
         },
-        'pull_requests.merge.strategy': { label: 'Merge strategy' },
+        'pull_requests.merge.squash_commits': {
+          label: 'Squash commits before merge',
+          help_text:
+            'If enabled, multiple commits from the task branch are combined into one before merge.',
+        },
+        'pull_requests.merge.integration_method': {
+          label: 'Branch integration method',
+        },
         'pull_requests.merge.min_approvals': { label: 'Required approvals' },
         'pull_requests.merge.require_green_checks': {
           label: 'Require green checks before merge',
@@ -270,8 +279,7 @@ export const messages = {
           ai: 'AI',
           both: 'Both',
         },
-        'pull_requests.merge.strategy': {
-          squash: 'Squash',
+        'pull_requests.merge.integration_method': {
           merge: 'Merge commit',
           rebase: 'Rebase',
         },
@@ -366,6 +374,8 @@ export const messages = {
         required: 'Ревью обязательно',
         reviewers: 'Кто проводит ревью',
         approvals: 'Требуемые подтверждения',
+        squash: 'Схлопывать коммиты',
+        integration: 'Способ встраивания',
         docs: 'Документация в репозитории',
         agent: 'Контракт AGENTS в репозитории',
         temp: 'Временные файлы в репозитории',
@@ -463,7 +473,14 @@ export const messages = {
         'pull_requests.review.agent_must_apply_accepted_feedback': {
           label: 'Агент вносит принятые замечания',
         },
-        'pull_requests.merge.strategy': { label: 'Способ слияния' },
+        'pull_requests.merge.squash_commits': {
+          label: 'Схлопывать коммиты перед слиянием',
+          help_text:
+            'Если включено, несколько коммитов из ветки задачи будут объединены в один перед слиянием.',
+        },
+        'pull_requests.merge.integration_method': {
+          label: 'Как встраивать ветку задачи',
+        },
         'pull_requests.merge.min_approvals': {
           label: 'Сколько подтверждений нужно',
         },
@@ -571,8 +588,7 @@ export const messages = {
           ai: 'ИИ',
           both: 'Оба',
         },
-        'pull_requests.merge.strategy': {
-          squash: 'Squash',
+        'pull_requests.merge.integration_method': {
           merge: 'Merge commit',
           rebase: 'Rebase',
         },

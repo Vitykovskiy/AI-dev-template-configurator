@@ -398,6 +398,8 @@ const summaryCards = computed(() => [
                   `${t('summary.fields.approvals')}: ${String(formState.value['pull_requests.merge.min_approvals'])}`,
                 ]
               : []),
+            `${t('summary.fields.squash')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.squash_commits']))}`,
+            `${t('summary.fields.integration')}: ${formatOptionValue('pull_requests.merge.integration_method', String(formState.value['pull_requests.merge.integration_method']))}`,
           ]
         : [`${t('summary.fields.required')}: ${t('common.notAllowed')}`]),
     ],

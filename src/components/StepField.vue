@@ -1,7 +1,12 @@
 <template>
   <v-card class="field-block" rounded="xl" variant="flat">
     <div class="field-block__header">
-      <template v-if="field.component !== fieldComponent.Switch">
+      <template
+        v-if="
+          field.component !== fieldComponent.Switch &&
+          field.component !== fieldComponent.Checkbox
+        "
+      >
         <h3 class="field-block__label">
           {{ translateFieldLabel(field) }}
         </h3>
@@ -96,6 +101,24 @@
       />
     </div>
 
+    <div
+      v-else-if="field.component === fieldComponent.Checkbox"
+      class="checkbox-row"
+    >
+      <v-checkbox
+        class="checkbox-row__control"
+        :label="translateFieldLabel(field)"
+        :model-value="Boolean(modelValue)"
+        color="primary"
+        density="comfortable"
+        hide-details
+        @update:model-value="emit('updateValue', Boolean($event))"
+      />
+      <p v-if="translateFieldHelp(field)" class="field-block__help checkbox-row__help">
+        {{ translateFieldHelp(field) }}
+      </p>
+    </div>
+
     <v-number-input
       v-else-if="field.component === fieldComponent.Stepper"
       class="number-input"
@@ -127,6 +150,7 @@ const fieldComponent = {
   SegmentedControl: FieldComponent.SegmentedControl,
   CardRadioGroup: FieldComponent.CardRadioGroup,
   CheckboxGroup: FieldComponent.CheckboxGroup,
+  Checkbox: FieldComponent.Checkbox,
   Switch: FieldComponent.Switch,
   Stepper: FieldComponent.Stepper,
 } as const
@@ -264,6 +288,23 @@ function isChecked(optionValue: PrimitiveValue) {
 
   &__toggle {
     margin: 0 !important;
+  }
+}
+
+.checkbox-row {
+  display: grid;
+  gap: 8px;
+
+  &__control {
+    margin: 0 !important;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  &__help {
+    padding-left: 4px;
   }
 }
 

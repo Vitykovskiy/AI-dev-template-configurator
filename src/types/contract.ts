@@ -9,6 +9,7 @@ export const enum FieldComponent {
   SegmentedControl = 'segmented_control',
   CardRadioGroup = 'card_radio_group',
   CheckboxGroup = 'checkbox_group',
+  Checkbox = 'checkbox',
   Switch = 'switch',
   Stepper = 'stepper',
 }
@@ -117,7 +118,8 @@ export interface GeneratedConfig {
       agent_must_apply_accepted_feedback: boolean
     }
     merge: {
-      strategy: string
+      squash_commits: boolean
+      integration_method: string
       min_approvals: number
       require_green_checks: boolean
       allow_agent_self_merge: boolean
