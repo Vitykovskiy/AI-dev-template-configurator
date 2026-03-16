@@ -28,7 +28,7 @@
       "id": "language",
       "type": "form",
       "title": "Language",
-      "description": "Choose the language used by repository artifacts. Labels remain in English.",
+      "description": "Choose the language used by repository artifacts. GitHub labels remain in English.",
       "fields": [
         {
           "id": "language.documentation",
@@ -92,7 +92,7 @@
             {
               "value": "autonomous",
               "label": "Autonomous",
-              "description": "Agent moves through the workflow without stage-by-stage approval, except for configured guardrails."
+              "description": "Agent moves through the workflow without stage-by-stage approval unless it reaches a configured human checkpoint."
             },
             {
               "value": "hybrid",

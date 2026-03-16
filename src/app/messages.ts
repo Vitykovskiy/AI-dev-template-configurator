@@ -209,7 +209,7 @@ export const messages = {
           autonomous: {
             label: 'Autonomous',
             description:
-              'Agent moves through the workflow without stage-by-stage approval, except for configured guardrails.',
+              'Agent moves through the workflow without stage-by-stage approval unless it reaches a configured human checkpoint.',
           },
           hybrid: {
             label: 'Hybrid',
