@@ -109,7 +109,7 @@ export const messages = {
         pull_requests: {
           title: 'Pull Requests',
           description:
-            'Choose whether the repository uses a PR-based delivery flow.',
+            'Choose whether tasks in this repository use a pull-request workflow.',
         },
         review_merge: {
           title: 'Review And Merge',
@@ -154,7 +154,7 @@ export const messages = {
             'These are the guardrails that still require human approval in autonomous or hybrid mode.',
         },
         'pull_requests.enabled': { label: 'Use pull requests' },
-        'pull_requests.creation_mode': { label: 'When to create PRs' },
+        'pull_requests.creation_mode': { label: 'PR policy for tasks' },
         'pull_requests.draft_first': { label: 'Open PRs as draft first' },
         'pull_requests.review.required': { label: 'Require review' },
         'pull_requests.review.reviewers': { label: 'Reviewer type' },
@@ -212,7 +212,7 @@ export const messages = {
           hybrid: {
             label: 'Hybrid',
             description:
-              'Agent works autonomously for normal tasks and pauses only on configured high-risk checkpoints.',
+              'Agent works autonomously for normal tasks and pauses only at configured checkpoints.',
           },
           staged: {
             label: 'Staged',
@@ -239,9 +239,20 @@ export const messages = {
           },
         },
         'pull_requests.creation_mode': {
-          always: 'Always',
-          for_major_changes: 'Major changes only',
-          manual: 'Manual decision',
+          for_every_task: {
+            label: 'Every task',
+            description: 'Create a separate branch and PR for every task.',
+          },
+          for_significant_tasks: {
+            label: 'Significant tasks only',
+            description:
+              'Use PRs only for tasks that change code or behavior, affect architecture, API, security, migrations, external integrations, or otherwise require review.',
+          },
+          manual_per_task: {
+            label: 'Decide per task',
+            description:
+              'Decide for each task whether it needs its own branch and PR.',
+          },
         },
         'pull_requests.review.required': {
           true: {
@@ -437,7 +448,7 @@ export const messages = {
             'На этих изменениях агент должен остановиться и дождаться подтверждения человека.',
         },
         'pull_requests.enabled': { label: 'Использовать пул-реквесты' },
-        'pull_requests.creation_mode': { label: 'Когда создавать пул-реквест' },
+        'pull_requests.creation_mode': { label: 'Правило для пул-реквестов по задачам' },
         'pull_requests.draft_first': {
           label: 'Сначала открывать как черновик',
         },
@@ -499,7 +510,7 @@ export const messages = {
           hybrid: {
             label: 'Гибридный',
             description:
-              'В обычных задачах агент работает сам, а на рискованных изменениях останавливается.',
+              'В обычных задачах агент работает сам, а на контрольных точках останавливается.',
           },
           staged: {
             label: 'Поэтапный',
@@ -526,9 +537,21 @@ export const messages = {
           },
         },
         'pull_requests.creation_mode': {
-          always: 'Всегда',
-          for_major_changes: 'Только для крупных изменений',
-          manual: 'Решать вручную',
+          for_every_task: {
+            label: 'Для каждой задачи',
+            description:
+              'Для каждой задачи создавать отдельную ветку и отдельный пул-реквест.',
+          },
+          for_significant_tasks: {
+            label: 'Только для значимых задач',
+            description:
+              'Использовать пул-реквесты только для задач, которые меняют код или поведение системы, затрагивают архитектуру, API, безопасность, миграции, внешние интеграции или в любом случае требуют ревью.',
+          },
+          manual_per_task: {
+            label: 'Решать по каждой задаче',
+            description:
+              'Для каждой задачи отдельно решать, нужна ли ей своя ветка и свой пул-реквест.',
+          },
         },
         'pull_requests.review.required': {
           true: {

@@ -97,7 +97,7 @@
             {
               "value": "hybrid",
               "label": "Hybrid",
-              "description": "Agent works autonomously for normal tasks and pauses only on configured high-risk checkpoints."
+              "description": "Agent works autonomously for normal tasks and pauses only at configured checkpoints."
             },
             {
               "value": "staged",
@@ -162,7 +162,7 @@
       "id": "pull_requests",
       "type": "form",
       "title": "Pull Requests",
-      "description": "Choose whether the repository uses a PR-based delivery flow.",
+      "description": "Choose whether tasks in this repository use a pull-request workflow.",
       "fields": [
         {
           "id": "pull_requests.enabled",
@@ -186,18 +186,30 @@
         {
           "id": "pull_requests.creation_mode",
           "component": "segmented_control",
-          "label": "When to create PRs",
+          "label": "PR policy for tasks",
           "required": true,
-          "default": "for_major_changes",
+          "default": "for_significant_tasks",
           "visibility": {
             "field": "pull_requests.enabled",
             "operator": "equals",
             "value": true
           },
           "options": [
-            { "value": "always", "label": "Always" },
-            { "value": "for_major_changes", "label": "Major changes only" },
-            { "value": "manual", "label": "Manual decision" }
+            {
+              "value": "for_every_task",
+              "label": "Every task",
+              "description": "Create a separate branch and PR for every task."
+            },
+            {
+              "value": "for_significant_tasks",
+              "label": "Significant tasks only",
+              "description": "Use PRs only for tasks that change code or behavior, affect architecture, API, security, migrations, external integrations, or otherwise require review."
+            },
+            {
+              "value": "manual_per_task",
+              "label": "Decide per task",
+              "description": "Decide for each task whether it needs its own branch and PR."
+            }
           ]
         },
         {
