@@ -139,7 +139,7 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
       formState.value['pull_requests.creation_mode'],
       'for_significant_tasks',
     ),
-    draft_first: toBoolean(formState.value['pull_requests.draft_first'], true),
+    draft_first: toBoolean(formState.value['pull_requests.draft_first'], false),
     review: {
       required: toBoolean(
         formState.value['pull_requests.review.required'],

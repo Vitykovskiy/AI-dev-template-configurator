@@ -217,7 +217,7 @@
           "component": "switch",
           "label": "Open PRs as draft first",
           "required": true,
-          "default": true,
+          "default": false,
           "visibility": {
             "field": "pull_requests.enabled",
             "operator": "equals",

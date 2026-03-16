@@ -101,7 +101,7 @@ export const messages = {
         language: {
           title: 'Language',
           description:
-            'Choose the language used by repository artifacts. Labels remain in English.',
+            'Choose the language used by repository artifacts. GitHub labels remain in English.',
         },
         execution_mode: {
           title: 'Execution Mode',
@@ -248,7 +248,7 @@ export const messages = {
           for_significant_tasks: {
             label: 'Significant tasks only',
             description:
-              'Use PRs only for tasks that change code or behavior, affect architecture, API, security, migrations, external integrations, or otherwise require review.',
+              'Use PRs only for tasks that change code or system behavior, or otherwise require review.',
           },
           manual_per_task: {
             label: 'Decide per task',
@@ -397,7 +397,7 @@ export const messages = {
         language: {
           title: 'Язык',
           description:
-            'Выберите язык документации, задач, пул-реквестов и комментариев. Метки останутся на английском.',
+            'Выберите язык документации, задач, пул-реквестов и комментариев. Метки GitHub останутся на английском.',
         },
         execution_mode: {
           title: 'Режим работы',
@@ -549,7 +549,7 @@ export const messages = {
           for_significant_tasks: {
             label: 'Только для значимых задач',
             description:
-              'Использовать пул-реквесты только для задач, которые меняют код или поведение системы, затрагивают архитектуру, API, безопасность, миграции, внешние интеграции или в любом случае требуют ревью.',
+              'Использовать пул-реквесты только для задач, которые меняют код или поведение системы, либо требуют ревью.',
           },
           manual_per_task: {
             label: 'Решать по каждой задаче',
