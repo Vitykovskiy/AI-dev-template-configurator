@@ -204,11 +204,6 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
   },
   rag: {
     mode: toString(formState.value['rag.mode'], 'on_demand'),
-    allow_vector_db: toBoolean(formState.value['rag.allow_vector_db'], false),
-    activation_requires_user_approval: toBoolean(
-      formState.value['rag.activation_requires_user_approval'],
-      true,
-    ),
   },
   github: {
     required_token_scopes: ['repo', 'project'],

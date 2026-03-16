@@ -341,7 +341,6 @@ const pullRequestsEnabled = computed(() =>
 const reviewRequired = computed(() =>
   Boolean(formState.value['pull_requests.review.required']),
 )
-const ragEnabled = computed(() => String(formState.value['rag.mode']) !== 'off')
 const executionModeUsesCheckpoints = computed(() =>
   ['hybrid', 'staged'].includes(
     String(formState.value['workflow.execution_mode']),
@@ -416,11 +415,6 @@ const summaryCards = computed(() => [
     title: t('summary.rag'),
     items: [
       `${t('summary.fields.mode')}: ${formatOptionValue('rag.mode', String(formState.value['rag.mode']))}`,
-      ...(ragEnabled.value
-        ? [
-            `${t('summary.fields.vectorDb')}: ${formatBoolean(Boolean(formState.value['rag.allow_vector_db']))}`,
-          ]
-        : []),
     ],
   },
 ])

@@ -448,30 +448,6 @@
               "description": "Prepare the development workflow to use RAG from the beginning."
             }
           ]
-        },
-        {
-          "id": "rag.allow_vector_db",
-          "component": "switch",
-          "label": "Allow vector DB as an implementation option",
-          "required": true,
-          "default": false,
-          "visibility": {
-            "field": "rag.mode",
-            "operator": "not_equals",
-            "value": "off"
-          }
-        },
-        {
-          "id": "rag.activation_requires_user_approval",
-          "component": "switch",
-          "label": "Require explicit user approval before activation",
-          "required": true,
-          "default": true,
-          "visibility": {
-            "field": "rag.mode",
-            "operator": "not_equals",
-            "value": "off"
-          }
         }
       ]
     },
@@ -575,20 +551,6 @@
       "effect": {
         "hide_fields": ["workflow.human_checkpoints"]
       }
-    },
-    {
-      "rule_id": "hide_vector_db_controls_if_rag_disabled",
-      "when": {
-        "field": "rag.mode",
-        "operator": "equals",
-        "value": "off"
-      },
-      "effect": {
-        "hide_fields": [
-          "rag.allow_vector_db",
-          "rag.activation_requires_user_approval"
-        ]
-      }
     }
   ],
   "generated_json_template": {
@@ -632,9 +594,7 @@
       "local_artifact_paths": [".agent-work/", ".ai-local/", "tasks/*.local.*"]
     },
     "rag": {
-      "mode": "{{rag.mode}}",
-      "allow_vector_db": "{{rag.allow_vector_db}}",
-      "activation_requires_user_approval": "{{rag.activation_requires_user_approval}}"
+      "mode": "{{rag.mode}}"
     },
     "github": {
       "required_token_scopes": ["repo", "project"],

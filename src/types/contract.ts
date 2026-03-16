@@ -133,8 +133,6 @@ export interface GeneratedConfig {
   }
   rag: {
     mode: string
-    allow_vector_db: boolean
-    activation_requires_user_approval: boolean
   }
   github: {
     required_token_scopes: string[]

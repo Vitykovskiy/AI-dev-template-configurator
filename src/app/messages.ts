@@ -76,7 +76,6 @@ export const messages = {
         docs: 'Docs to repository',
         agent: 'AGENTS contract to repository',
         temp: 'Temporary workfiles to repository',
-        vectorDb: 'Allow vector DB',
       },
     },
     locale: {
@@ -200,12 +199,6 @@ export const messages = {
             'Scratch notes, drafts, logs, and temporary generation files usually should stay local.',
         },
         'rag.mode': { label: 'RAG mode' },
-        'rag.allow_vector_db': {
-          label: 'Allow vector DB as an implementation option',
-        },
-        'rag.activation_requires_user_approval': {
-          label: 'Require explicit user approval before activation',
-        },
       },
       options: {
         'language.documentation': { en: 'English', ru: 'Russian' },
@@ -379,7 +372,6 @@ export const messages = {
         docs: 'Документация в репозитории',
         agent: 'Контракт AGENTS в репозитории',
         temp: 'Временные файлы в репозитории',
-        vectorDb: 'Разрешить векторную БД',
       },
     },
     locale: {
@@ -506,12 +498,6 @@ export const messages = {
             'Черновики, заметки, логи и временные файлы генерации обычно лучше оставлять локально.',
         },
         'rag.mode': { label: 'Режим RAG' },
-        'rag.allow_vector_db': {
-          label: 'Разрешить векторную БД как вариант реализации',
-        },
-        'rag.activation_requires_user_approval': {
-          label: 'Требовать явное согласие пользователя перед активацией',
-        },
       },
       options: {
         'language.documentation': { en: 'Английский', ru: 'Русский' },
