@@ -151,7 +151,7 @@ export const messages = {
         'workflow.human_checkpoints': {
           label: 'High-risk checkpoints',
           help_text:
-            'These are the guardrails that still require human approval in autonomous or hybrid mode.',
+            'These are the checkpoints where the agent must stop and ask for approval.',
         },
         'pull_requests.enabled': { label: 'Use pull requests' },
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
@@ -217,7 +217,7 @@ export const messages = {
           staged: {
             label: 'Staged',
             description:
-              'Agent pauses for explicit approval between major stages.',
+              'Agent pauses between work stages and also stops at configured checkpoints.',
           },
         },
         'workflow.human_checkpoints': {
@@ -445,7 +445,7 @@ export const messages = {
         'workflow.human_checkpoints': {
           label: 'Контрольные точки',
           help_text:
-            'На этих изменениях агент должен остановиться и дождаться подтверждения человека.',
+            'Здесь агент должен остановиться и запросить подтверждение.',
         },
         'pull_requests.enabled': { label: 'Использовать пул-реквесты' },
         'pull_requests.creation_mode': { label: 'Правило для пул-реквестов по задачам' },
@@ -514,7 +514,8 @@ export const messages = {
           },
           staged: {
             label: 'Поэтапный',
-            description: 'Агент ждет подтверждения между крупными этапами.',
+            description:
+              'Агент останавливается между стадиями работы и на контрольных точках.',
           },
         },
         'workflow.human_checkpoints': {

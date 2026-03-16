@@ -343,7 +343,7 @@ const reviewRequired = computed(() =>
 )
 const ragEnabled = computed(() => String(formState.value['rag.mode']) !== 'off')
 const executionModeUsesCheckpoints = computed(() =>
-  ['autonomous', 'hybrid'].includes(
+  ['hybrid', 'staged'].includes(
     String(formState.value['workflow.execution_mode']),
   ),
 )

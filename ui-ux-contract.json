@@ -102,7 +102,7 @@
             {
               "value": "staged",
               "label": "Staged",
-              "description": "Agent pauses for explicit approval between major stages."
+              "description": "Agent pauses between work stages and also stops at configured checkpoints."
             }
           ]
         },
@@ -118,18 +118,18 @@
             "external_integrations",
             "security_sensitive_changes"
           ],
-          "help_text": "These are the guardrails that still require human approval in autonomous or hybrid mode.",
+          "help_text": "These are the checkpoints where the agent must stop and ask for approval.",
           "visibility": {
             "any_of": [
               {
                 "field": "workflow.execution_mode",
                 "operator": "equals",
-                "value": "autonomous"
+                "value": "hybrid"
               },
               {
                 "field": "workflow.execution_mode",
                 "operator": "equals",
-                "value": "hybrid"
+                "value": "staged"
               }
             ]
           },
@@ -553,11 +553,11 @@
       }
     },
     {
-      "rule_id": "hide_guardrails_if_staged",
+      "rule_id": "hide_checkpoints_if_autonomous",
       "when": {
         "field": "workflow.execution_mode",
         "operator": "equals",
-        "value": "staged"
+        "value": "autonomous"
       },
       "effect": {
         "hide_fields": ["workflow.human_checkpoints"]
