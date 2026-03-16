@@ -73,6 +73,17 @@
             { "value": "en", "label": "English" },
             { "value": "ru", "label": "Russian" }
           ]
+        },
+        {
+          "id": "language.commits",
+          "component": "segmented_control",
+          "label": "Commit language",
+          "required": true,
+          "default": "en",
+          "options": [
+            { "value": "en", "label": "English" },
+            { "value": "ru", "label": "Russian" }
+          ]
         }
       ]
     },
@@ -560,6 +571,7 @@
       "issues": "{{language.issues}}",
       "pull_requests": "{{language.pull_requests}}",
       "comments": "{{language.comments}}",
+      "commits": "{{language.commits}}",
       "labels": "en"
     },
     "workflow": {

@@ -355,6 +355,7 @@ const summaryCards = computed(() => [
       `${t('summary.fields.issues')}: ${formatOptionValue('language.issues', String(formState.value['language.issues']))}`,
       `${t('summary.fields.pullRequests')}: ${formatOptionValue('language.pull_requests', String(formState.value['language.pull_requests']))}`,
       `${t('summary.fields.comments')}: ${formatOptionValue('language.comments', String(formState.value['language.comments']))}`,
+      `${t('summary.fields.commits')}: ${formatOptionValue('language.commits', String(formState.value['language.commits']))}`,
     ],
   },
   {

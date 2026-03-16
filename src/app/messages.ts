@@ -63,6 +63,7 @@ export const messages = {
         issues: 'Issues',
         pullRequests: 'Pull requests',
         comments: 'Comments',
+        commits: 'Commits',
         mode: 'Mode',
         checkpoints: 'Human checkpoints',
         enabled: 'Enabled',
@@ -125,7 +126,7 @@ export const messages = {
         rag: {
           title: 'RAG And Vector DB',
           description:
-            'Choose how RAG is used in this repository’s development workflow.',
+            "Choose how RAG is used in this repository's development workflow.",
         },
         github_permissions: {
           title: 'GitHub Token Requirements',
@@ -148,6 +149,7 @@ export const messages = {
         'language.issues': { label: 'Issue language' },
         'language.pull_requests': { label: 'Pull request language' },
         'language.comments': { label: 'Agent comment language' },
+        'language.commits': { label: 'Commit language' },
         'workflow.execution_mode': { label: 'Execution mode' },
         'workflow.human_checkpoints': {
           label: 'High-risk checkpoints',
@@ -205,6 +207,7 @@ export const messages = {
         'language.issues': { en: 'English', ru: 'Russian' },
         'language.pull_requests': { en: 'English', ru: 'Russian' },
         'language.comments': { en: 'English', ru: 'Russian' },
+        'language.commits': { en: 'English', ru: 'Russian' },
         'workflow.execution_mode': {
           autonomous: {
             label: 'Autonomous',
@@ -359,6 +362,7 @@ export const messages = {
         issues: 'Задачи',
         pullRequests: 'Пул-реквесты',
         comments: 'Комментарии',
+        commits: 'Коммиты',
         mode: 'Режим',
         checkpoints: 'Контрольные точки',
         enabled: 'Используются',
@@ -443,6 +447,7 @@ export const messages = {
         'language.issues': { label: 'Язык задач' },
         'language.pull_requests': { label: 'Язык пул-реквестов' },
         'language.comments': { label: 'Язык комментариев агента' },
+        'language.commits': { label: 'Язык коммитов' },
         'workflow.execution_mode': { label: 'Режим работы' },
         'workflow.human_checkpoints': {
           label: 'Контрольные точки',
@@ -504,6 +509,7 @@ export const messages = {
         'language.issues': { en: 'Английский', ru: 'Русский' },
         'language.pull_requests': { en: 'Английский', ru: 'Русский' },
         'language.comments': { en: 'Английский', ru: 'Русский' },
+        'language.commits': { en: 'Английский', ru: 'Русский' },
         'workflow.execution_mode': {
           autonomous: {
             label: 'Автономный',
@@ -598,3 +604,4 @@ export const messages = {
     },
   },
 } as const
+

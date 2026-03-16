@@ -98,6 +98,7 @@ export interface GeneratedConfig {
     issues: string
     pull_requests: string
     comments: string
+    commits: string
     labels: string
   }
   workflow: {
