@@ -56,7 +56,10 @@ function setFieldValue(fieldId: string, value: FormStateValue): void {
   formState.value[fieldId] = Array.isArray(value) ? [...value] : value
 }
 
-function toggleCheckboxValue(fieldId: string, optionValue: PrimitiveValue): void {
+function toggleCheckboxValue(
+  fieldId: string,
+  optionValue: PrimitiveValue,
+): void {
   const currentValue = formState.value[fieldId]
   const nextValue = Array.isArray(currentValue) ? [...currentValue] : []
   const existingIndex = nextValue.findIndex((item) => item === optionValue)
@@ -120,18 +123,32 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
     labels: 'en',
   },
   workflow: {
-    execution_mode: toString(formState.value['workflow.execution_mode'], 'hybrid'),
-    human_checkpoints: toStringArray(formState.value['workflow.human_checkpoints']),
+    execution_mode: toString(
+      formState.value['workflow.execution_mode'],
+      'hybrid',
+    ),
+    human_checkpoints: toStringArray(
+      formState.value['workflow.human_checkpoints'],
+    ),
     issue_tracking: 'github_issues',
     project_tracking: 'github_project',
   },
   pull_requests: {
     enabled: toBoolean(formState.value['pull_requests.enabled'], true),
-    creation_mode: toString(formState.value['pull_requests.creation_mode'], 'for_major_changes'),
+    creation_mode: toString(
+      formState.value['pull_requests.creation_mode'],
+      'for_major_changes',
+    ),
     draft_first: toBoolean(formState.value['pull_requests.draft_first'], true),
     review: {
-      required: toBoolean(formState.value['pull_requests.review.required'], true),
-      reviewers: toString(formState.value['pull_requests.review.reviewers'], 'human'),
+      required: toBoolean(
+        formState.value['pull_requests.review.required'],
+        true,
+      ),
+      reviewers: toString(
+        formState.value['pull_requests.review.reviewers'],
+        'human',
+      ),
       agent_must_read_comments: toBoolean(
         formState.value['pull_requests.review.agent_must_read_comments'],
         true,
@@ -141,13 +158,21 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
         true,
       ),
       agent_must_apply_accepted_feedback: toBoolean(
-        formState.value['pull_requests.review.agent_must_apply_accepted_feedback'],
+        formState.value[
+          'pull_requests.review.agent_must_apply_accepted_feedback'
+        ],
         true,
       ),
     },
     merge: {
-      strategy: toString(formState.value['pull_requests.merge.strategy'], 'squash'),
-      min_approvals: toNumber(formState.value['pull_requests.merge.min_approvals'], 1),
+      strategy: toString(
+        formState.value['pull_requests.merge.strategy'],
+        'squash',
+      ),
+      min_approvals: toNumber(
+        formState.value['pull_requests.merge.min_approvals'],
+        1,
+      ),
       require_green_checks: toBoolean(
         formState.value['pull_requests.merge.require_green_checks'],
         true,
@@ -159,7 +184,10 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
     },
   },
   artifacts: {
-    persist_docs_to_repo: toBoolean(formState.value['artifacts.persist_docs_to_repo'], true),
+    persist_docs_to_repo: toBoolean(
+      formState.value['artifacts.persist_docs_to_repo'],
+      true,
+    ),
     persist_agent_contract_to_repo: toBoolean(
       formState.value['artifacts.persist_agent_contract_to_repo'],
       true,
@@ -184,8 +212,12 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
   },
 }))
 
-const currentScreen = computed(() => uiContract.screens[currentScreenIndex.value])
-const previewJson = computed(() => JSON.stringify(generatedConfig.value, null, 2))
+const currentScreen = computed(
+  () => uiContract.screens[currentScreenIndex.value],
+)
+const previewJson = computed(() =>
+  JSON.stringify(generatedConfig.value, null, 2),
+)
 const totalScreens = computed(() => uiContract.screens.length)
 const isFirstScreen = computed(() => currentScreenIndex.value === 0)
 
@@ -198,7 +230,9 @@ async function copyJson(): Promise<void> {
 }
 
 function downloadJson(): void {
-  const blob = new Blob([previewJson.value], { type: 'application/json;charset=utf-8' })
+  const blob = new Blob([previewJson.value], {
+    type: 'application/json;charset=utf-8',
+  })
   const url = URL.createObjectURL(blob)
   const anchor = document.createElement('a')
   anchor.href = url

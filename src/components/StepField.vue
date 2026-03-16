@@ -2,7 +2,9 @@
   <v-card class="field-block" rounded="xl" variant="flat">
     <div class="field-block__header">
       <template v-if="field.component !== 'switch'">
-        <h3 class="field-block__label">{{ translateFieldLabel(field) }}</h3>
+        <h3 class="field-block__label">
+          {{ translateFieldLabel(field) }}
+        </h3>
         <p v-if="translateFieldHelp(field)" class="field-block__help">
           {{ translateFieldHelp(field) }}
         </p>
@@ -22,6 +24,7 @@
         v-for="option in field.options"
         :key="String(option.value)"
         class="segmented__button"
+        :value="option.value"
         @click="emit('updateValue', option.value)"
       >
         {{ translateOptionLabel(field.id, option) }}
@@ -38,6 +41,7 @@
         v-for="option in field.options"
         :key="String(option.value)"
         v-slot="{ isSelected }"
+        :value="option.value"
       >
         <v-card
           class="card-option"
@@ -86,27 +90,31 @@
       />
     </div>
 
-    <div v-else-if="field.component === 'stepper'" class="stepper">
-      <v-btn
-        class="stepper__button"
-        icon="mdi-minus"
-        variant="outlined"
-        @click="emit('updateValue', Math.max((field.min ?? 0), Number(modelValue) - 1))"
-      />
-      <span class="stepper__value">{{ modelValue }}</span>
-      <v-btn
-        class="stepper__button"
-        icon="mdi-plus"
-        variant="outlined"
-        @click="emit('updateValue', Math.min((field.max ?? 10), Number(modelValue) + 1))"
-      />
-    </div>
+    <v-number-input
+      v-else-if="field.component === 'stepper'"
+      class="number-input"
+      control-variant="split"
+      variant="outlined"
+      density="comfortable"
+      hide-details
+      inset
+      :max="field.max"
+      :min="field.min ?? 0"
+      :model-value="Number(modelValue)"
+      :precision="0"
+      :step="1"
+      @update:model-value="emit('updateValue', Number($event))"
+    />
   </v-card>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { ContractField, ContractOption, PrimitiveValue } from '../types/contract'
+import type {
+  ContractField,
+  ContractOption,
+  PrimitiveValue,
+} from '../types/contract'
 
 const props = defineProps<{
   field: ContractField
@@ -114,7 +122,10 @@ const props = defineProps<{
   translateFieldLabel: (field: ContractField) => string
   translateFieldHelp: (field: ContractField) => string | undefined
   translateOptionLabel: (fieldId: string, option: ContractOption) => string
-  translateOptionDescription: (fieldId: string, option: ContractOption) => string | undefined
+  translateOptionDescription: (
+    fieldId: string,
+    option: ContractOption,
+  ) => string | undefined
 }>()
 
 const emit = defineEmits<{
@@ -241,20 +252,8 @@ function isChecked(optionValue: PrimitiveValue) {
   }
 }
 
-.stepper {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-
-  &__button {
-    min-width: 36px !important;
-  }
-
-  &__value {
-    min-width: 32px;
-    text-align: center;
-    font-weight: 600;
-  }
+.number-input {
+  max-width: 220px;
 }
 
 @media (max-width: 720px) {

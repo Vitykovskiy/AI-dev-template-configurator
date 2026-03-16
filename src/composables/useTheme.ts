@@ -14,7 +14,11 @@ const theme = ref<ThemeMode>(
 const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
 
 const actualTheme = computed<ActualTheme>(() =>
-  theme.value === 'system' ? (mediaQuery.matches ? 'dark' : 'light') : theme.value,
+  theme.value === 'system'
+    ? mediaQuery.matches
+      ? 'dark'
+      : 'light'
+    : theme.value,
 )
 
 function applyTheme(nextTheme: ActualTheme) {

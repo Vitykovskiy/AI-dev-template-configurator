@@ -1,6 +1,8 @@
 <template>
   <div class="theme-switcher">
-    <p class="theme-switcher__label">{{ t('theme.label') }}</p>
+    <p class="theme-switcher__label">
+      {{ t('theme.label') }}
+    </p>
     <v-btn-toggle
       class="theme-switcher__group"
       :model-value="theme"

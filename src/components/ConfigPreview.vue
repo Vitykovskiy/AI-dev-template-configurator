@@ -2,15 +2,30 @@
   <v-card class="preview-panel" rounded="xl" variant="flat">
     <div class="preview-panel__header">
       <div>
-        <p class="preview-panel__eyebrow">{{ title }}</p>
-        <h3 v-if="fileName" class="preview-panel__filename">{{ fileName }}</h3>
-        <p class="preview-panel__hint">{{ hint }}</p>
+        <p class="preview-panel__eyebrow">
+          {{ title }}
+        </p>
+        <h3 v-if="fileName" class="preview-panel__filename">
+          {{ fileName }}
+        </h3>
+        <p class="preview-panel__hint">
+          {{ hint }}
+        </p>
       </div>
       <div class="preview-panel__actions">
-        <v-btn class="preview-panel__button" variant="outlined" @click="$emit('copy')">
+        <v-btn
+          class="preview-panel__button"
+          variant="outlined"
+          @click="$emit('copy')"
+        >
           {{ copied ? copiedLabel : copyLabel }}
         </v-btn>
-        <v-btn class="preview-panel__button" color="primary" variant="flat" @click="$emit('download')">
+        <v-btn
+          class="preview-panel__button"
+          color="primary"
+          variant="flat"
+          @click="$emit('download')"
+        >
           {{ downloadLabel }}
         </v-btn>
       </div>

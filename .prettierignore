@@ -1,0 +1,4 @@
+dist
+node_modules
+.codex-temp-vite
+package-lock.json

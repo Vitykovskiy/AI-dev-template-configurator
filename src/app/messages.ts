@@ -25,9 +25,11 @@ export const messages = {
       copied: 'Copied',
       download: 'Download',
       principles: 'Design principles',
-      previewHint: 'Review the generated JSON, then copy it or download it as a config file.',
+      previewHint:
+        'Review the generated JSON, then copy it or download it as a config file.',
       resultTitle: 'Configuration Generated',
-      resultText: 'Your configuration is ready. Copy the JSON or download the file for the repository root.',
+      resultText:
+        'Your configuration is ready. Copy the JSON or download the file for the repository root.',
       productGoal:
         'Generate a valid `.ai-dev-template.config.json` for AI Dev Template repositories.',
       designPrinciples: [
@@ -106,16 +108,18 @@ export const messages = {
         },
         pull_requests: {
           title: 'Pull Requests',
-          description: 'Choose whether the repository uses a PR-based delivery flow.',
+          description:
+            'Choose whether the repository uses a PR-based delivery flow.',
         },
         review_merge: {
           title: 'Review And Merge',
-          description: 'Review policy is only needed when pull requests are enabled.',
+          description:
+            'Review policy is only needed when pull requests are enabled.',
         },
         artifacts: {
           title: 'Artifact Persistence',
           description:
-            'Decide which AI-generated repository artifacts must stay in Git and which can remain local.',
+            'Decide which AI-generated repository artifacts must stay in Git and which can remain local (added to .gitignore).',
         },
         rag: {
           title: 'RAG And Vector DB',
@@ -129,11 +133,13 @@ export const messages = {
         },
         review: {
           title: 'Review Configuration',
-          description: 'Show a human-readable summary before generating the final JSON.',
+          description:
+            'Show a human-readable summary before generating the final JSON.',
         },
         result: {
           title: 'Configuration Generated',
-          description: 'Display the final JSON and provide copy and download actions.',
+          description:
+            'Display the final JSON and provide copy and download actions.',
         },
       },
       fields: {
@@ -166,10 +172,13 @@ export const messages = {
         'pull_requests.merge.require_green_checks': {
           label: 'Require green checks before merge',
         },
-        'pull_requests.merge.allow_agent_self_merge': { label: 'Allow agent self-merge' },
+        'pull_requests.merge.allow_agent_self_merge': {
+          label: 'Allow agent self-merge',
+        },
         'artifacts.persist_docs_to_repo': {
           label: 'Persist docs to repository',
-          help_text: 'Recommended. Docs are the long-lived source of truth for future sessions.',
+          help_text:
+            'Recommended. Docs are the long-lived source of truth for future sessions.',
         },
         'artifacts.persist_agent_contract_to_repo': {
           label: 'Persist AGENTS contract to repository',
@@ -182,7 +191,9 @@ export const messages = {
             'Scratch notes, drafts, logs, and temporary generation files usually should stay local.',
         },
         'rag.mode': { label: 'RAG policy' },
-        'rag.allow_vector_db': { label: 'Allow vector DB as an implementation option' },
+        'rag.allow_vector_db': {
+          label: 'Allow vector DB as an implementation option',
+        },
         'rag.activation_requires_user_approval': {
           label: 'Require explicit user approval before activation',
         },
@@ -205,7 +216,8 @@ export const messages = {
           },
           staged: {
             label: 'Staged',
-            description: 'Agent pauses for explicit approval between major stages.',
+            description:
+              'Agent pauses for explicit approval between major stages.',
           },
         },
         'workflow.human_checkpoints': {
@@ -222,7 +234,8 @@ export const messages = {
           },
           false: {
             label: 'No',
-            description: 'Work is tracked through docs, issues, and commits without PR stages.',
+            description:
+              'Work is tracked through docs, issues, and commits without PR stages.',
           },
         },
         'pull_requests.creation_mode': {
@@ -233,7 +246,8 @@ export const messages = {
         'pull_requests.review.required': {
           true: {
             label: 'Yes',
-            description: 'A PR cannot be merged until review policy is satisfied.',
+            description:
+              'A PR cannot be merged until review policy is satisfied.',
           },
           false: {
             label: 'No',
@@ -295,9 +309,11 @@ export const messages = {
       copied: 'Скопировано',
       download: 'Скачать',
       principles: 'Принципы интерфейса',
-      previewHint: 'Проверьте JSON, затем скопируйте его или скачайте готовый файл.',
+      previewHint:
+        'Проверьте JSON, затем скопируйте его или скачайте готовый файл.',
       resultTitle: 'Конфигурация готова',
-      resultText: 'JSON можно скопировать или скачать файл для корня репозитория.',
+      resultText:
+        'JSON можно скопировать или скачать файл для корня репозитория.',
       productGoal:
         'Сгенерировать корректный `.ai-dev-template.config.json` для репозитория AI Dev Template.',
       designPrinciples: [
@@ -372,7 +388,8 @@ export const messages = {
         },
         execution_mode: {
           title: 'Режим работы',
-          description: 'Выберите, насколько самостоятельно может работать агент.',
+          description:
+            'Выберите, насколько самостоятельно может работать агент.',
         },
         pull_requests: {
           title: 'Пул-реквесты',
@@ -380,12 +397,13 @@ export const messages = {
         },
         review_merge: {
           title: 'Ревью и слияние',
-          description: 'Этот шаг нужен только если в репозитории используются пул-реквесты.',
+          description:
+            'Этот шаг нужен только если в репозитории используются пул-реквесты.',
         },
         artifacts: {
           title: 'Хранение артефактов',
           description:
-            'Решите, какие материалы, созданные ИИ, должны храниться в Git, а какие могут оставаться локально.',
+            'Решите, какие материалы, созданные ИИ, должны храниться в Git, а какие могут оставаться локально (добавлены в .gitignore).',
         },
         rag: {
           title: 'RAG и векторная БД',
@@ -419,7 +437,9 @@ export const messages = {
         },
         'pull_requests.enabled': { label: 'Использовать пул-реквесты' },
         'pull_requests.creation_mode': { label: 'Когда создавать пул-реквест' },
-        'pull_requests.draft_first': { label: 'Сначала открывать как черновик' },
+        'pull_requests.draft_first': {
+          label: 'Сначала открывать как черновик',
+        },
         'pull_requests.review.required': { label: 'Требовать ревью' },
         'pull_requests.review.reviewers': { label: 'Кто проводит ревью' },
         'pull_requests.review.agent_must_read_comments': {
@@ -432,9 +452,11 @@ export const messages = {
           label: 'Агент вносит принятые замечания',
         },
         'pull_requests.merge.strategy': { label: 'Способ слияния' },
-        'pull_requests.merge.min_approvals': { label: 'Сколько подтверждений нужно' },
+        'pull_requests.merge.min_approvals': {
+          label: 'Сколько подтверждений нужно',
+        },
         'pull_requests.merge.require_green_checks': {
-          label: 'Требовать успешные проверки перед слиянием',
+          label: 'Обязательны успешные проверки перед слиянием',
         },
         'pull_requests.merge.allow_agent_self_merge': {
           label: 'Разрешить агенту сливать изменения самому',
@@ -455,7 +477,9 @@ export const messages = {
             'Черновики, заметки, логи и временные файлы генерации обычно лучше оставлять локально.',
         },
         'rag.mode': { label: 'Политика RAG' },
-        'rag.allow_vector_db': { label: 'Разрешить векторную БД как вариант реализации' },
+        'rag.allow_vector_db': {
+          label: 'Разрешить векторную БД как вариант реализации',
+        },
         'rag.activation_requires_user_approval': {
           label: 'Требовать явное согласие пользователя перед активацией',
         },
@@ -491,11 +515,13 @@ export const messages = {
         'pull_requests.enabled': {
           true: {
             label: 'Да',
-            description: 'Использовать ветки, пул-реквесты, ревью и слияние изменений.',
+            description:
+              'Использовать ветки, пул-реквесты, ревью и слияние изменений.',
           },
           false: {
             label: 'Нет',
-            description: 'Работа идет через документацию, задачи и коммиты без этапа пул-реквестов.',
+            description:
+              'Работа идет через документацию, задачи и коммиты без этапа пул-реквестов.',
           },
         },
         'pull_requests.creation_mode': {
@@ -506,11 +532,13 @@ export const messages = {
         'pull_requests.review.required': {
           true: {
             label: 'Да',
-            description: 'Пул-реквест нельзя слить, пока не выполнены правила ревью.',
+            description:
+              'Пул-реквест нельзя слить, пока не выполнены правила ревью.',
           },
           false: {
             label: 'Нет',
-            description: 'Пул-реквесты можно использовать без обязательного формального ревью.',
+            description:
+              'Пул-реквесты можно использовать без обязательного формального ревью.',
           },
         },
         'pull_requests.review.reviewers': {
@@ -526,7 +554,8 @@ export const messages = {
         'rag.mode': {
           off: {
             label: 'Выключено',
-            description: 'Не использовать RAG и векторную БД в этом репозитории.',
+            description:
+              'Не использовать RAG и векторную БД в этом репозитории.',
           },
           optional: {
             label: 'Опционально',

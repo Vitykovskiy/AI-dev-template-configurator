@@ -4,8 +4,12 @@
       <aside class="sidebar">
         <div class="sidebar__brand">
           <div>
-            <p class="sidebar__eyebrow">{{ t('chrome.eyebrow') }}</p>
-            <p class="sidebar__product">{{ t('chrome.badge') }}</p>
+            <p class="sidebar__eyebrow">
+              {{ t('chrome.eyebrow') }}
+            </p>
+            <p class="sidebar__product">
+              {{ t('chrome.badge') }}
+            </p>
           </div>
         </div>
 
@@ -35,10 +39,19 @@
               <div class="welcome-card__icon" aria-hidden="true">
                 <Settings />
               </div>
-              <h2 class="screen-title">{{ screenText(currentScreen, 'title') }}</h2>
-              <p class="screen-description">{{ screenText(currentScreen, 'description') }}</p>
+              <h2 class="screen-title">
+                {{ screenText(currentScreen, 'title') }}
+              </h2>
+              <p class="screen-description">
+                {{ screenText(currentScreen, 'description') }}
+              </p>
 
-              <v-btn class="button button--primary" color="primary" size="large" @click="primaryAction">
+              <v-btn
+                class="button button--primary"
+                color="primary"
+                size="large"
+                @click="primaryAction"
+              >
                 {{ screenText(currentScreen, 'primary_action') }}
               </v-btn>
             </section>
@@ -50,8 +63,12 @@
                 <div class="result-hero__icon" aria-hidden="true">
                   <CheckCircle2 />
                 </div>
-                <h2 class="screen-title">{{ t('chrome.resultTitle') }}</h2>
-                <p class="screen-description">{{ t('chrome.resultText') }}</p>
+                <h2 class="screen-title">
+                  {{ t('chrome.resultTitle') }}
+                </h2>
+                <p class="screen-description">
+                  {{ t('chrome.resultText') }}
+                </p>
               </div>
 
               <ConfigPreview
@@ -68,7 +85,11 @@
               />
 
               <div class="result-actions">
-                <v-btn class="button button--ghost" variant="outlined" @click="primaryAction">
+                <v-btn
+                  class="button button--ghost"
+                  variant="outlined"
+                  @click="primaryAction"
+                >
                   {{ t('chrome.restart') }}
                 </v-btn>
               </div>
@@ -79,10 +100,19 @@
             <section class="content-shell">
               <header class="screen-header">
                 <p class="screen-step">
-                  {{ t('chrome.stepLabel', { current: currentScreenIndex + 1, total: totalScreens }) }}
+                  {{
+                    t('chrome.stepLabel', {
+                      current: currentScreenIndex + 1,
+                      total: totalScreens,
+                    })
+                  }}
                 </p>
-                <h2 class="screen-title">{{ screenText(currentScreen, 'title') }}</h2>
-                <p class="screen-description">{{ screenText(currentScreen, 'description') }}</p>
+                <h2 class="screen-title">
+                  {{ screenText(currentScreen, 'title') }}
+                </h2>
+                <p class="screen-description">
+                  {{ screenText(currentScreen, 'description') }}
+                </p>
               </header>
 
               <section class="content-card">
@@ -101,7 +131,10 @@
                   />
                 </div>
 
-                <div v-else-if="currentScreen.type === 'summary'" class="info-grid">
+                <div
+                  v-else-if="currentScreen.type === 'summary'"
+                  class="info-grid"
+                >
                   <article
                     v-for="block in translatedGithubBlocks"
                     :key="block.title"
@@ -109,16 +142,27 @@
                   >
                     <h3>{{ block.title }}</h3>
                     <ul>
-                      <li v-for="item in block.items" :key="item">{{ item }}</li>
+                      <li v-for="item in block.items" :key="item">
+                        {{ item }}
+                      </li>
                     </ul>
                   </article>
                 </div>
 
-                <div v-else-if="currentScreen.type === 'review'" class="summary-grid">
-                  <article v-for="card in summaryCards" :key="card.title" class="summary-card">
+                <div
+                  v-else-if="currentScreen.type === 'review'"
+                  class="summary-grid"
+                >
+                  <article
+                    v-for="card in summaryCards"
+                    :key="card.title"
+                    class="summary-card"
+                  >
                     <h3>{{ card.title }}</h3>
                     <ul>
-                      <li v-for="item in card.items" :key="item">{{ item }}</li>
+                      <li v-for="item in card.items" :key="item">
+                        {{ item }}
+                      </li>
                     </ul>
                   </article>
                 </div>
@@ -136,8 +180,17 @@
                 </v-btn>
                 <div v-else class="panel-actions__spacer" />
 
-                <v-btn class="button button--primary" color="primary" append-icon="$next" @click="primaryAction">
-                  {{ currentScreen.type === 'review' ? t('chrome.generate') : t('chrome.next') }}
+                <v-btn
+                  class="button button--primary"
+                  color="primary"
+                  append-icon="$next"
+                  @click="primaryAction"
+                >
+                  {{
+                    currentScreen.type === 'review'
+                      ? t('chrome.generate')
+                      : t('chrome.next')
+                  }}
                 </v-btn>
               </footer>
             </section>
@@ -158,7 +211,12 @@ import StepField from './components/StepField.vue'
 import StepProgress from './components/StepProgress.vue'
 import ThemeSwitcher from './components/ThemeSwitcher.vue'
 import { useConfigurator } from './composables/useConfigurator'
-import type { ContractField, ContractOption, ContractScreen, PrimitiveValue } from './types/contract'
+import type {
+  ContractField,
+  ContractOption,
+  ContractScreen,
+  PrimitiveValue,
+} from './types/contract'
 
 const { t, te, tm } = useI18n()
 const {
@@ -185,7 +243,10 @@ function i18nKeySegment(key: string) {
   return /^[A-Za-z_]\w*$/.test(key) ? `.${key}` : `['${key}']`
 }
 
-function screenText(screen: ContractScreen, key: 'title' | 'description' | 'primary_action') {
+function screenText(
+  screen: ContractScreen,
+  key: 'title' | 'description' | 'primary_action',
+) {
   const translationKey = `contract.screens.${screen.id}.${key}`
   const fallback = screen[key] ?? ''
   return te(translationKey) ? t(translationKey) : fallback
@@ -228,7 +289,9 @@ function formatBoolean(value: boolean) {
 }
 
 function formatOptionValue(fieldId: string, value: PrimitiveValue) {
-  const field = contract.screens.flatMap((screen) => screen.fields ?? []).find((entry) => entry.id === fieldId)
+  const field = contract.screens
+    .flatMap((screen) => screen.fields ?? [])
+    .find((entry) => entry.id === fieldId)
   const option = field?.options?.find((entry) => entry.value === value)
   return option ? optionLabel(fieldId, option) : String(value)
 }
@@ -254,11 +317,17 @@ const translatedGithubBlocks = computed(() => [
     items: tm('chrome.githubBlocks.notesList') as string[],
   },
 ])
-const pullRequestsEnabled = computed(() => Boolean(formState.value['pull_requests.enabled']))
-const reviewRequired = computed(() => Boolean(formState.value['pull_requests.review.required']))
+const pullRequestsEnabled = computed(() =>
+  Boolean(formState.value['pull_requests.enabled']),
+)
+const reviewRequired = computed(() =>
+  Boolean(formState.value['pull_requests.review.required']),
+)
 const ragEnabled = computed(() => String(formState.value['rag.mode']) !== 'off')
 const executionModeUsesCheckpoints = computed(() =>
-  ['autonomous', 'hybrid'].includes(String(formState.value['workflow.execution_mode'])),
+  ['autonomous', 'hybrid'].includes(
+    String(formState.value['workflow.execution_mode']),
+  ),
 )
 
 const summaryCards = computed(() => [
@@ -328,7 +397,9 @@ const summaryCards = computed(() => [
     items: [
       `${t('summary.fields.mode')}: ${formatOptionValue('rag.mode', String(formState.value['rag.mode']))}`,
       ...(ragEnabled.value
-        ? [`${t('summary.fields.vectorDb')}: ${formatBoolean(Boolean(formState.value['rag.allow_vector_db']))}`]
+        ? [
+            `${t('summary.fields.vectorDb')}: ${formatBoolean(Boolean(formState.value['rag.allow_vector_db']))}`,
+          ]
         : []),
     ],
   },
