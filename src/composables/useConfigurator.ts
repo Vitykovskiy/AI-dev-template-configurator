@@ -189,14 +189,6 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
     },
   },
   artifacts: {
-    persist_docs_to_repo: toBoolean(
-      formState.value['artifacts.persist_docs_to_repo'],
-      true,
-    ),
-    persist_agent_contract_to_repo: toBoolean(
-      formState.value['artifacts.persist_agent_contract_to_repo'],
-      true,
-    ),
     persist_temporary_workfiles_to_repo: toBoolean(
       formState.value['artifacts.persist_temporary_workfiles_to_repo'],
       false,

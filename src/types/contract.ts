@@ -127,8 +127,6 @@ export interface GeneratedConfig {
     }
   }
   artifacts: {
-    persist_docs_to_repo: boolean
-    persist_agent_contract_to_repo: boolean
     persist_temporary_workfiles_to_repo: boolean
     local_artifact_paths: string[]
   }

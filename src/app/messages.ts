@@ -72,10 +72,13 @@ export const messages = {
         required: 'Review required',
         reviewers: 'Reviewers',
         approvals: 'Required approvals',
+        readComments: 'Read PR comments',
+        replyComments: 'Reply to PR comments',
+        applyFeedback: 'Apply accepted feedback',
         squash: 'Squash commits',
         integration: 'Integration method',
-        docs: 'Docs to repository',
-        agent: 'AGENTS contract to repository',
+        greenChecks: 'Green checks required',
+        selfMerge: 'Agent self-merge',
         temp: 'Temporary workfiles to repository',
       },
     },
@@ -121,7 +124,7 @@ export const messages = {
         artifacts: {
           title: 'Artifact Persistence',
           description:
-            'Decide which AI-generated repository artifacts must stay in Git and which can remain local (added to .gitignore).',
+            'Control whether temporary AI workfiles stay local or are committed to the repository.',
         },
         rag: {
           title: 'RAG And Vector DB',
@@ -158,7 +161,6 @@ export const messages = {
         },
         'pull_requests.enabled': { label: 'Use pull requests' },
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
-        'pull_requests.draft_first': { label: 'Open PRs as draft first' },
         'pull_requests.review.required': { label: 'Require review' },
         'pull_requests.review.reviewers': { label: 'Reviewer type' },
         'pull_requests.review.agent_must_read_comments': {
@@ -185,15 +187,10 @@ export const messages = {
         'pull_requests.merge.allow_agent_self_merge': {
           label: 'Allow agent self-merge',
         },
-        'artifacts.persist_docs_to_repo': {
-          label: 'Persist docs to repository',
+        'pull_requests.draft_first': {
+          label: 'Open PRs as draft first',
           help_text:
-            'Recommended. Docs are the long-lived source of truth for future sessions.',
-        },
-        'artifacts.persist_agent_contract_to_repo': {
-          label: 'Persist AGENTS contract to repository',
-          help_text:
-            'Recommended. Without this, new agent sessions lose the operating contract.',
+            'If enabled, open the PR as draft once the task branch is ready for PR creation, before the broader review and merge cycle.',
         },
         'artifacts.persist_temporary_workfiles_to_repo': {
           label: 'Persist temporary AI workfiles to repository',
@@ -256,7 +253,7 @@ export const messages = {
           manual_per_task: {
             label: 'Decide per task',
             description:
-              'Decide for each task whether it needs its own branch and PR.',
+              'Use a PR for a task only after an explicit human decision.',
           },
         },
         'pull_requests.review.required': {
@@ -371,10 +368,13 @@ export const messages = {
         required: 'Ревью обязательно',
         reviewers: 'Кто проводит ревью',
         approvals: 'Требуемые подтверждения',
+        readComments: 'Читать комментарии в PR',
+        replyComments: 'Отвечать на комментарии в PR',
+        applyFeedback: 'Вносить принятые замечания',
         squash: 'Схлопывать коммиты',
         integration: 'Способ встраивания',
-        docs: 'Документация в репозитории',
-        agent: 'Контракт AGENTS в репозитории',
+        greenChecks: 'Только при успешных проверках',
+        selfMerge: 'Самослияние агентом',
         temp: 'Временные файлы в репозитории',
       },
     },
@@ -420,7 +420,7 @@ export const messages = {
         artifacts: {
           title: 'Хранение артефактов',
           description:
-            'Решите, какие материалы, созданные ИИ, должны храниться в Git, а какие могут оставаться локально (добавлены в .gitignore).',
+            'Выберите, остаются ли временные файлы ИИ локально или коммитятся в репозиторий.',
         },
         rag: {
           title: 'RAG и векторная БД',
@@ -458,6 +458,8 @@ export const messages = {
         'pull_requests.creation_mode': { label: 'Правило для пул-реквестов по задачам' },
         'pull_requests.draft_first': {
           label: 'Сначала открывать как черновик',
+          help_text:
+            'Если включено, открывайте PR как черновик, когда ветка задачи уже готова к созданию PR, до основного цикла ревью и слияния.',
         },
         'pull_requests.review.required': { label: 'Требовать ревью' },
         'pull_requests.review.reviewers': { label: 'Кто проводит ревью' },
@@ -486,16 +488,6 @@ export const messages = {
         },
         'pull_requests.merge.allow_agent_self_merge': {
           label: 'Разрешить агенту сливать изменения самому',
-        },
-        'artifacts.persist_docs_to_repo': {
-          label: 'Хранить документацию в репозитории',
-          help_text:
-            'Рекомендуется. Документация помогает новым сессиям быстро восстановить контекст.',
-        },
-        'artifacts.persist_agent_contract_to_repo': {
-          label: 'Хранить контракт AGENTS в репозитории',
-          help_text:
-            'Рекомендуется. Без этого агент теряет правила работы с проектом.',
         },
         'artifacts.persist_temporary_workfiles_to_repo': {
           label: 'Хранить временные файлы ИИ в репозитории',
@@ -560,7 +552,7 @@ export const messages = {
           manual_per_task: {
             label: 'Решать по каждой задаче',
             description:
-              'Для каждой задачи отдельно решать, нужна ли ей своя ветка и свой пул-реквест.',
+              'Использовать PR для задачи только после явного решения человека.',
           },
         },
         'pull_requests.review.required': {

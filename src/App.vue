@@ -398,8 +398,13 @@ const summaryCards = computed(() => [
                   `${t('summary.fields.approvals')}: ${String(formState.value['pull_requests.merge.min_approvals'])}`,
                 ]
               : []),
+            `${t('summary.fields.readComments')}: ${formatBoolean(Boolean(formState.value['pull_requests.review.agent_must_read_comments']))}`,
+            `${t('summary.fields.replyComments')}: ${formatBoolean(Boolean(formState.value['pull_requests.review.agent_must_reply_to_comments']))}`,
+            `${t('summary.fields.applyFeedback')}: ${formatBoolean(Boolean(formState.value['pull_requests.review.agent_must_apply_accepted_feedback']))}`,
             `${t('summary.fields.squash')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.squash_commits']))}`,
             `${t('summary.fields.integration')}: ${formatOptionValue('pull_requests.merge.integration_method', String(formState.value['pull_requests.merge.integration_method']))}`,
+            `${t('summary.fields.greenChecks')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.require_green_checks']))}`,
+            `${t('summary.fields.selfMerge')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.allow_agent_self_merge']))}`,
           ]
         : [`${t('summary.fields.required')}: ${t('common.notAllowed')}`]),
     ],
@@ -407,8 +412,6 @@ const summaryCards = computed(() => [
   {
     title: t('summary.artifacts'),
     items: [
-      `${t('summary.fields.docs')}: ${formatBoolean(Boolean(formState.value['artifacts.persist_docs_to_repo']))}`,
-      `${t('summary.fields.agent')}: ${formatBoolean(Boolean(formState.value['artifacts.persist_agent_contract_to_repo']))}`,
       `${t('summary.fields.temp')}: ${formatBoolean(Boolean(formState.value['artifacts.persist_temporary_workfiles_to_repo']))}`,
     ],
   },

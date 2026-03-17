@@ -219,7 +219,7 @@
             {
               "value": "manual_per_task",
               "label": "Decide per task",
-              "description": "Decide for each task whether it needs its own branch and PR."
+              "description": "Use a PR for a task only after an explicit human decision."
             }
           ]
         },
@@ -229,6 +229,7 @@
           "label": "Open PRs as draft first",
           "required": true,
           "default": false,
+          "help_text": "If enabled, open the PR as draft once the task branch is ready for PR creation, before the broader review and merge cycle.",
           "visibility": {
             "field": "pull_requests.enabled",
             "operator": "equals",
@@ -402,24 +403,8 @@
       "id": "artifacts",
       "type": "form",
       "title": "Artifact Persistence",
-      "description": "Decide which AI-generated repository artifacts must stay in Git and which can remain local.",
+      "description": "Control whether temporary AI workfiles stay local or are committed to the repository.",
       "fields": [
-        {
-          "id": "artifacts.persist_docs_to_repo",
-          "component": "switch",
-          "label": "Persist docs to repository",
-          "required": true,
-          "default": true,
-          "help_text": "Recommended. Docs are the long-lived source of truth for future sessions."
-        },
-        {
-          "id": "artifacts.persist_agent_contract_to_repo",
-          "component": "switch",
-          "label": "Persist AGENTS contract to repository",
-          "required": true,
-          "default": true,
-          "help_text": "Recommended. Without this, new agent sessions lose the operating contract."
-        },
         {
           "id": "artifacts.persist_temporary_workfiles_to_repo",
           "component": "switch",
@@ -513,57 +498,6 @@
       ]
     }
   ],
-  "conditional_logic_rules": [
-    {
-      "rule_id": "hide_review_if_pr_disabled",
-      "when": {
-        "field": "pull_requests.enabled",
-        "operator": "equals",
-        "value": false
-      },
-      "effect": {
-        "hide_fields": [
-          "pull_requests.creation_mode",
-          "pull_requests.draft_first",
-          "pull_requests.review.required",
-          "pull_requests.review.reviewers",
-          "pull_requests.review.agent_must_read_comments",
-          "pull_requests.review.agent_must_reply_to_comments",
-          "pull_requests.review.agent_must_apply_accepted_feedback",
-          "pull_requests.merge.squash_commits",
-          "pull_requests.merge.integration_method",
-          "pull_requests.merge.min_approvals",
-          "pull_requests.merge.require_green_checks",
-          "pull_requests.merge.allow_agent_self_merge"
-        ]
-      }
-    },
-    {
-      "rule_id": "hide_approvals_if_review_not_required",
-      "when": {
-        "field": "pull_requests.review.required",
-        "operator": "equals",
-        "value": false
-      },
-      "effect": {
-        "hide_fields": [
-          "pull_requests.review.reviewers",
-          "pull_requests.merge.min_approvals"
-        ]
-      }
-    },
-    {
-      "rule_id": "hide_checkpoints_if_autonomous",
-      "when": {
-        "field": "workflow.execution_mode",
-        "operator": "equals",
-        "value": "autonomous"
-      },
-      "effect": {
-        "hide_fields": ["workflow.human_checkpoints"]
-      }
-    }
-  ],
   "generated_json_template": {
     "config_version": 1,
     "language": {
@@ -600,8 +534,6 @@
       }
     },
     "artifacts": {
-      "persist_docs_to_repo": "{{artifacts.persist_docs_to_repo}}",
-      "persist_agent_contract_to_repo": "{{artifacts.persist_agent_contract_to_repo}}",
       "persist_temporary_workfiles_to_repo": "{{artifacts.persist_temporary_workfiles_to_repo}}",
       "local_artifact_paths": [".agent-work/", ".ai-local/", "tasks/*.local.*"]
     },
