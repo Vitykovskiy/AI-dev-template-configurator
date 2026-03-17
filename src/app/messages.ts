@@ -157,11 +157,6 @@ export const messages = {
         'language.comments': { label: 'Agent comment language' },
         'language.commits': { label: 'Commit language' },
         'workflow.execution_mode': { label: 'Execution mode' },
-        'workflow.human_checkpoints': {
-          label: 'High-risk checkpoints',
-          help_text:
-            'These are the checkpoints where the agent must stop and ask for approval.',
-        },
         'pull_requests.enabled': { label: 'Use pull requests' },
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
         'pull_requests.review.required': { label: 'Require review' },
@@ -201,7 +196,7 @@ export const messages = {
             'Scratch notes, drafts, logs, and temporary generation files usually should stay local.',
         },
         'rag.mode': { label: 'RAG mode' },
-        'branch_protection_note': {
+        branch_protection_note: {
           label: 'Branch protection required',
           help_text:
             'These review and merge rules are enforced by the agent only. Without GitHub branch protection, the agent can push directly to main or merge without approval. To technically enforce this policy, go to repository Settings → Branches → Add branch protection rule for main: enable "Require a pull request before merging", set the required number of approvals, and disable "Allow bypassing the above settings".',
@@ -222,25 +217,13 @@ export const messages = {
           autonomous: {
             label: 'Autonomous',
             description:
-              'Agent moves through the workflow without stage-by-stage approval unless it reaches a configured human checkpoint.',
-          },
-          hybrid: {
-            label: 'Hybrid',
-            description:
-              'Agent works autonomously for normal tasks and pauses only at configured checkpoints.',
+              'Agent moves through the workflow without pausing between stages.',
           },
           staged: {
             label: 'Staged',
             description:
-              'Agent pauses between work stages and also stops at configured checkpoints.',
+              'Agent pauses between work stages and waits for explicit human confirmation before continuing.',
           },
-        },
-        'workflow.human_checkpoints': {
-          architecture_changes: 'Architecture changes',
-          infra_changes: 'Infrastructure changes',
-          schema_migrations: 'Schema migrations',
-          external_integrations: 'External integrations',
-          security_sensitive_changes: 'Security-sensitive changes',
         },
         'pull_requests.enabled': {
           true: {
@@ -465,13 +448,10 @@ export const messages = {
         'language.comments': { label: 'Язык комментариев агента' },
         'language.commits': { label: 'Язык коммитов' },
         'workflow.execution_mode': { label: 'Режим работы' },
-        'workflow.human_checkpoints': {
-          label: 'Контрольные точки',
-          help_text:
-            'Здесь агент должен остановиться и запросить подтверждение.',
-        },
         'pull_requests.enabled': { label: 'Использовать пул-реквесты' },
-        'pull_requests.creation_mode': { label: 'Правило для пул-реквестов по задачам' },
+        'pull_requests.creation_mode': {
+          label: 'Правило для пул-реквестов по задачам',
+        },
         'pull_requests.draft_first': {
           label: 'Сначала открывать как черновик',
           help_text:
@@ -511,7 +491,7 @@ export const messages = {
             'Черновики, заметки, логи и временные файлы генерации обычно лучше оставлять локально.',
         },
         'rag.mode': { label: 'Режим RAG' },
-        'branch_protection_note': {
+        branch_protection_note: {
           label: 'Требуется защита основной ветки',
           help_text:
             'Правила ревью и слияния из этого экрана выполняет только агент. Без защиты ветки в GitHub агент может запушить напрямую в main или слить изменения без ревью. Чтобы технически обеспечить соблюдение этих правил, откройте Settings → Branches → Add branch protection rule для ветки main: включите «Require a pull request before merging», укажите нужное количество подтверждений и отключите «Allow bypassing the above settings».',
@@ -531,26 +511,13 @@ export const messages = {
         'workflow.execution_mode': {
           autonomous: {
             label: 'Автономный',
-            description:
-              'Агент работает сам и не ждет подтверждения на каждом шаге.',
-          },
-          hybrid: {
-            label: 'Гибридный',
-            description:
-              'В обычных задачах агент работает сам, а на контрольных точках останавливается.',
+            description: 'Агент работает без остановок между стадиями.',
           },
           staged: {
             label: 'Поэтапный',
             description:
-              'Агент останавливается между стадиями работы и на контрольных точках.',
+              'Агент останавливается между стадиями работы и ждёт явного подтверждения перед продолжением.',
           },
-        },
-        'workflow.human_checkpoints': {
-          architecture_changes: 'Изменения архитектуры',
-          infra_changes: 'Изменения инфраструктуры',
-          schema_migrations: 'Миграции схемы',
-          external_integrations: 'Внешние интеграции',
-          security_sensitive_changes: 'Изменения, связанные с безопасностью',
         },
         'pull_requests.enabled': {
           true: {
@@ -622,4 +589,3 @@ export const messages = {
     },
   },
 } as const
-

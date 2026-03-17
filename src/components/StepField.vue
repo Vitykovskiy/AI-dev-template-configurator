@@ -124,7 +124,10 @@
         hide-details
         @update:model-value="emit('updateValue', Boolean($event))"
       />
-      <p v-if="translateFieldHelp(field)" class="field-block__help checkbox-row__help">
+      <p
+        v-if="translateFieldHelp(field)"
+        class="field-block__help checkbox-row__help"
+      >
         {{ translateFieldHelp(field) }}
       </p>
     </div>
@@ -146,7 +149,6 @@
     />
   </v-card>
 </template>
-
 
 <script setup lang="ts">
 import { computed } from 'vue'
@@ -294,12 +296,12 @@ function isChecked(optionValue: PrimitiveValue) {
 
 .switch-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
 
   &__toggle {
-    margin: 0 !important;
+    flex-shrink: 0;
   }
 }
 

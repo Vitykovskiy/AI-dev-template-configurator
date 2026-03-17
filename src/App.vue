@@ -322,7 +322,9 @@ function formatOptionList(fieldId: string, values: PrimitiveValue[]) {
 
 const visibleFields = computed(() => getVisibleFields(currentScreen.value))
 const agentConfigureBranchProtection = computed(() =>
-  Boolean(formState.value['pull_requests.merge.agent_configure_branch_protection']),
+  Boolean(
+    formState.value['pull_requests.merge.agent_configure_branch_protection'],
+  ),
 )
 
 const translatedGithubBlocks = computed(() => [

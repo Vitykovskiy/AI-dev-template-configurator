@@ -98,72 +98,17 @@
           "component": "card_radio_group",
           "label": "Execution mode",
           "required": true,
-          "default": "hybrid",
+          "default": "autonomous",
           "options": [
             {
               "value": "autonomous",
               "label": "Autonomous",
-              "description": "Agent moves through the workflow without stage-by-stage approval unless it reaches a configured human checkpoint."
-            },
-            {
-              "value": "hybrid",
-              "label": "Hybrid",
-              "description": "Agent works autonomously for normal tasks and pauses only at configured checkpoints."
+              "description": "Agent moves through the workflow without pausing between stages."
             },
             {
               "value": "staged",
               "label": "Staged",
-              "description": "Agent pauses between work stages and also stops at configured checkpoints."
-            }
-          ]
-        },
-        {
-          "id": "workflow.human_checkpoints",
-          "component": "checkbox_group",
-          "label": "High-risk checkpoints",
-          "required": true,
-          "default": [
-            "architecture_changes",
-            "infra_changes",
-            "schema_migrations",
-            "external_integrations",
-            "security_sensitive_changes"
-          ],
-          "help_text": "These are the checkpoints where the agent must stop and ask for approval.",
-          "visibility": {
-            "any_of": [
-              {
-                "field": "workflow.execution_mode",
-                "operator": "equals",
-                "value": "hybrid"
-              },
-              {
-                "field": "workflow.execution_mode",
-                "operator": "equals",
-                "value": "staged"
-              }
-            ]
-          },
-          "options": [
-            {
-              "value": "architecture_changes",
-              "label": "Architecture changes"
-            },
-            {
-              "value": "infra_changes",
-              "label": "Infrastructure changes"
-            },
-            {
-              "value": "schema_migrations",
-              "label": "Schema migrations"
-            },
-            {
-              "value": "external_integrations",
-              "label": "External integrations"
-            },
-            {
-              "value": "security_sensitive_changes",
-              "label": "Security-sensitive changes"
+              "description": "Agent pauses between work stages and waits for explicit human confirmation before continuing."
             }
           ]
         }
@@ -552,7 +497,6 @@
     },
     "workflow": {
       "execution_mode": "{{workflow.execution_mode}}",
-      "human_checkpoints": "{{workflow.human_checkpoints}}",
       "issue_tracking": "github_issues",
       "project_tracking": "github_project"
     },

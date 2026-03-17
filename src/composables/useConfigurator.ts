@@ -111,10 +111,6 @@ function toString(value: FormStateValue, fallback = ''): string {
   return typeof value === 'string' ? value : fallback
 }
 
-function toStringArray(value: FormStateValue): string[] {
-  return Array.isArray(value) ? value.map((item) => String(item)) : []
-}
-
 const generatedConfig = computed<GeneratedConfig>(() => ({
   config_version: 1,
   language: {
@@ -128,10 +124,7 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
   workflow: {
     execution_mode: toString(
       formState.value['workflow.execution_mode'],
-      'hybrid',
-    ),
-    human_checkpoints: toStringArray(
-      formState.value['workflow.human_checkpoints'],
+      'autonomous',
     ),
     issue_tracking: 'github_issues',
     project_tracking: 'github_project',
@@ -189,7 +182,9 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
         false,
       ),
       agent_configure_branch_protection: toBoolean(
-        formState.value['pull_requests.merge.agent_configure_branch_protection'],
+        formState.value[
+          'pull_requests.merge.agent_configure_branch_protection'
+        ],
         false,
       ),
     },
