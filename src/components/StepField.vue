@@ -1,5 +1,15 @@
 <template>
-  <v-card class="field-block" rounded="xl" variant="flat">
+  <v-alert
+    v-if="field.component === fieldComponent.InfoBanner"
+    class="info-banner"
+    type="warning"
+    variant="tonal"
+    rounded="xl"
+  >
+    <p class="info-banner__text">{{ translateFieldHelp(field) }}</p>
+  </v-alert>
+
+  <v-card v-else class="field-block" rounded="xl" variant="flat">
     <div class="field-block__header">
       <template
         v-if="
@@ -137,6 +147,7 @@
   </v-card>
 </template>
 
+
 <script setup lang="ts">
 import { computed } from 'vue'
 import {
@@ -153,6 +164,7 @@ const fieldComponent = {
   Checkbox: FieldComponent.Checkbox,
   Switch: FieldComponent.Switch,
   Stepper: FieldComponent.Stepper,
+  InfoBanner: FieldComponent.InfoBanner,
 } as const
 
 const props = defineProps<{
@@ -310,6 +322,13 @@ function isChecked(optionValue: PrimitiveValue) {
 
 .number-input {
   max-width: 220px;
+}
+
+.info-banner {
+  &__text {
+    margin: 0;
+    line-height: 1.5;
+  }
 }
 
 @media (max-width: 720px) {

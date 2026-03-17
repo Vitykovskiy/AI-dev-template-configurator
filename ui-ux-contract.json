@@ -396,6 +396,48 @@
             "operator": "equals",
             "value": true
           }
+        },
+        {
+          "id": "branch_protection_note",
+          "component": "info_banner",
+          "label": "branch_protection_note",
+          "required": false,
+          "default": "",
+          "visibility": {
+            "all_of": [
+              {
+                "field": "pull_requests.enabled",
+                "operator": "equals",
+                "value": true
+              },
+              {
+                "field": "pull_requests.review.required",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "pull_requests.merge.agent_configure_branch_protection",
+          "component": "switch",
+          "label": "Let agent configure branch protection",
+          "required": true,
+          "default": false,
+          "visibility": {
+            "all_of": [
+              {
+                "field": "pull_requests.enabled",
+                "operator": "equals",
+                "value": true
+              },
+              {
+                "field": "pull_requests.review.required",
+                "operator": "equals",
+                "value": true
+              }
+            ]
+          }
         }
       ]
     },

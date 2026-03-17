@@ -49,6 +49,8 @@ export const messages = {
           'Scopes do not guarantee repository-specific write access.',
           'Branch protection and project write permissions must still be checked separately.',
         ],
+        branchProtectionAdminNote:
+          'Agent will configure branch protection: the token user must have admin access to the repository (repo scope alone is not sufficient).',
       },
     },
     summary: {
@@ -79,6 +81,7 @@ export const messages = {
         integration: 'Integration method',
         greenChecks: 'Green checks required',
         selfMerge: 'Agent self-merge',
+        configureBranchProtection: 'Agent configures branch protection',
         temp: 'Temporary workfiles to repository',
       },
     },
@@ -198,6 +201,16 @@ export const messages = {
             'Scratch notes, drafts, logs, and temporary generation files usually should stay local.',
         },
         'rag.mode': { label: 'RAG mode' },
+        'branch_protection_note': {
+          label: 'Branch protection required',
+          help_text:
+            'These review and merge rules are enforced by the agent only. Without GitHub branch protection, the agent can push directly to main or merge without approval. To technically enforce this policy, go to repository Settings → Branches → Add branch protection rule for main: enable "Require a pull request before merging", set the required number of approvals, and disable "Allow bypassing the above settings".',
+        },
+        'pull_requests.merge.agent_configure_branch_protection': {
+          label: 'Let agent configure branch protection',
+          help_text:
+            'If enabled, the agent will apply branch protection rules to main automatically using the GitHub API. Requires the token user to have admin access to the repository.',
+        },
       },
       options: {
         'language.documentation': { en: 'English', ru: 'Russian' },
@@ -345,6 +358,8 @@ export const messages = {
           'Набора прав доступа недостаточно, чтобы гарантировать запись в конкретный репозиторий.',
           'Защиту веток и права записи в проект GitHub нужно проверять отдельно.',
         ],
+        branchProtectionAdminNote:
+          'Агент настроит защиту ветки: владелец токена должен иметь права администратора репозитория (одного скоупа repo недостаточно).',
       },
     },
     summary: {
@@ -375,6 +390,7 @@ export const messages = {
         integration: 'Способ встраивания',
         greenChecks: 'Только при успешных проверках',
         selfMerge: 'Самослияние агентом',
+        configureBranchProtection: 'Агент настраивает защиту ветки',
         temp: 'Временные файлы в репозитории',
       },
     },
@@ -495,6 +511,16 @@ export const messages = {
             'Черновики, заметки, логи и временные файлы генерации обычно лучше оставлять локально.',
         },
         'rag.mode': { label: 'Режим RAG' },
+        'branch_protection_note': {
+          label: 'Требуется защита основной ветки',
+          help_text:
+            'Правила ревью и слияния из этого экрана выполняет только агент. Без защиты ветки в GitHub агент может запушить напрямую в main или слить изменения без ревью. Чтобы технически обеспечить соблюдение этих правил, откройте Settings → Branches → Add branch protection rule для ветки main: включите «Require a pull request before merging», укажите нужное количество подтверждений и отключите «Allow bypassing the above settings».',
+        },
+        'pull_requests.merge.agent_configure_branch_protection': {
+          label: 'Агент настраивает защиту ветки',
+          help_text:
+            'Если включено, агент автоматически настроит правила защиты ветки main через GitHub API. Требуется, чтобы владелец токена имел права администратора репозитория.',
+        },
       },
       options: {
         'language.documentation': { en: 'Английский', ru: 'Русский' },

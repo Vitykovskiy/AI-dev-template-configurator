@@ -321,6 +321,10 @@ function formatOptionList(fieldId: string, values: PrimitiveValue[]) {
 }
 
 const visibleFields = computed(() => getVisibleFields(currentScreen.value))
+const agentConfigureBranchProtection = computed(() =>
+  Boolean(formState.value['pull_requests.merge.agent_configure_branch_protection']),
+)
+
 const translatedGithubBlocks = computed(() => [
   {
     title: t('chrome.githubBlocks.requiredScopes'),
@@ -332,7 +336,12 @@ const translatedGithubBlocks = computed(() => [
   },
   {
     title: t('chrome.githubBlocks.notes'),
-    items: tm('chrome.githubBlocks.notesList') as string[],
+    items: [
+      ...(tm('chrome.githubBlocks.notesList') as string[]),
+      ...(agentConfigureBranchProtection.value
+        ? [t('chrome.githubBlocks.branchProtectionAdminNote')]
+        : []),
+    ],
   },
 ])
 const pullRequestsEnabled = computed(() =>
@@ -405,6 +414,7 @@ const summaryCards = computed(() => [
             `${t('summary.fields.integration')}: ${formatOptionValue('pull_requests.merge.integration_method', String(formState.value['pull_requests.merge.integration_method']))}`,
             `${t('summary.fields.greenChecks')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.require_green_checks']))}`,
             `${t('summary.fields.selfMerge')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.allow_agent_self_merge']))}`,
+            `${t('summary.fields.configureBranchProtection')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.agent_configure_branch_protection']))}`,
           ]
         : [`${t('summary.fields.required')}: ${t('common.notAllowed')}`]),
     ],

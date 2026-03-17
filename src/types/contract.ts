@@ -12,6 +12,7 @@ export const enum FieldComponent {
   Checkbox = 'checkbox',
   Switch = 'switch',
   Stepper = 'stepper',
+  InfoBanner = 'info_banner',
 }
 
 export const enum ScreenType {
@@ -124,6 +125,7 @@ export interface GeneratedConfig {
       min_approvals: number
       require_green_checks: boolean
       allow_agent_self_merge: boolean
+      agent_configure_branch_protection: boolean
     }
   }
   artifacts: {

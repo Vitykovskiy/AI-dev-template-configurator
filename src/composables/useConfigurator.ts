@@ -1,5 +1,6 @@
 import { computed, ref, watch } from 'vue'
 import { uiContract } from '../contracts/uiContract'
+import { FieldComponent } from '../types/contract'
 import type {
   ContractField,
   ContractScreen,
@@ -25,6 +26,7 @@ function cloneDefaultValue(value: FormStateValue): FormStateValue {
 
 function createInitialState(): FormState {
   return collectFields().reduce<FormState>((accumulator, field) => {
+    if (field.component === FieldComponent.InfoBanner) return accumulator
     accumulator[field.id] = cloneDefaultValue(field.default as FormStateValue)
     return accumulator
   }, {})
@@ -184,6 +186,10 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
       ),
       allow_agent_self_merge: toBoolean(
         formState.value['pull_requests.merge.allow_agent_self_merge'],
+        false,
+      ),
+      agent_configure_branch_protection: toBoolean(
+        formState.value['pull_requests.merge.agent_configure_branch_protection'],
         false,
       ),
     },
