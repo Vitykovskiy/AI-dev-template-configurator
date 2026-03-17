@@ -104,7 +104,6 @@ export interface GeneratedConfig {
   }
   workflow: {
     execution_mode: string
-    human_checkpoints: string[]
     issue_tracking: string
     project_tracking: string
   }
