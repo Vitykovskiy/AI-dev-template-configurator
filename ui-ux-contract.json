@@ -167,7 +167,7 @@
               "description": "Use a PR for a task only after an explicit human decision."
             }
           ]
-        },
+        }
       ]
     },
     {
