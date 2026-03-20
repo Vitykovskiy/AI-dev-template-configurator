@@ -15,8 +15,6 @@ The configurator helps choose:
 - agent execution mode and human checkpoints;
 - task-scoped pull request and review policy;
 - artifact persistence rules;
-- RAG mode for the development workflow.
-
 It then generates a ready `.ai-dev-template.config.json` file for the repository root.
 
 ## Local Development
