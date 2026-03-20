@@ -130,6 +130,9 @@ export interface GeneratedConfig {
     persist_temporary_workfiles_to_repo: boolean
     local_artifact_paths: string[]
   }
+  project_map: {
+    enabled: boolean
+  }
   github: {
     required_token_scopes: string[]
     recommended_token_scopes: string[]

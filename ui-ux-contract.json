@@ -374,6 +374,22 @@
       ]
     },
     {
+      "id": "project_map",
+      "type": "form",
+      "title": "Project Map",
+      "description": "The agent can maintain a structured map of the project file tree to simplify navigation across sessions.",
+      "fields": [
+        {
+          "id": "project_map.enabled",
+          "component": "switch",
+          "label": "Maintain project map",
+          "required": true,
+          "default": true,
+          "help_text": "If enabled, the agent creates and updates docs/project-map.md — a file tree with descriptions of each folder and key file."
+        }
+      ]
+    },
+    {
       "id": "github_permissions",
       "type": "summary",
       "title": "GitHub Token Requirements",
@@ -406,6 +422,7 @@
         "Execution mode",
         "Pull requests",
         "Review and merge",
+        "Project map",
         "GitHub token requirements"
       ],
       "primary_action": "Generate config"
@@ -454,6 +471,9 @@
         "require_green_checks": "{{pull_requests.merge.require_green_checks}}",
         "allow_agent_self_merge": "{{pull_requests.merge.allow_agent_self_merge}}"
       }
+    },
+    "project_map": {
+      "enabled": "{{project_map.enabled}}"
     },
     "github": {
       "required_token_scopes": ["repo", "project"],

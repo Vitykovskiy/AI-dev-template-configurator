@@ -426,6 +426,12 @@ const summaryCards = computed(() => [
       `${t('summary.fields.temp')}: ${formatBoolean(Boolean(formState.value['artifacts.persist_temporary_workfiles_to_repo']))}`,
     ],
   },
+  {
+    title: t('summary.projectMap'),
+    items: [
+      `${t('summary.fields.projectMapEnabled')}: ${formatBoolean(Boolean(formState.value['project_map.enabled']))}`,
+    ],
+  },
 ])
 
 function primaryAction() {

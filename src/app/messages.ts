@@ -59,6 +59,7 @@ export const messages = {
       prFlow: 'Pull requests',
       review: 'Review and merge',
       artifacts: 'Artifact persistence',
+      projectMap: 'Project map',
       fields: {
         documentation: 'Documentation',
         issues: 'Issues',
@@ -81,6 +82,7 @@ export const messages = {
         selfMerge: 'Agent self-merge',
         configureBranchProtection: 'Agent configures branch protection',
         temp: 'Temporary workfiles to repository',
+        projectMapEnabled: 'Maintain project map',
       },
     },
     locale: {
@@ -182,6 +184,11 @@ export const messages = {
           label: 'Persist temporary AI workfiles to repository',
           help_text:
             'Scratch notes, drafts, logs, and temporary generation files usually should stay local.',
+        },
+        'project_map.enabled': {
+          label: 'Maintain project map',
+          help_text:
+            'If enabled, the agent creates and updates docs/project-map.md — a file tree with descriptions of each folder and key file.',
         },
         branch_protection_note: {
           label: 'Branch protection required',
@@ -322,6 +329,7 @@ export const messages = {
       prFlow: 'Пул-реквесты',
       review: 'Ревью и слияние',
       artifacts: 'Хранение артефактов',
+      projectMap: 'Карта проекта',
       fields: {
         documentation: 'Документация',
         issues: 'Задачи',
@@ -344,6 +352,7 @@ export const messages = {
         selfMerge: 'Самослияние агентом',
         configureBranchProtection: 'Агент настраивает защиту ветки',
         temp: 'Временные файлы в репозитории',
+        projectMapEnabled: 'Поддерживать карту проекта',
       },
     },
     locale: {
@@ -389,6 +398,11 @@ export const messages = {
           title: 'Хранение артефактов',
           description:
             'Выберите, остаются ли временные файлы ИИ локально или коммитятся в репозиторий.',
+        },
+        project_map: {
+          title: 'Карта проекта',
+          description:
+            'Агент может поддерживать актуальную карту файловой структуры проекта для удобной навигации между сессиями.',
         },
         github_permissions: {
           title: 'Права доступа GitHub',
@@ -448,6 +462,11 @@ export const messages = {
           label: 'Хранить временные файлы ИИ в репозитории',
           help_text:
             'Черновики, заметки, логи и временные файлы генерации обычно лучше оставлять локально.',
+        },
+        'project_map.enabled': {
+          label: 'Поддерживать карту проекта',
+          help_text:
+            'Если включено, агент создаёт и обновляет docs/project-map.md — дерево файлов с описанием назначения каждой папки и ключевых файлов.',
         },
         branch_protection_note: {
           label: 'Требуется защита основной ветки',

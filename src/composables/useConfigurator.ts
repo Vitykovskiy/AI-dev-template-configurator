@@ -195,6 +195,9 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
     ),
     local_artifact_paths: ['.agent-work/', '.ai-local/', 'tasks/*.local.*'],
   },
+  project_map: {
+    enabled: toBoolean(formState.value['project_map.enabled'], true),
+  },
   github: {
     required_token_scopes: ['repo', 'project'],
     recommended_token_scopes: ['read:org', 'workflow'],
