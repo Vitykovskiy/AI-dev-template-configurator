@@ -69,7 +69,6 @@ export const messages = {
         checkpoints: 'Human checkpoints',
         enabled: 'Enabled',
         creation: 'Creation mode',
-        draft: 'Draft first',
         required: 'Review required',
         reviewers: 'Reviewers',
         approvals: 'Required approvals',
@@ -178,11 +177,6 @@ export const messages = {
         },
         'pull_requests.merge.allow_agent_self_merge': {
           label: 'Allow agent self-merge',
-        },
-        'pull_requests.draft_first': {
-          label: 'Open PRs as draft first',
-          help_text:
-            'If enabled, open the PR as draft once the task branch is ready for PR creation, before the broader review and merge cycle.',
         },
         'artifacts.persist_temporary_workfiles_to_repo': {
           label: 'Persist temporary AI workfiles to repository',
@@ -338,7 +332,6 @@ export const messages = {
         checkpoints: 'Контрольные точки',
         enabled: 'Используются',
         creation: 'Когда создавать',
-        draft: 'Сначала черновик',
         required: 'Ревью обязательно',
         reviewers: 'Кто проводит ревью',
         approvals: 'Требуемые подтверждения',
@@ -422,11 +415,6 @@ export const messages = {
         'pull_requests.enabled': { label: 'Использовать пул-реквесты' },
         'pull_requests.creation_mode': {
           label: 'Правило для пул-реквестов по задачам',
-        },
-        'pull_requests.draft_first': {
-          label: 'Сначала открывать как черновик',
-          help_text:
-            'Если включено, открывайте PR как черновик, когда ветка задачи уже готова к созданию PR, до основного цикла ревью и слияния.',
         },
         'pull_requests.review.required': { label: 'Требовать ревью' },
         'pull_requests.review.reviewers': { label: 'Кто проводит ревью' },

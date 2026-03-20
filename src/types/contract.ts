@@ -110,7 +110,6 @@ export interface GeneratedConfig {
   pull_requests: {
     enabled: boolean
     creation_mode: string
-    draft_first: boolean
     review: {
       required: boolean
       reviewers: string

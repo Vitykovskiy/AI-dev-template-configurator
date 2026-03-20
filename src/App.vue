@@ -392,7 +392,6 @@ const summaryCards = computed(() => [
       ...(pullRequestsEnabled.value
         ? [
             `${t('summary.fields.creation')}: ${formatOptionValue('pull_requests.creation_mode', String(formState.value['pull_requests.creation_mode']))}`,
-            `${t('summary.fields.draft')}: ${formatBoolean(Boolean(formState.value['pull_requests.draft_first']))}`,
           ]
         : []),
     ],
