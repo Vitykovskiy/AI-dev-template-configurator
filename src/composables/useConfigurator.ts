@@ -196,9 +196,6 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
     ),
     local_artifact_paths: ['.agent-work/', '.ai-local/', 'tasks/*.local.*'],
   },
-  rag: {
-    mode: toString(formState.value['rag.mode'], 'on_demand'),
-  },
   github: {
     required_token_scopes: ['repo', 'project'],
     recommended_token_scopes: ['read:org', 'workflow'],

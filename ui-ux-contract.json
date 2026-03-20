@@ -21,7 +21,7 @@
       "id": "welcome",
       "type": "intro",
       "title": "Configure Repository Workflow",
-      "description": "Set language, workflow mode, PR policy, artifact persistence, and RAG policy for a new AI Dev Template repository.",
+      "description": "Set language, workflow mode, PR policy, and artifact persistence for a new AI Dev Template repository.",
       "primary_action": "Start configuration"
     },
     {
@@ -168,19 +168,6 @@
             }
           ]
         },
-        {
-          "id": "pull_requests.draft_first",
-          "component": "switch",
-          "label": "Open PRs as draft first",
-          "required": true,
-          "default": false,
-          "help_text": "If enabled, open the PR as draft once the task branch is ready for PR creation, before the broader review and merge cycle.",
-          "visibility": {
-            "field": "pull_requests.enabled",
-            "operator": "equals",
-            "value": true
-          }
-        }
       ]
     },
     {
@@ -387,54 +374,6 @@
       ]
     },
     {
-      "id": "artifacts",
-      "type": "form",
-      "title": "Artifact Persistence",
-      "description": "Control whether temporary AI workfiles stay local or are committed to the repository.",
-      "fields": [
-        {
-          "id": "artifacts.persist_temporary_workfiles_to_repo",
-          "component": "switch",
-          "label": "Persist temporary AI workfiles to repository",
-          "required": true,
-          "default": false,
-          "help_text": "Scratch notes, drafts, logs, and temporary generation files usually should stay local."
-        }
-      ]
-    },
-    {
-      "id": "rag",
-      "type": "form",
-      "title": "RAG And Vector DB",
-      "description": "Choose how RAG is used in the development workflow for this repository.",
-      "fields": [
-        {
-          "id": "rag.mode",
-          "component": "card_radio_group",
-          "label": "RAG policy",
-          "required": true,
-          "default": "on_demand",
-          "options": [
-            {
-              "value": "off",
-              "label": "Do not use",
-              "description": "Work without RAG in this repository."
-            },
-            {
-              "value": "on_demand",
-              "label": "Enable when needed",
-              "description": "Start without RAG and connect it later if the repository grows beyond direct context."
-            },
-            {
-              "value": "from_start",
-              "label": "Use from start",
-              "description": "Prepare the development workflow to use RAG from the beginning."
-            }
-          ]
-        }
-      ]
-    },
-    {
       "id": "github_permissions",
       "type": "summary",
       "title": "GitHub Token Requirements",
@@ -467,8 +406,6 @@
         "Execution mode",
         "Pull requests",
         "Review and merge",
-        "Artifact persistence",
-        "RAG policy",
         "GitHub token requirements"
       ],
       "primary_action": "Generate config"
@@ -503,7 +440,6 @@
     "pull_requests": {
       "enabled": "{{pull_requests.enabled}}",
       "creation_mode": "{{pull_requests.creation_mode}}",
-      "draft_first": "{{pull_requests.draft_first}}",
       "review": {
         "required": "{{pull_requests.review.required}}",
         "reviewers": "{{pull_requests.review.reviewers}}",
@@ -518,13 +454,6 @@
         "require_green_checks": "{{pull_requests.merge.require_green_checks}}",
         "allow_agent_self_merge": "{{pull_requests.merge.allow_agent_self_merge}}"
       }
-    },
-    "artifacts": {
-      "persist_temporary_workfiles_to_repo": "{{artifacts.persist_temporary_workfiles_to_repo}}",
-      "local_artifact_paths": [".agent-work/", ".ai-local/", "tasks/*.local.*"]
-    },
-    "rag": {
-      "mode": "{{rag.mode}}"
     },
     "github": {
       "required_token_scopes": ["repo", "project"],

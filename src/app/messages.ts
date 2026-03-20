@@ -59,7 +59,6 @@ export const messages = {
       prFlow: 'Pull requests',
       review: 'Review and merge',
       artifacts: 'Artifact persistence',
-      rag: 'RAG mode',
       fields: {
         documentation: 'Documentation',
         issues: 'Issues',
@@ -102,7 +101,7 @@ export const messages = {
         welcome: {
           title: 'Configure Repository Workflow',
           description:
-            'Set language, workflow mode, PR policy, artifact persistence, and RAG policy for a new AI Dev Template repository.',
+            'Set language, workflow mode, PR policy, and artifact persistence for a new AI Dev Template repository.',
           primary_action: 'Start configuration',
         },
         language: {
@@ -128,11 +127,6 @@ export const messages = {
           title: 'Artifact Persistence',
           description:
             'Control whether temporary AI workfiles stay local or are committed to the repository.',
-        },
-        rag: {
-          title: 'RAG And Vector DB',
-          description:
-            "Choose how RAG is used in this repository's development workflow.",
         },
         github_permissions: {
           title: 'GitHub Token Requirements',
@@ -195,7 +189,6 @@ export const messages = {
           help_text:
             'Scratch notes, drafts, logs, and temporary generation files usually should stay local.',
         },
-        'rag.mode': { label: 'RAG mode' },
         branch_protection_note: {
           label: 'Branch protection required',
           help_text:
@@ -272,22 +265,6 @@ export const messages = {
           merge: 'Merge commit',
           rebase: 'Rebase',
         },
-        'rag.mode': {
-          off: {
-            label: 'Do not use',
-            description: 'Work without RAG in this repository.',
-          },
-          on_demand: {
-            label: 'Enable when needed',
-            description:
-              'Start without RAG and connect it later if the repository grows beyond direct context.',
-          },
-          from_start: {
-            label: 'Use from start',
-            description:
-              'Prepare the development workflow to use RAG from the beginning.',
-          },
-        },
       },
     },
   },
@@ -351,7 +328,6 @@ export const messages = {
       prFlow: 'Пул-реквесты',
       review: 'Ревью и слияние',
       artifacts: 'Хранение артефактов',
-      rag: 'Режим RAG',
       fields: {
         documentation: 'Документация',
         issues: 'Задачи',
@@ -394,7 +370,7 @@ export const messages = {
         welcome: {
           title: 'Настройка работы с репозиторием',
           description:
-            'Задайте язык, режим работы, правила для пул-реквестов, хранение артефактов и политику RAG.',
+            'Задайте язык, режим работы, правила для пул-реквестов и хранение артефактов.',
           primary_action: 'Начать настройку',
         },
         language: {
@@ -420,11 +396,6 @@ export const messages = {
           title: 'Хранение артефактов',
           description:
             'Выберите, остаются ли временные файлы ИИ локально или коммитятся в репозиторий.',
-        },
-        rag: {
-          title: 'RAG и векторная БД',
-          description:
-            'Выберите, как RAG используется в процессе разработки этого репозитория.',
         },
         github_permissions: {
           title: 'Права доступа GitHub',
@@ -490,7 +461,6 @@ export const messages = {
           help_text:
             'Черновики, заметки, логи и временные файлы генерации обычно лучше оставлять локально.',
         },
-        'rag.mode': { label: 'Режим RAG' },
         branch_protection_note: {
           label: 'Требуется защита основной ветки',
           help_text:
@@ -568,22 +538,6 @@ export const messages = {
         'pull_requests.merge.integration_method': {
           merge: 'Merge commit',
           rebase: 'Rebase',
-        },
-        'rag.mode': {
-          off: {
-            label: 'Не использовать',
-            description: 'Работать без RAG в этом репозитории.',
-          },
-          on_demand: {
-            label: 'Подключать при необходимости',
-            description:
-              'По умолчанию работать без RAG и подключить его позже, если прямого контекста станет недостаточно.',
-          },
-          from_start: {
-            label: 'Использовать сразу',
-            description:
-              'Сразу готовить процесс разработки с использованием RAG.',
-          },
         },
       },
     },

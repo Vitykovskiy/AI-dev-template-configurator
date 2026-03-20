@@ -427,12 +427,6 @@ const summaryCards = computed(() => [
       `${t('summary.fields.temp')}: ${formatBoolean(Boolean(formState.value['artifacts.persist_temporary_workfiles_to_repo']))}`,
     ],
   },
-  {
-    title: t('summary.rag'),
-    items: [
-      `${t('summary.fields.mode')}: ${formatOptionValue('rag.mode', String(formState.value['rag.mode']))}`,
-    ],
-  },
 ])
 
 function primaryAction() {
