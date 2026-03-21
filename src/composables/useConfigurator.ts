@@ -103,10 +103,6 @@ function toBoolean(value: FormStateValue, fallback = false): boolean {
   return typeof value === 'boolean' ? value : fallback
 }
 
-function toNumber(value: FormStateValue, fallback = 0): number {
-  return typeof value === 'number' ? value : fallback
-}
-
 function toString(value: FormStateValue, fallback = ''): string {
   return typeof value === 'string' ? value : fallback
 }
