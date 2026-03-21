@@ -72,7 +72,7 @@
             {
               "value": "autonomous",
               "label": "Autonomous",
-              "description": "Agent moves through the workflow without pausing between stages."
+              "description": "Continuous delivery loop: after closing each task the agent immediately picks the next one. Stops only on a real blocker, configured checkpoint, or empty backlog."
             },
             {
               "value": "staged",
