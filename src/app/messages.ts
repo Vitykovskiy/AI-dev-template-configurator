@@ -72,10 +72,6 @@ export const messages = {
         creation: 'Creation mode',
         required: 'Review required',
         reviewers: 'Reviewers',
-        approvals: 'Required approvals',
-        readComments: 'Read PR comments',
-        replyComments: 'Reply to PR comments',
-        applyFeedback: 'Apply accepted feedback',
         squash: 'Squash commits',
         integration: 'Integration method',
         greenChecks: 'Green checks required',
@@ -153,14 +149,10 @@ export const messages = {
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
         'pull_requests.review.required': { label: 'Require review' },
         'pull_requests.review.reviewers': { label: 'Reviewer type' },
-        'pull_requests.review.agent_must_read_comments': {
-          label: 'Agent must read PR comments',
-        },
-        'pull_requests.review.agent_must_reply_to_comments': {
-          label: 'Agent must reply to PR comments',
-        },
-        'pull_requests.review.agent_must_apply_accepted_feedback': {
-          label: 'Agent must apply accepted feedback',
+        ai_reviewer_note: {
+          label: 'External AI reviewer required',
+          help_text:
+            'AI review requires the veni-vidi-review GitHub App to be installed and configured for this repository. The app listens for pull request webhook events and submits a formal review from a separate GitHub identity.',
         },
         'pull_requests.merge.squash_commits': {
           label: 'Squash commits before merge',
@@ -170,7 +162,6 @@ export const messages = {
         'pull_requests.merge.integration_method': {
           label: 'Branch integration method',
         },
-        'pull_requests.merge.min_approvals': { label: 'Required approvals' },
         'pull_requests.merge.require_green_checks': {
           label: 'Require green checks before merge',
         },
@@ -336,10 +327,6 @@ export const messages = {
         creation: 'Когда создавать',
         required: 'Ревью обязательно',
         reviewers: 'Кто проводит ревью',
-        approvals: 'Требуемые подтверждения',
-        readComments: 'Читать комментарии в PR',
-        replyComments: 'Отвечать на комментарии в PR',
-        applyFeedback: 'Вносить принятые замечания',
         squash: 'Схлопывать коммиты',
         integration: 'Способ встраивания',
         greenChecks: 'Только при успешных проверках',
@@ -423,14 +410,10 @@ export const messages = {
         },
         'pull_requests.review.required': { label: 'Требовать ревью' },
         'pull_requests.review.reviewers': { label: 'Кто проводит ревью' },
-        'pull_requests.review.agent_must_read_comments': {
-          label: 'Агент читает комментарии в пул-реквесте',
-        },
-        'pull_requests.review.agent_must_reply_to_comments': {
-          label: 'Агент отвечает на комментарии в пул-реквесте',
-        },
-        'pull_requests.review.agent_must_apply_accepted_feedback': {
-          label: 'Агент вносит принятые замечания',
+        ai_reviewer_note: {
+          label: 'Требуется внешний ИИ-ревьювер',
+          help_text:
+            'Ревью от ИИ работает через GitHub App veni-vidi-review, который должен быть установлен и подключён к репозиторию. Приложение реагирует на вебхук pull request и проводит ревью от отдельного GitHub-аккаунта.',
         },
         'pull_requests.merge.squash_commits': {
           label: 'Схлопывать коммиты перед слиянием',
@@ -439,9 +422,6 @@ export const messages = {
         },
         'pull_requests.merge.integration_method': {
           label: 'Как встраивать ветку задачи',
-        },
-        'pull_requests.merge.min_approvals': {
-          label: 'Сколько подтверждений нужно',
         },
         'pull_requests.merge.require_green_checks': {
           label: 'Обязательны успешные проверки перед слиянием',

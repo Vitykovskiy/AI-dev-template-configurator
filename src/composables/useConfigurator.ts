@@ -144,20 +144,6 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
         formState.value['pull_requests.review.reviewers'],
         'human',
       ),
-      agent_must_read_comments: toBoolean(
-        formState.value['pull_requests.review.agent_must_read_comments'],
-        true,
-      ),
-      agent_must_reply_to_comments: toBoolean(
-        formState.value['pull_requests.review.agent_must_reply_to_comments'],
-        true,
-      ),
-      agent_must_apply_accepted_feedback: toBoolean(
-        formState.value[
-          'pull_requests.review.agent_must_apply_accepted_feedback'
-        ],
-        true,
-      ),
     },
     merge: {
       squash_commits: toBoolean(
@@ -167,10 +153,6 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
       integration_method: toString(
         formState.value['pull_requests.merge.integration_method'],
         'merge',
-      ),
-      min_approvals: toNumber(
-        formState.value['pull_requests.merge.min_approvals'],
-        1,
       ),
       require_green_checks: toBoolean(
         formState.value['pull_requests.merge.require_green_checks'],
