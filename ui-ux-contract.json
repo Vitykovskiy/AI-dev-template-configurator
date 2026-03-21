@@ -393,10 +393,6 @@
     },
     "project_map": {
       "enabled": "{{project_map.enabled}}"
-    },
-    "github": {
-      "required_token_scopes": ["repo", "project"],
-      "recommended_token_scopes": ["read:org", "workflow"]
     }
   }
 }
