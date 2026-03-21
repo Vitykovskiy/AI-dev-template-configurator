@@ -152,7 +152,7 @@ export const messages = {
         ai_reviewer_note: {
           label: 'External AI reviewer required',
           help_text:
-            'AI review requires the veni-vidi-review GitHub App to be installed and configured for this repository. The app listens for pull request webhook events and submits a formal review from a separate GitHub identity.',
+            'AI review requires the veni-vidi-review GitHub App to be installed and configured for this repository. The app submits a formal review on each PR. The template includes ai-review-gate.yml — a workflow that polls the App review result and reports it as a required status check (ai-review-approved). Branch protection must require this check, not a human approval — the App\'s approval does not count toward GitHub\'s approval gate.',
         },
         'pull_requests.merge.squash_commits': {
           label: 'Squash commits before merge',
@@ -413,7 +413,7 @@ export const messages = {
         ai_reviewer_note: {
           label: 'Требуется внешний ИИ-ревьювер',
           help_text:
-            'Ревью от ИИ работает через GitHub App veni-vidi-review, который должен быть установлен и подключён к репозиторию. Приложение реагирует на вебхук pull request и проводит ревью от отдельного GitHub-аккаунта.',
+            'Ревью от ИИ работает через GitHub App veni-vidi-review, который должен быть установлен и подключён к репозиторию. Приложение проводит ревью на каждый PR. Шаблон включает ai-review-gate.yml — workflow, который поллит результат ревью App и передаёт его как required status check (ai-review-approved). Branch protection должен требовать именно этот check, а не approval от человека: approval от GitHub App не засчитывается в систему аппрувалов GitHub.',
         },
         'pull_requests.merge.squash_commits': {
           label: 'Схлопывать коммиты перед слиянием',
