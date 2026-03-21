@@ -114,8 +114,8 @@ function toString(value: FormStateValue, fallback = ''): string {
 const generatedConfig = computed<GeneratedConfig>(() => ({
   config_version: 1,
   language: {
-    documentation: toString(formState.value['language.documentation'], 'en'),
-    issues: toString(formState.value['language.issues'], 'en'),
+    documentation: toString(formState.value['language.repository'], 'en'),
+    issues: toString(formState.value['language.repository'], 'en'),
     pull_requests: toString(formState.value['language.workflow'], 'en'),
     comments: toString(formState.value['language.workflow'], 'en'),
     commits: toString(formState.value['language.workflow'], 'en'),

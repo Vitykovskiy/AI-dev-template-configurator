@@ -31,22 +31,12 @@
       "description": "Choose the language used by repository artifacts. GitHub labels remain in English.",
       "fields": [
         {
-          "id": "language.documentation",
+          "id": "language.repository",
           "component": "segmented_control",
-          "label": "Documentation language",
+          "label": "Repository language",
           "required": true,
           "default": "en",
-          "options": [
-            { "value": "en", "label": "English" },
-            { "value": "ru", "label": "Russian" }
-          ]
-        },
-        {
-          "id": "language.issues",
-          "component": "segmented_control",
-          "label": "Issue language",
-          "required": true,
-          "default": "en",
+          "help_text": "Docs, README, architecture decisions, GitHub Issues.",
           "options": [
             { "value": "en", "label": "English" },
             { "value": "ru", "label": "Russian" }
@@ -58,6 +48,7 @@
           "label": "Workflow language",
           "required": true,
           "default": "en",
+          "help_text": "PR titles and descriptions, review comments, commit messages.",
           "options": [
             { "value": "en", "label": "English" },
             { "value": "ru", "label": "Russian" }

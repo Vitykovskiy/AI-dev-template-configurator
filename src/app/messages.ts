@@ -146,9 +146,8 @@ export const messages = {
         },
       },
       fields: {
-        'language.documentation': { label: 'Documentation language' },
-        'language.issues': { label: 'Issue language' },
-        'language.workflow': { label: 'Workflow language', help_text: 'Used for PR text, review comments, and commit messages.' },
+        'language.repository': { label: 'Repository language', help_text: 'Used for docs, README, architecture decisions, and GitHub Issues.' },
+        'language.workflow': { label: 'Workflow language', help_text: 'Used for PR titles and descriptions, review comments, and commit messages.' },
         'workflow.execution_mode': { label: 'Execution mode' },
         'pull_requests.enabled': { label: 'Use pull requests' },
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
@@ -200,8 +199,7 @@ export const messages = {
         },
       },
       options: {
-        'language.documentation': { en: 'English', ru: 'Russian' },
-        'language.issues': { en: 'English', ru: 'Russian' },
+        'language.repository': { en: 'English', ru: 'Russian' },
         'language.workflow': { en: 'English', ru: 'Russian' },
         'workflow.execution_mode': {
           autonomous: {
@@ -416,8 +414,7 @@ export const messages = {
         },
       },
       fields: {
-        'language.documentation': { label: 'Язык документации' },
-        'language.issues': { label: 'Язык задач' },
+        'language.repository': { label: 'Язык репозитория', help_text: 'Используется для документации, README, решений по архитектуре и задач GitHub.' },
         'language.workflow': { label: 'Язык workflow', help_text: 'Используется для текста PR, комментариев ревью и сообщений коммитов.' },
         'workflow.execution_mode': { label: 'Режим работы' },
         'pull_requests.enabled': { label: 'Использовать пул-реквесты' },
@@ -474,8 +471,7 @@ export const messages = {
         },
       },
       options: {
-        'language.documentation': { en: 'Английский', ru: 'Русский' },
-        'language.issues': { en: 'Английский', ru: 'Русский' },
+        'language.repository': { en: 'Английский', ru: 'Русский' },
         'language.workflow': { en: 'Английский', ru: 'Русский' },
         'workflow.execution_mode': {
           autonomous: {
