@@ -148,9 +148,7 @@ export const messages = {
       fields: {
         'language.documentation': { label: 'Documentation language' },
         'language.issues': { label: 'Issue language' },
-        'language.pull_requests': { label: 'Pull request language' },
-        'language.comments': { label: 'Agent comment language' },
-        'language.commits': { label: 'Commit language' },
+        'language.workflow': { label: 'Workflow language', help_text: 'Used for PR text, review comments, and commit messages.' },
         'workflow.execution_mode': { label: 'Execution mode' },
         'pull_requests.enabled': { label: 'Use pull requests' },
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
@@ -204,9 +202,7 @@ export const messages = {
       options: {
         'language.documentation': { en: 'English', ru: 'Russian' },
         'language.issues': { en: 'English', ru: 'Russian' },
-        'language.pull_requests': { en: 'English', ru: 'Russian' },
-        'language.comments': { en: 'English', ru: 'Russian' },
-        'language.commits': { en: 'English', ru: 'Russian' },
+        'language.workflow': { en: 'English', ru: 'Russian' },
         'workflow.execution_mode': {
           autonomous: {
             label: 'Autonomous',
@@ -422,9 +418,7 @@ export const messages = {
       fields: {
         'language.documentation': { label: 'Язык документации' },
         'language.issues': { label: 'Язык задач' },
-        'language.pull_requests': { label: 'Язык пул-реквестов' },
-        'language.comments': { label: 'Язык комментариев агента' },
-        'language.commits': { label: 'Язык коммитов' },
+        'language.workflow': { label: 'Язык workflow', help_text: 'Используется для текста PR, комментариев ревью и сообщений коммитов.' },
         'workflow.execution_mode': { label: 'Режим работы' },
         'pull_requests.enabled': { label: 'Использовать пул-реквесты' },
         'pull_requests.creation_mode': {
@@ -482,9 +476,7 @@ export const messages = {
       options: {
         'language.documentation': { en: 'Английский', ru: 'Русский' },
         'language.issues': { en: 'Английский', ru: 'Русский' },
-        'language.pull_requests': { en: 'Английский', ru: 'Русский' },
-        'language.comments': { en: 'Английский', ru: 'Русский' },
-        'language.commits': { en: 'Английский', ru: 'Русский' },
+        'language.workflow': { en: 'Английский', ru: 'Русский' },
         'workflow.execution_mode': {
           autonomous: {
             label: 'Автономный',

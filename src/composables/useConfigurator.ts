@@ -116,9 +116,9 @@ const generatedConfig = computed<GeneratedConfig>(() => ({
   language: {
     documentation: toString(formState.value['language.documentation'], 'en'),
     issues: toString(formState.value['language.issues'], 'en'),
-    pull_requests: toString(formState.value['language.pull_requests'], 'en'),
-    comments: toString(formState.value['language.comments'], 'en'),
-    commits: toString(formState.value['language.commits'], 'en'),
+    pull_requests: toString(formState.value['language.workflow'], 'en'),
+    comments: toString(formState.value['language.workflow'], 'en'),
+    commits: toString(formState.value['language.workflow'], 'en'),
     labels: 'en',
   },
   workflow: {

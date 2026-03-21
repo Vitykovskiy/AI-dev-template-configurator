@@ -53,31 +53,9 @@
           ]
         },
         {
-          "id": "language.pull_requests",
+          "id": "language.workflow",
           "component": "segmented_control",
-          "label": "Pull request language",
-          "required": true,
-          "default": "en",
-          "options": [
-            { "value": "en", "label": "English" },
-            { "value": "ru", "label": "Russian" }
-          ]
-        },
-        {
-          "id": "language.comments",
-          "component": "segmented_control",
-          "label": "Agent comment language",
-          "required": true,
-          "default": "en",
-          "options": [
-            { "value": "en", "label": "English" },
-            { "value": "ru", "label": "Russian" }
-          ]
-        },
-        {
-          "id": "language.commits",
-          "component": "segmented_control",
-          "label": "Commit language",
+          "label": "Workflow language",
           "required": true,
           "default": "en",
           "options": [
