@@ -205,7 +205,7 @@ export const messages = {
           autonomous: {
             label: 'Autonomous',
             description:
-              'Agent moves through the workflow without pausing between stages.',
+              'Agent works iteratively through tasks without stopping between stages. Continues until a configured human checkpoint is reached, a blocker requires input, or the backlog is exhausted.',
           },
           staged: {
             label: 'Staged',
@@ -476,7 +476,7 @@ export const messages = {
         'workflow.execution_mode': {
           autonomous: {
             label: 'Автономный',
-            description: 'Агент работает без остановок между стадиями.',
+            description: 'Агент итеративно выполняет задачи без остановок между стадиями. Продолжает работу до тех пор, пока не достигнет настроенной контрольной точки, не столкнётся с блокером или не исчерпает бэклог.',
           },
           staged: {
             label: 'Поэтапный',
