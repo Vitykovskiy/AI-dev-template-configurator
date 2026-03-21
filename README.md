@@ -13,8 +13,8 @@ The configurator helps choose:
 
 - repository language policy;
 - agent execution mode and human checkpoints;
-- task-scoped pull request and review policy;
-- artifact persistence rules;
+- task-scoped pull request and review policy.
+
 It then generates a ready `.ai-dev-template.config.json` file for the repository root.
 
 ## Local Development
