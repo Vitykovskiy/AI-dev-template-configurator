@@ -128,7 +128,7 @@
             {
               "value": "for_significant_tasks",
               "label": "Significant tasks only",
-              "description": "Use PRs only for tasks that change code or behavior, affect architecture, API, security, migrations, external integrations, or otherwise require review."
+              "description": "Use PRs only for significant tasks. When branch protection is active, non-significant tasks also get a PR — but without review, merged automatically after green checks."
             },
             {
               "value": "manual_per_task",
@@ -289,6 +289,27 @@
                 "field": "pull_requests.review.required",
                 "operator": "equals",
                 "value": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "branch_protection_creation_mode_warning",
+          "component": "info_banner",
+          "label": "branch_protection_creation_mode_warning",
+          "required": false,
+          "default": "",
+          "visibility": {
+            "all_of": [
+              {
+                "field": "pull_requests.merge.agent_configure_branch_protection",
+                "operator": "equals",
+                "value": true
+              },
+              {
+                "field": "pull_requests.creation_mode",
+                "operator": "not_equals",
+                "value": "for_every_task"
               }
             ]
           }

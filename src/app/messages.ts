@@ -183,6 +183,11 @@ export const messages = {
           help_text:
             'These review and merge rules are enforced by the agent only. Without GitHub branch protection, the agent can push directly to main or merge without approval. To technically enforce this policy, go to repository Settings → Branches → Add branch protection rule for main: enable "Require a pull request before merging", set the required number of approvals, and disable "Allow bypassing the above settings".',
         },
+        branch_protection_creation_mode_warning: {
+          label: 'Branch protection overrides PR creation mode',
+          help_text:
+            'When branch protection is active, direct pushes to main are blocked — including for non-significant tasks. The agent will create a PR for every task regardless of the PR policy setting. For non-significant tasks: PR is created without requesting review and merged automatically once all required checks pass. To make the configuration explicit, consider switching PR policy to "Every task".',
+        },
         'pull_requests.merge.agent_configure_branch_protection': {
           label: 'Let agent configure branch protection',
           help_text:
@@ -223,7 +228,7 @@ export const messages = {
           for_significant_tasks: {
             label: 'Significant tasks only',
             description:
-              'Use PRs only for tasks that change code or system behavior, or otherwise require review.',
+              'Use PRs only for significant tasks. When branch protection is active, non-significant tasks also get a PR — but without review, merged automatically after green checks.',
           },
           manual_per_task: {
             label: 'Decide per task',
@@ -444,6 +449,11 @@ export const messages = {
           help_text:
             'Правила ревью и слияния из этого экрана выполняет только агент. Без защиты ветки в GitHub агент может запушить напрямую в main или слить изменения без ревью. Чтобы технически обеспечить соблюдение этих правил, откройте Settings → Branches → Add branch protection rule для ветки main: включите «Require a pull request before merging», укажите нужное количество подтверждений и отключите «Allow bypassing the above settings».',
         },
+        branch_protection_creation_mode_warning: {
+          label: 'Защита ветки переопределяет правило PR',
+          help_text:
+            'Когда защита ветки активна, прямые пуши в main заблокированы — в том числе для незначимых задач. Агент будет создавать PR для каждой задачи независимо от выбранного правила. Для незначимых задач: PR создаётся без запроса ревью и мержится автоматически после прохождения всех проверок. Чтобы сделать конфигурацию явной, рассмотрите вариант «Для каждой задачи».',
+        },
         'pull_requests.merge.agent_configure_branch_protection': {
           label: 'Агент настраивает защиту ветки',
           help_text:
@@ -485,7 +495,7 @@ export const messages = {
           for_significant_tasks: {
             label: 'Только для значимых задач',
             description:
-              'Использовать пул-реквесты только для задач, которые меняют код или поведение системы, либо требуют ревью.',
+              'Использовать пул-реквесты только для значимых задач. Когда защита ветки активна, незначимые задачи тоже получают PR — но без ревью, с автоматическим слиянием после прохождения проверок.',
           },
           manual_per_task: {
             label: 'Решать по каждой задаче',
