@@ -15,7 +15,7 @@
 
         <StepProgress
           :current-step="currentScreenIndex"
-          :screens="contract.screens"
+          :screens="visibleScreens"
           :translate-screen="
             (screen) => screenText(screen, screenTextKey.Title)
           "
@@ -256,6 +256,7 @@ const {
   setFieldValue,
   toggleCheckboxValue,
   totalScreens,
+  visibleScreens,
   copyJson,
   downloadJson,
 } = useConfigurator()
@@ -377,11 +378,11 @@ const summaryCards = computed(() => [
         : []),
     ],
   },
-  {
-    title: t('summary.review'),
-    items: [
-      ...(pullRequestsEnabled.value
-        ? [
+  ...(pullRequestsEnabled.value
+    ? [
+        {
+          title: t('summary.review'),
+          items: [
             `${t('summary.fields.required')}: ${formatBoolean(Boolean(formState.value['pull_requests.review.required']))}`,
             ...(reviewRequired.value
               ? [
@@ -393,10 +394,10 @@ const summaryCards = computed(() => [
             `${t('summary.fields.greenChecks')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.require_green_checks']))}`,
             `${t('summary.fields.selfMerge')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.allow_agent_self_merge']))}`,
             `${t('summary.fields.configureBranchProtection')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.agent_configure_branch_protection']))}`,
-          ]
-        : [`${t('summary.fields.required')}: ${t('common.notAllowed')}`]),
-    ],
-  },
+          ],
+        },
+      ]
+    : []),
   {
     title: t('summary.projectMap'),
     items: [

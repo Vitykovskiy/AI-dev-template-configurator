@@ -54,6 +54,14 @@ function getVisibleFields(screen: ContractScreen): ContractField[] {
   )
 }
 
+function isScreenVisible(screen: ContractScreen): boolean {
+  if (screen.type !== 'form') {
+    return true
+  }
+
+  return getVisibleFields(screen).length > 0
+}
+
 function setFieldValue(fieldId: string, value: FormStateValue): void {
   formState.value[fieldId] = Array.isArray(value) ? [...value] : value
 }
@@ -76,7 +84,7 @@ function toggleCheckboxValue(
 }
 
 function nextScreen(): void {
-  if (currentScreenIndex.value < uiContract.screens.length - 1) {
+  if (currentScreenIndex.value < visibleScreens.value.length - 1) {
     currentScreenIndex.value += 1
   }
 }
@@ -88,7 +96,7 @@ function previousScreen(): void {
 }
 
 function goToScreen(index: number): void {
-  if (index >= 0 && index < uiContract.screens.length) {
+  if (index >= 0 && index < visibleScreens.value.length) {
     currentScreenIndex.value = index
   }
 }
@@ -107,80 +115,102 @@ function toString(value: FormStateValue, fallback = ''): string {
   return typeof value === 'string' ? value : fallback
 }
 
-const generatedConfig = computed<GeneratedConfig>(() => ({
-  config_version: 1,
-  architecture: {
-    use_fsd: toBoolean(formState.value['architecture.use_fsd'], true),
-  },
-  language: {
-    documentation: toString(formState.value['language.repository'], 'en'),
-    issues: toString(formState.value['language.repository'], 'en'),
-    pull_requests: toString(formState.value['language.workflow'], 'en'),
-    comments: toString(formState.value['language.workflow'], 'en'),
-    commits: toString(formState.value['language.workflow'], 'en'),
-    labels: 'en',
-  },
-  workflow: {
-    execution_mode: toString(
-      formState.value['workflow.execution_mode'],
-      'autonomous',
-    ),
-    issue_tracking: 'github_issues',
-    project_tracking: 'github_project',
-  },
-  pull_requests: {
-    enabled: toBoolean(formState.value['pull_requests.enabled'], true),
-    creation_mode: toString(
-      formState.value['pull_requests.creation_mode'],
-      'for_significant_tasks',
-    ),
-    review: {
-      required: toBoolean(
-        formState.value['pull_requests.review.required'],
-        true,
-      ),
-      reviewers: toString(
-        formState.value['pull_requests.review.reviewers'],
-        'human',
-      ),
-    },
-    merge: {
-      squash_commits: toBoolean(
-        formState.value['pull_requests.merge.squash_commits'],
-        true,
-      ),
-      integration_method: toString(
-        formState.value['pull_requests.merge.integration_method'],
-        'merge',
-      ),
-      require_green_checks: toBoolean(
-        formState.value['pull_requests.merge.require_green_checks'],
-        true,
-      ),
-      allow_agent_self_merge: toBoolean(
-        formState.value['pull_requests.merge.allow_agent_self_merge'],
-        false,
-      ),
-      agent_configure_branch_protection: toBoolean(
-        formState.value[
-          'pull_requests.merge.agent_configure_branch_protection'
-        ],
-        false,
-      ),
-    },
-  },
-  project_map: {
-    enabled: toBoolean(formState.value['project_map.enabled'], true),
-  },
-}))
+const generatedConfig = computed<GeneratedConfig>(() => {
+  const pullRequestsEnabled = toBoolean(
+    formState.value['pull_requests.enabled'],
+    true,
+  )
+  const reviewRequired = pullRequestsEnabled
+    ? toBoolean(formState.value['pull_requests.review.required'], true)
+    : false
+  const reviewers = reviewRequired
+    ? toString(formState.value['pull_requests.review.reviewers'], 'human')
+    : 'human'
 
+  return {
+    config_version: 1,
+    architecture: {
+      use_fsd: toBoolean(formState.value['architecture.use_fsd'], true),
+    },
+    language: {
+      documentation: toString(formState.value['language.repository'], 'en'),
+      issues: toString(formState.value['language.repository'], 'en'),
+      pull_requests: toString(formState.value['language.workflow'], 'en'),
+      comments: toString(formState.value['language.workflow'], 'en'),
+      commits: toString(formState.value['language.workflow'], 'en'),
+      labels: 'en',
+    },
+    workflow: {
+      execution_mode: toString(
+        formState.value['workflow.execution_mode'],
+        'autonomous',
+      ),
+      issue_tracking: 'github_issues',
+      project_tracking: 'github_project',
+    },
+    pull_requests: {
+      enabled: pullRequestsEnabled,
+      creation_mode: toString(
+        formState.value['pull_requests.creation_mode'],
+        'for_significant_tasks',
+      ),
+      review: {
+        required: reviewRequired,
+        reviewers,
+      },
+      merge: {
+        squash_commits: pullRequestsEnabled
+          ? toBoolean(
+              formState.value['pull_requests.merge.squash_commits'],
+              true,
+            )
+          : false,
+        integration_method: pullRequestsEnabled
+          ? toString(
+              formState.value['pull_requests.merge.integration_method'],
+              'merge',
+            )
+          : 'merge',
+        require_green_checks: pullRequestsEnabled
+          ? toBoolean(
+              formState.value['pull_requests.merge.require_green_checks'],
+              true,
+            )
+          : false,
+        allow_agent_self_merge:
+          pullRequestsEnabled && reviewers === 'ai'
+            ? toBoolean(
+                formState.value['pull_requests.merge.allow_agent_self_merge'],
+                false,
+              )
+            : false,
+        agent_configure_branch_protection:
+          pullRequestsEnabled && reviewRequired
+            ? toBoolean(
+                formState.value[
+                  'pull_requests.merge.agent_configure_branch_protection'
+                ],
+                false,
+              )
+            : false,
+      },
+    },
+    project_map: {
+      enabled: toBoolean(formState.value['project_map.enabled'], true),
+    },
+  }
+})
+
+const visibleScreens = computed(() =>
+  uiContract.screens.filter((screen) => isScreenVisible(screen)),
+)
 const currentScreen = computed(
-  () => uiContract.screens[currentScreenIndex.value],
+  () => visibleScreens.value[currentScreenIndex.value],
 )
 const previewJson = computed(() =>
   JSON.stringify(generatedConfig.value, null, 2),
 )
-const totalScreens = computed(() => uiContract.screens.length)
+const totalScreens = computed(() => visibleScreens.value.length)
 const isFirstScreen = computed(() => currentScreenIndex.value === 0)
 
 async function copyJson(): Promise<void> {
@@ -207,6 +237,12 @@ watch(currentScreenIndex, () => {
   isCopied.value = false
 })
 
+watch(visibleScreens, (screens) => {
+  if (currentScreenIndex.value > screens.length - 1) {
+    currentScreenIndex.value = Math.max(0, screens.length - 1)
+  }
+})
+
 export function useConfigurator() {
   return {
     contract: uiContract,
@@ -225,6 +261,7 @@ export function useConfigurator() {
     setFieldValue,
     toggleCheckboxValue,
     totalScreens,
+    visibleScreens,
     copyJson,
     downloadJson,
   }
