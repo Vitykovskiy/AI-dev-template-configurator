@@ -11,6 +11,7 @@ Web configurator for generating `.ai-dev-template.config.json` for repositories 
 
 The configurator helps choose:
 
+- frontend architecture policy, including optional FSD support;
 - repository language policy;
 - agent execution mode and human checkpoints;
 - task-scoped pull request and review policy.

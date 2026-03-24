@@ -109,6 +109,9 @@ function toString(value: FormStateValue, fallback = ''): string {
 
 const generatedConfig = computed<GeneratedConfig>(() => ({
   config_version: 1,
+  architecture: {
+    use_fsd: toBoolean(formState.value['architecture.use_fsd'], true),
+  },
   language: {
     documentation: toString(formState.value['language.repository'], 'en'),
     issues: toString(formState.value['language.repository'], 'en'),

@@ -84,6 +84,34 @@
       ]
     },
     {
+      "id": "architecture",
+      "type": "form",
+      "title": "Frontend Architecture",
+      "description": "Choose whether the template should treat Feature-Sliced Design as the default frontend architecture.",
+      "fields": [
+        {
+          "id": "architecture.use_fsd",
+          "component": "card_radio_group",
+          "label": "Use Feature-Sliced Design (FSD)",
+          "required": true,
+          "default": true,
+          "help_text": "Controls whether generated guidance and project structure should explicitly target FSD layers and boundaries for frontend code.",
+          "options": [
+            {
+              "value": true,
+              "label": "Enabled",
+              "description": "Frontend guidance assumes FSD and recommends keeping code in FSD layers with explicit boundaries."
+            },
+            {
+              "value": false,
+              "label": "Disabled",
+              "description": "The template does not impose FSD and allows the team to use another frontend structure."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "pull_requests",
       "type": "form",
       "title": "Pull Requests",
@@ -363,6 +391,7 @@
       "sections": [
         "Language",
         "Execution mode",
+        "Frontend architecture",
         "Pull requests",
         "Review and merge",
         "Project map",
@@ -384,6 +413,9 @@
   ],
   "generated_json_template": {
     "config_version": 1,
+    "architecture": {
+      "use_fsd": "{{architecture.use_fsd}}"
+    },
     "language": {
       "documentation": "{{language.documentation}}",
       "issues": "{{language.issues}}",

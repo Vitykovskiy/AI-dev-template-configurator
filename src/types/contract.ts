@@ -94,6 +94,9 @@ export interface UiContract {
 
 export interface GeneratedConfig {
   config_version: number
+  architecture: {
+    use_fsd: boolean
+  }
   language: {
     documentation: string
     issues: string

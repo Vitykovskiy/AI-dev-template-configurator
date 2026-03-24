@@ -50,24 +50,22 @@ export const messages = {
           'Branch protection and project write permissions must still be checked separately.',
         ],
         branchProtectionAdminNote:
-          'Agent will configure branch protection: the token user must have admin access to the repository (repo scope alone is not sufficient).',
+          'Agent will configure branch protection: the token user must have admin access to the repository.',
       },
     },
     summary: {
       language: 'Language',
+      architecture: 'Frontend architecture',
       execution: 'Execution mode',
       prFlow: 'Pull requests',
       review: 'Review and merge',
-      artifacts: 'Artifact persistence',
       projectMap: 'Project map',
       fields: {
-        documentation: 'Documentation',
-        issues: 'Issues',
-        pullRequests: 'Pull requests',
-        comments: 'Comments',
-        commits: 'Commits',
+        repositoryLanguage: 'Repository language',
+        workflowLanguage: 'Workflow language',
         mode: 'Mode',
         checkpoints: 'Human checkpoints',
+        useFsd: 'Use FSD',
         enabled: 'Enabled',
         creation: 'Creation mode',
         required: 'Review required',
@@ -77,7 +75,6 @@ export const messages = {
         greenChecks: 'Green checks required',
         selfMerge: 'Agent self-merge',
         configureBranchProtection: 'Agent configures branch protection',
-        temp: 'Temporary workfiles to repository',
         projectMapEnabled: 'Maintain project map',
       },
     },
@@ -98,7 +95,7 @@ export const messages = {
         welcome: {
           title: 'Configure Repository Workflow',
           description:
-            'Set language, workflow mode, PR policy, and artifact persistence for a new AI Dev Template repository.',
+            'Set language, frontend architecture, workflow mode, PR policy, and project-map settings for a new AI Dev Template repository.',
           primary_action: 'Start configuration',
         },
         language: {
@@ -110,6 +107,11 @@ export const messages = {
           title: 'Execution Mode',
           description: 'Choose how autonomous the agent should be.',
         },
+        architecture: {
+          title: 'Frontend Architecture',
+          description:
+            'Choose whether the template should treat Feature-Sliced Design as the default frontend architecture.',
+        },
         pull_requests: {
           title: 'Pull Requests',
           description:
@@ -120,10 +122,10 @@ export const messages = {
           description:
             'Review policy is only needed when pull requests are enabled.',
         },
-        artifacts: {
-          title: 'Artifact Persistence',
+        project_map: {
+          title: 'Project Map',
           description:
-            'Control whether temporary AI workfiles stay local or are committed to the repository.',
+            'The agent can maintain a structured map of the project file tree to simplify navigation across sessions.',
         },
         github_permissions: {
           title: 'GitHub Token Requirements',
@@ -142,9 +144,22 @@ export const messages = {
         },
       },
       fields: {
-        'language.repository': { label: 'Repository language', help_text: 'Used for docs, README, architecture decisions, and GitHub Issues.' },
-        'language.workflow': { label: 'Workflow language', help_text: 'Used for PR titles and descriptions, review comments, and commit messages.' },
+        'language.repository': {
+          label: 'Repository language',
+          help_text:
+            'Used for docs, README, architecture decisions, and GitHub Issues.',
+        },
+        'language.workflow': {
+          label: 'Workflow language',
+          help_text:
+            'Used for PR titles and descriptions, review comments, and commit messages.',
+        },
         'workflow.execution_mode': { label: 'Execution mode' },
+        'architecture.use_fsd': {
+          label: 'Use Feature-Sliced Design (FSD)',
+          help_text:
+            'Controls whether generated guidance and project structure should explicitly target FSD layers and boundaries for frontend code.',
+        },
         'pull_requests.enabled': { label: 'Use pull requests' },
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
         'pull_requests.review.required': { label: 'Require review' },
@@ -152,7 +167,7 @@ export const messages = {
         ai_reviewer_note: {
           label: 'External AI reviewer required',
           help_text:
-            'AI review requires the veni-vidi-review GitHub App to be installed and configured for this repository. The app submits a formal review on each PR. The template includes ai-review-gate.yml — a workflow that polls the App review result and reports it as a required status check (ai-review-approved). Branch protection must require this check, not a human approval — the App\'s approval does not count toward GitHub\'s approval gate.',
+            'AI review requires the veni-vidi-review GitHub App to be installed and configured for this repository.',
         },
         'pull_requests.merge.squash_commits': {
           label: 'Squash commits before merge',
@@ -168,30 +183,25 @@ export const messages = {
         'pull_requests.merge.allow_agent_self_merge': {
           label: 'Allow agent self-merge',
         },
-        'artifacts.persist_temporary_workfiles_to_repo': {
-          label: 'Persist temporary AI workfiles to repository',
-          help_text:
-            'Scratch notes, drafts, logs, and temporary generation files usually should stay local.',
-        },
-        'project_map.enabled': {
-          label: 'Maintain project map',
-          help_text:
-            'If enabled, the agent creates and updates docs/project-map.md — a file tree with descriptions of each folder and key file.',
-        },
         branch_protection_note: {
           label: 'Branch protection required',
           help_text:
-            'These review and merge rules are enforced by the agent only. Without GitHub branch protection, the agent can push directly to main or merge without approval. To technically enforce this policy, go to repository Settings → Branches → Add branch protection rule for main: enable "Require a pull request before merging", set the required number of approvals, and disable "Allow bypassing the above settings".',
-        },
-        branch_protection_creation_mode_warning: {
-          label: 'Branch protection overrides PR creation mode',
-          help_text:
-            'When branch protection is active, direct pushes to main are blocked — including for non-significant tasks. The agent will create a PR for every task regardless of the PR policy setting. For non-significant tasks: PR is created without requesting review and merged automatically once all required checks pass. To make the configuration explicit, consider switching PR policy to "Every task".',
+            'These review and merge rules are enforced by the agent only. GitHub branch protection is still required to enforce them technically.',
         },
         'pull_requests.merge.agent_configure_branch_protection': {
           label: 'Let agent configure branch protection',
           help_text:
-            'If enabled, the agent will apply branch protection rules to main automatically using the GitHub API. Requires the token user to have admin access to the repository.',
+            'If enabled, the agent will apply branch protection rules to main automatically using the GitHub API.',
+        },
+        branch_protection_creation_mode_warning: {
+          label: 'Branch protection overrides PR creation mode',
+          help_text:
+            'When branch protection is active, direct pushes to main are blocked, so the agent will create a PR for every task.',
+        },
+        'project_map.enabled': {
+          label: 'Maintain project map',
+          help_text:
+            'If enabled, the agent creates and updates docs/project-map.md with a file tree and short descriptions.',
         },
       },
       options: {
@@ -201,12 +211,24 @@ export const messages = {
           autonomous: {
             label: 'Autonomous',
             description:
-              'Agent works iteratively through tasks without stopping between stages. Continues until a configured human checkpoint is reached, a blocker requires input, or the backlog is exhausted.',
+              'Agent works iteratively through tasks without stopping between stages.',
           },
           staged: {
             label: 'Staged',
             description:
               'Agent pauses between work stages and waits for explicit human confirmation before continuing.',
+          },
+        },
+        'architecture.use_fsd': {
+          true: {
+            label: 'Enabled',
+            description:
+              'Frontend guidance assumes FSD and recommends keeping code in FSD layers with explicit boundaries.',
+          },
+          false: {
+            label: 'Disabled',
+            description:
+              'The template does not impose FSD and allows the team to use another frontend structure.',
           },
         },
         'pull_requests.enabled': {
@@ -228,7 +250,7 @@ export const messages = {
           for_significant_tasks: {
             label: 'Significant tasks only',
             description:
-              'Use PRs only for significant tasks. When branch protection is active, non-significant tasks also get a PR — but without review, merged automatically after green checks.',
+              'Use PRs only for significant tasks, unless branch protection forces a PR for every change.',
           },
           manual_per_task: {
             label: 'Decide per task',
@@ -267,7 +289,7 @@ export const messages = {
       disabled: 'Выключено',
       none: 'Нет',
       allowed: 'Разрешено',
-      notAllowed: 'Запрещено',
+      notAllowed: 'Не разрешено',
     },
     chrome: {
       badge: 'Мастер настройки',
@@ -294,10 +316,10 @@ export const messages = {
         'Сгенерировать корректный `.ai-dev-template.config.json` для репозитория AI Dev Template.',
       designPrinciples: [
         'Пошаговая настройка.',
-        'Только важные вопросы.',
-        'Ничего лишнего, если функция отключена.',
-        'Фиксированные варианты там, где это удобно.',
-        'Сводка настроек и итоговый JSON всегда под рукой.',
+        'Только вопросы, которые влияют на итоговый конфиг.',
+        'Нерелевантные настройки скрываются.',
+        'Где возможно, используются фиксированные варианты ответа.',
+        'Сводка и итоговый JSON всегда под рукой.',
       ],
       githubBlocks: {
         requiredScopes: 'Обязательные права доступа',
@@ -306,28 +328,26 @@ export const messages = {
         scopes: ['repo', 'project'],
         recommended: ['read:org', 'workflow'],
         notesList: [
-          'Набора прав доступа недостаточно, чтобы гарантировать запись в конкретный репозиторий.',
-          'Защиту веток и права записи в проект GitHub нужно проверять отдельно.',
+          'Набор scopes сам по себе не гарантирует доступ на запись в конкретный репозиторий.',
+          'Защиту веток и права записи в GitHub Project нужно проверять отдельно.',
         ],
         branchProtectionAdminNote:
-          'Агент настроит защиту ветки: владелец токена должен иметь права администратора репозитория (одного скоупа repo недостаточно).',
+          'Если агент настраивает branch protection, у владельца токена должны быть права администратора репозитория.',
       },
     },
     summary: {
       language: 'Язык',
+      architecture: 'Frontend-архитектура',
       execution: 'Режим работы',
       prFlow: 'Пул-реквесты',
       review: 'Ревью и слияние',
-      artifacts: 'Хранение артефактов',
       projectMap: 'Карта проекта',
       fields: {
-        documentation: 'Документация',
-        issues: 'Задачи',
-        pullRequests: 'Пул-реквесты',
-        comments: 'Комментарии',
-        commits: 'Коммиты',
+        repositoryLanguage: 'Язык репозитория',
+        workflowLanguage: 'Язык workflow',
         mode: 'Режим',
         checkpoints: 'Контрольные точки',
+        useFsd: 'Использовать FSD',
         enabled: 'Используются',
         creation: 'Когда создавать',
         required: 'Ревью обязательно',
@@ -337,7 +357,6 @@ export const messages = {
         greenChecks: 'Только при успешных проверках',
         selfMerge: 'Самослияние агентом',
         configureBranchProtection: 'Агент настраивает защиту ветки',
-        temp: 'Временные файлы в репозитории',
         projectMapEnabled: 'Поддерживать карту проекта',
       },
     },
@@ -358,57 +377,72 @@ export const messages = {
         welcome: {
           title: 'Настройка работы с репозиторием',
           description:
-            'Задайте язык, режим работы, правила для пул-реквестов и хранение артефактов.',
+            'Задайте язык, frontend-архитектуру, режим работы, правила для пул-реквестов и карту проекта для нового репозитория AI Dev Template.',
           primary_action: 'Начать настройку',
         },
         language: {
           title: 'Язык',
           description:
-            'Выберите язык документации, задач, пул-реквестов и комментариев. Метки GitHub останутся на английском.',
+            'Выберите язык артефактов репозитория. GitHub labels останутся на английском.',
         },
         execution_mode: {
           title: 'Режим работы',
           description:
             'Выберите, насколько самостоятельно может работать агент.',
         },
+        architecture: {
+          title: 'Frontend-архитектура',
+          description:
+            'Выберите, должен ли шаблон считать Feature-Sliced Design базовой архитектурой фронтенда.',
+        },
         pull_requests: {
           title: 'Пул-реквесты',
-          description: 'Выберите, будет ли работа идти через пул-реквесты.',
+          description:
+            'Выберите, будет ли работа в этом репозитории идти через пул-реквесты.',
         },
         review_merge: {
           title: 'Ревью и слияние',
           description:
-            'Этот шаг нужен только если в репозитории используются пул-реквесты.',
-        },
-        artifacts: {
-          title: 'Хранение артефактов',
-          description:
-            'Выберите, остаются ли временные файлы ИИ локально или коммитятся в репозиторий.',
+            'Политика ревью нужна только если включены пул-реквесты.',
         },
         project_map: {
           title: 'Карта проекта',
           description:
-            'Агент может поддерживать актуальную карту файловой структуры проекта для удобной навигации между сессиями.',
+            'Агент может поддерживать структурированную карту файловой системы проекта для навигации между сессиями.',
         },
         github_permissions: {
           title: 'Права доступа GitHub',
           description:
-            'Показаны права доступа, которые ожидаются от токена. В первой версии этот шаг только информационный.',
+            'Показаны права доступа, которые ожидаются от токена. На первом этапе этот экран только информационный.',
         },
         review: {
           title: 'Проверка конфигурации',
-          description: 'Проверьте сводку перед генерацией итогового JSON.',
+          description:
+            'Проверьте сводку перед генерацией итогового JSON.',
         },
         result: {
           title: 'Конфигурация готова',
           description:
-            'Итоговый JSON можно скопировать или скачать готовый файл.',
+            'Итоговый JSON можно скопировать или скачать готовым файлом.',
         },
       },
       fields: {
-        'language.repository': { label: 'Язык репозитория', help_text: 'Используется для документации, README, решений по архитектуре и задач GitHub.' },
-        'language.workflow': { label: 'Язык workflow', help_text: 'Используется для текста PR, комментариев ревью и сообщений коммитов.' },
+        'language.repository': {
+          label: 'Язык репозитория',
+          help_text:
+            'Используется для документации, README, архитектурных решений и задач GitHub.',
+        },
+        'language.workflow': {
+          label: 'Язык workflow',
+          help_text:
+            'Используется для текста PR, комментариев ревью и сообщений коммитов.',
+        },
         'workflow.execution_mode': { label: 'Режим работы' },
+        'architecture.use_fsd': {
+          label: 'Использовать Feature-Sliced Design (FSD)',
+          help_text:
+            'Определяет, должны ли инструкции и структура проекта явно ориентироваться на FSD-слои и границы во frontend-коде.',
+        },
         'pull_requests.enabled': { label: 'Использовать пул-реквесты' },
         'pull_requests.creation_mode': {
           label: 'Правило для пул-реквестов по задачам',
@@ -418,46 +452,41 @@ export const messages = {
         ai_reviewer_note: {
           label: 'Требуется внешний ИИ-ревьювер',
           help_text:
-            'Ревью от ИИ работает через GitHub App veni-vidi-review, который должен быть установлен и подключён к репозиторию. Приложение проводит ревью на каждый PR. Шаблон включает ai-review-gate.yml — workflow, который поллит результат ревью App и передаёт его как required status check (ai-review-approved). Branch protection должен требовать именно этот check, а не approval от человека: approval от GitHub App не засчитывается в систему аппрувалов GitHub.',
+            'Ревью от ИИ требует установленного и настроенного GitHub App veni-vidi-review.',
         },
         'pull_requests.merge.squash_commits': {
           label: 'Схлопывать коммиты перед слиянием',
           help_text:
-            'Если включено, несколько коммитов из ветки задачи будут объединены в один перед слиянием.',
+            'Если включено, несколько коммитов из ветки задачи будут объединены в один перед merge.',
         },
         'pull_requests.merge.integration_method': {
-          label: 'Как встраивать ветку задачи',
+          label: 'Способ встраивания ветки задачи',
         },
         'pull_requests.merge.require_green_checks': {
-          label: 'Обязательны успешные проверки перед слиянием',
+          label: 'Требовать зелёные проверки перед слиянием',
         },
         'pull_requests.merge.allow_agent_self_merge': {
           label: 'Разрешить агенту сливать изменения самому',
         },
-        'artifacts.persist_temporary_workfiles_to_repo': {
-          label: 'Хранить временные файлы ИИ в репозитории',
+        branch_protection_note: {
+          label: 'Требуется branch protection',
           help_text:
-            'Черновики, заметки, логи и временные файлы генерации обычно лучше оставлять локально.',
+            'Правила ревью и слияния с этого экрана агент соблюдает логически, но GitHub branch protection всё равно нужен для технического enforcement.',
+        },
+        'pull_requests.merge.agent_configure_branch_protection': {
+          label: 'Разрешить агенту настраивать branch protection',
+          help_text:
+            'Если включено, агент сможет автоматически настроить правила защиты ветки main через GitHub API.',
+        },
+        branch_protection_creation_mode_warning: {
+          label: 'Защита ветки переопределяет правило создания PR',
+          help_text:
+            'Если branch protection запрещает прямые push в main, агент будет создавать PR для каждой задачи.',
         },
         'project_map.enabled': {
           label: 'Поддерживать карту проекта',
           help_text:
-            'Если включено, агент создаёт и обновляет docs/project-map.md — дерево файлов с описанием назначения каждой папки и ключевых файлов.',
-        },
-        branch_protection_note: {
-          label: 'Требуется защита основной ветки',
-          help_text:
-            'Правила ревью и слияния из этого экрана выполняет только агент. Без защиты ветки в GitHub агент может запушить напрямую в main или слить изменения без ревью. Чтобы технически обеспечить соблюдение этих правил, откройте Settings → Branches → Add branch protection rule для ветки main: включите «Require a pull request before merging», укажите нужное количество подтверждений и отключите «Allow bypassing the above settings».',
-        },
-        branch_protection_creation_mode_warning: {
-          label: 'Защита ветки переопределяет правило PR',
-          help_text:
-            'Когда защита ветки активна, прямые пуши в main заблокированы — в том числе для незначимых задач. Агент будет создавать PR для каждой задачи независимо от выбранного правила. Для незначимых задач: PR создаётся без запроса ревью и мержится автоматически после прохождения всех проверок. Чтобы сделать конфигурацию явной, рассмотрите вариант «Для каждой задачи».',
-        },
-        'pull_requests.merge.agent_configure_branch_protection': {
-          label: 'Агент настраивает защиту ветки',
-          help_text:
-            'Если включено, агент автоматически настроит правила защиты ветки main через GitHub API. Требуется, чтобы владелец токена имел права администратора репозитория.',
+            'Если включено, агент создаёт и обновляет docs/project-map.md с деревом файлов и краткими описаниями.',
         },
       },
       options: {
@@ -466,12 +495,25 @@ export const messages = {
         'workflow.execution_mode': {
           autonomous: {
             label: 'Автономный',
-            description: 'Агент итеративно выполняет задачи без остановок между стадиями. Продолжает работу до тех пор, пока не достигнет настроенной контрольной точки, не столкнётся с блокером или не исчерпает бэклог.',
+            description:
+              'Агент работает итеративно и не останавливается между стадиями без необходимости.',
           },
           staged: {
             label: 'Поэтапный',
             description:
-              'Агент останавливается между стадиями работы и ждёт явного подтверждения перед продолжением.',
+              'Агент останавливается между стадиями и ждёт явного подтверждения перед продолжением.',
+          },
+        },
+        'architecture.use_fsd': {
+          true: {
+            label: 'Включено',
+            description:
+              'Frontend-инструкции опираются на FSD и рекомендуют держать код в слоях с явными границами.',
+          },
+          false: {
+            label: 'Выключено',
+            description:
+              'Шаблон не навязывает FSD и позволяет использовать другую структуру frontend-проекта.',
           },
         },
         'pull_requests.enabled': {
@@ -483,7 +525,7 @@ export const messages = {
           false: {
             label: 'Нет',
             description:
-              'Работа идет через документацию, задачи и коммиты без этапа пул-реквестов.',
+              'Работа идёт через документацию, задачи и коммиты без этапа пул-реквестов.',
           },
         },
         'pull_requests.creation_mode': {
@@ -495,7 +537,7 @@ export const messages = {
           for_significant_tasks: {
             label: 'Только для значимых задач',
             description:
-              'Использовать пул-реквесты только для значимых задач. Когда защита ветки активна, незначимые задачи тоже получают PR — но без ревью, с автоматическим слиянием после прохождения проверок.',
+              'Использовать пул-реквесты только для значимых задач, если branch protection не требует PR для каждого изменения.',
           },
           manual_per_task: {
             label: 'Решать по каждой задаче',

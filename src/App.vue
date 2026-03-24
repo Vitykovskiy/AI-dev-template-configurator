@@ -314,12 +314,6 @@ function formatOptionValue(fieldId: string, value: PrimitiveValue) {
   return option ? optionLabel(fieldId, option) : String(value)
 }
 
-function formatOptionList(fieldId: string, values: PrimitiveValue[]) {
-  return values.length > 0
-    ? values.map((value) => formatOptionValue(fieldId, value)).join(', ')
-    : t('common.none')
-}
-
 const visibleFields = computed(() => getVisibleFields(currentScreen.value))
 const agentConfigureBranchProtection = computed(() =>
   Boolean(
@@ -352,37 +346,24 @@ const pullRequestsEnabled = computed(() =>
 const reviewRequired = computed(() =>
   Boolean(formState.value['pull_requests.review.required']),
 )
-const executionModeUsesCheckpoints = computed(() =>
-  ['hybrid', 'staged'].includes(
-    String(formState.value['workflow.execution_mode']),
-  ),
-)
-
 const summaryCards = computed(() => [
   {
     title: t('summary.language'),
     items: [
-      `${t('summary.fields.documentation')}: ${formatOptionValue('language.documentation', String(formState.value['language.documentation']))}`,
-      `${t('summary.fields.issues')}: ${formatOptionValue('language.issues', String(formState.value['language.issues']))}`,
-      `${t('summary.fields.pullRequests')}: ${formatOptionValue('language.pull_requests', String(formState.value['language.pull_requests']))}`,
-      `${t('summary.fields.comments')}: ${formatOptionValue('language.comments', String(formState.value['language.comments']))}`,
-      `${t('summary.fields.commits')}: ${formatOptionValue('language.commits', String(formState.value['language.commits']))}`,
+      `${t('summary.fields.repositoryLanguage')}: ${formatOptionValue('language.repository', String(formState.value['language.repository']))}`,
+      `${t('summary.fields.workflowLanguage')}: ${formatOptionValue('language.workflow', String(formState.value['language.workflow']))}`,
     ],
   },
   {
     title: t('summary.execution'),
     items: [
       `${t('summary.fields.mode')}: ${formatOptionValue('workflow.execution_mode', String(formState.value['workflow.execution_mode']))}`,
-      ...(executionModeUsesCheckpoints.value
-        ? [
-            `${t('summary.fields.checkpoints')}: ${formatOptionList(
-              'workflow.human_checkpoints',
-              Array.isArray(formState.value['workflow.human_checkpoints'])
-                ? formState.value['workflow.human_checkpoints']
-                : [],
-            )}`,
-          ]
-        : []),
+    ],
+  },
+  {
+    title: t('summary.architecture'),
+    items: [
+      `${t('summary.fields.useFsd')}: ${formatBoolean(Boolean(formState.value['architecture.use_fsd']))}`,
     ],
   },
   {
@@ -405,12 +386,8 @@ const summaryCards = computed(() => [
             ...(reviewRequired.value
               ? [
                   `${t('summary.fields.reviewers')}: ${formatOptionValue('pull_requests.review.reviewers', String(formState.value['pull_requests.review.reviewers']))}`,
-                  `${t('summary.fields.approvals')}: ${String(formState.value['pull_requests.merge.min_approvals'])}`,
                 ]
               : []),
-            `${t('summary.fields.readComments')}: ${formatBoolean(Boolean(formState.value['pull_requests.review.agent_must_read_comments']))}`,
-            `${t('summary.fields.replyComments')}: ${formatBoolean(Boolean(formState.value['pull_requests.review.agent_must_reply_to_comments']))}`,
-            `${t('summary.fields.applyFeedback')}: ${formatBoolean(Boolean(formState.value['pull_requests.review.agent_must_apply_accepted_feedback']))}`,
             `${t('summary.fields.squash')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.squash_commits']))}`,
             `${t('summary.fields.integration')}: ${formatOptionValue('pull_requests.merge.integration_method', String(formState.value['pull_requests.merge.integration_method']))}`,
             `${t('summary.fields.greenChecks')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.require_green_checks']))}`,
@@ -418,12 +395,6 @@ const summaryCards = computed(() => [
             `${t('summary.fields.configureBranchProtection')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.agent_configure_branch_protection']))}`,
           ]
         : [`${t('summary.fields.required')}: ${t('common.notAllowed')}`]),
-    ],
-  },
-  {
-    title: t('summary.artifacts'),
-    items: [
-      `${t('summary.fields.temp')}: ${formatBoolean(Boolean(formState.value['artifacts.persist_temporary_workfiles_to_repo']))}`,
     ],
   },
   {
