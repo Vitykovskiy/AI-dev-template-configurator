@@ -28,7 +28,7 @@
       "id": "language",
       "type": "form",
       "title": "Language",
-      "description": "Choose the language used by human-facing repository artifacts. Agent instructions, routers, and prompts remain in English. GitHub labels remain in English.",
+      "description": "Choose the language used by repository artifacts. GitHub labels remain in English.",
       "fields": [
         {
           "id": "language.repository",
@@ -36,7 +36,7 @@
           "label": "Repository language",
           "required": true,
           "default": "en",
-          "help_text": "Docs, README, architecture decisions, and GitHub Issues for humans. Agent-only instructions are not localized.",
+          "help_text": "Docs, README, architecture decisions, GitHub Issues.",
           "options": [
             { "value": "en", "label": "English" },
             { "value": "ru", "label": "Russian" }
@@ -48,7 +48,7 @@
           "label": "Workflow language",
           "required": true,
           "default": "en",
-          "help_text": "PR titles and descriptions, review comments, and commit messages. This does not change AGENTS.md, instructions, or agent prompts.",
+          "help_text": "PR titles and descriptions, review comments, commit messages.",
           "options": [
             { "value": "en", "label": "English" },
             { "value": "ru", "label": "Russian" }
