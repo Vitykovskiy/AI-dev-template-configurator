@@ -139,6 +139,7 @@ const generatedConfig = computed<GeneratedConfig>(() => {
       comments: toString(formState.value['language.workflow'], 'en'),
       commits: toString(formState.value['language.workflow'], 'en'),
       labels: 'en',
+      agent_instructions: 'en',
     },
     workflow: {
       execution_mode: toString(

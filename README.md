@@ -18,6 +18,12 @@ The configurator helps choose:
 
 It then generates a ready `.ai-dev-template.config.json` file for the repository root.
 
+Localization rule:
+
+- human-facing repository artifacts may follow the selected language settings;
+- agent-only instructions such as `AGENTS.md`, routing files, and role prompts must remain in English;
+- the configurator enforces this invariant implicitly and writes `language.agent_instructions = "en"` to the generated config.
+
 ## Local Development
 
 Requirements:

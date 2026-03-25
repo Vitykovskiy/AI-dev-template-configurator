@@ -104,6 +104,7 @@ export interface GeneratedConfig {
     comments: string
     commits: string
     labels: string
+    agent_instructions: string
   }
   workflow: {
     execution_mode: string
