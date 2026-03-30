@@ -116,7 +116,6 @@ export interface GeneratedConfig {
     creation_mode: string
     review: {
       required: boolean
-      reviewers: string
       agent_must_read_comments: boolean
       agent_must_reply_to_comments: boolean
       agent_must_apply_accepted_feedback: boolean
@@ -126,7 +125,6 @@ export interface GeneratedConfig {
       integration_method: string
       min_approvals: number
       require_green_checks: boolean
-      allow_agent_self_merge: boolean
     }
   }
   project_map: {

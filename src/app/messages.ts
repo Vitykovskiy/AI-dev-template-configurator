@@ -67,7 +67,6 @@ export const messages = {
         enabled: 'Enabled',
         creation: 'Creation mode',
         required: 'Review required',
-        reviewers: 'Reviewers',
         readComments: 'Agent reads comments',
         replyComments: 'Agent replies to comments',
         applyFeedback: 'Agent applies accepted feedback',
@@ -75,7 +74,6 @@ export const messages = {
         integration: 'Integration method',
         minApprovals: 'Minimum approvals',
         greenChecks: 'Green checks required',
-        selfMerge: 'Agent self-merge',
         projectMapEnabled: 'Maintain project map',
       },
     },
@@ -164,7 +162,6 @@ export const messages = {
         'pull_requests.enabled': { label: 'Use pull requests' },
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
         'pull_requests.review.required': { label: 'Require review' },
-        'pull_requests.review.reviewers': { label: 'Reviewer type' },
         'pull_requests.review.agent_must_read_comments': {
           label: 'Agent must read review comments',
         },
@@ -173,11 +170,6 @@ export const messages = {
         },
         'pull_requests.review.agent_must_apply_accepted_feedback': {
           label: 'Agent must apply accepted feedback',
-        },
-        ai_reviewer_note: {
-          label: 'External AI reviewer required',
-          help_text:
-            'AI review requires the veni-vidi-review GitHub App to be installed and configured for this repository.',
         },
         'pull_requests.merge.squash_commits': {
           label: 'Squash commits before merge',
@@ -192,9 +184,6 @@ export const messages = {
         },
         'pull_requests.merge.require_green_checks': {
           label: 'Require green checks before merge',
-        },
-        'pull_requests.merge.allow_agent_self_merge': {
-          label: 'Allow agent self-merge',
         },
         branch_protection_note: {
           label: 'Branch protection required',
@@ -272,11 +261,6 @@ export const messages = {
             description: 'PRs may exist, but formal review is optional.',
           },
         },
-        'pull_requests.review.reviewers': {
-          human: 'Human',
-          ai: 'AI',
-          both: 'Both',
-        },
         'pull_requests.merge.integration_method': {
           merge: 'Merge commit',
           rebase: 'Rebase',
@@ -352,11 +336,9 @@ export const messages = {
         enabled: 'Используются',
         creation: 'Когда создавать',
         required: 'Ревью обязательно',
-        reviewers: 'Кто проводит ревью',
         squash: 'Схлопывать коммиты',
         integration: 'Способ встраивания',
         greenChecks: 'Только при успешных проверках',
-        selfMerge: 'Самослияние агентом',
         readComments: 'Агент читает комментарии',
         replyComments: 'Агент отвечает на комментарии',
         applyFeedback: 'Агент применяет принятую обратную связь',
@@ -452,7 +434,6 @@ export const messages = {
           label: 'Правило для пул-реквестов по задачам',
         },
         'pull_requests.review.required': { label: 'Требовать ревью' },
-        'pull_requests.review.reviewers': { label: 'Кто проводит ревью' },
         'pull_requests.review.agent_must_read_comments': {
           label: 'Агент должен читать комментарии ревью',
         },
@@ -461,11 +442,6 @@ export const messages = {
         },
         'pull_requests.review.agent_must_apply_accepted_feedback': {
           label: 'Агент должен применять принятое замечание',
-        },
-        ai_reviewer_note: {
-          label: 'Требуется внешний ИИ-ревьювер',
-          help_text:
-            'Ревью от ИИ требует установленного и настроенного GitHub App veni-vidi-review.',
         },
         'pull_requests.merge.squash_commits': {
           label: 'Схлопывать коммиты перед слиянием',
@@ -480,9 +456,6 @@ export const messages = {
         },
         'pull_requests.merge.require_green_checks': {
           label: 'Требовать зелёные проверки перед слиянием',
-        },
-        'pull_requests.merge.allow_agent_self_merge': {
-          label: 'Разрешить агенту сливать изменения самому',
         },
         branch_protection_note: {
           label: 'Требуется branch protection',
@@ -562,11 +535,6 @@ export const messages = {
             description:
               'Пул-реквесты можно использовать без обязательного формального ревью.',
           },
-        },
-        'pull_requests.review.reviewers': {
-          human: 'Человек',
-          ai: 'ИИ',
-          both: 'Оба',
         },
         'pull_requests.merge.integration_method': {
           merge: 'Merge commit',

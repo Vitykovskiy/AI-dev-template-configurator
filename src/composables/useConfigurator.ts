@@ -127,12 +127,7 @@ const generatedConfig = computed<GeneratedConfig>(() => {
   const reviewRequired = pullRequestsEnabled
     ? toBoolean(formState.value['pull_requests.review.required'], true)
     : false
-  const reviewers = reviewRequired
-    ? toString(formState.value['pull_requests.review.reviewers'], 'human')
-    : 'human'
   const reviewPolicyActive = pullRequestsEnabled && reviewRequired
-  const aiReviewerActive =
-    pullRequestsEnabled && (reviewers === 'ai' || reviewers === 'both')
 
   return {
     config_version: 1,
@@ -164,7 +159,6 @@ const generatedConfig = computed<GeneratedConfig>(() => {
       ),
       review: {
         required: reviewRequired,
-        reviewers,
         agent_must_read_comments: reviewPolicyActive
           ? toBoolean(
               formState.value['pull_requests.review.agent_must_read_comments'],
@@ -206,12 +200,6 @@ const generatedConfig = computed<GeneratedConfig>(() => {
           ? toBoolean(
               formState.value['pull_requests.merge.require_green_checks'],
               true,
-            )
-          : false,
-        allow_agent_self_merge: aiReviewerActive
-          ? toBoolean(
-              formState.value['pull_requests.merge.allow_agent_self_merge'],
-              false,
             )
           : false,
       },

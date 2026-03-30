@@ -198,23 +198,6 @@
           ]
         },
         {
-          "id": "pull_requests.review.reviewers",
-          "component": "segmented_control",
-          "label": "Reviewer type",
-          "required": true,
-          "default": "human",
-          "visibility": {
-            "field": "pull_requests.review.required",
-            "operator": "equals",
-            "value": true
-          },
-          "options": [
-            { "value": "human", "label": "Human" },
-            { "value": "ai", "label": "AI" },
-            { "value": "both", "label": "Both" }
-          ]
-        },
-        {
           "id": "pull_requests.review.agent_must_read_comments",
           "component": "switch",
           "label": "Agent must read review comments",
@@ -248,27 +231,6 @@
             "field": "pull_requests.review.required",
             "operator": "equals",
             "value": true
-          }
-        },
-        {
-          "id": "ai_reviewer_note",
-          "component": "info_banner",
-          "label": "ai_reviewer_note",
-          "required": false,
-          "default": "",
-          "visibility": {
-            "any_of": [
-              {
-                "field": "pull_requests.review.reviewers",
-                "operator": "equals",
-                "value": "ai"
-              },
-              {
-                "field": "pull_requests.review.reviewers",
-                "operator": "equals",
-                "value": "both"
-              }
-            ]
           }
         },
         {
@@ -324,27 +286,6 @@
             "field": "pull_requests.enabled",
             "operator": "equals",
             "value": true
-          }
-        },
-        {
-          "id": "pull_requests.merge.allow_agent_self_merge",
-          "component": "switch",
-          "label": "Allow agent self-merge",
-          "required": true,
-          "default": false,
-          "visibility": {
-            "any_of": [
-              {
-                "field": "pull_requests.review.reviewers",
-                "operator": "equals",
-                "value": "ai"
-              },
-              {
-                "field": "pull_requests.review.reviewers",
-                "operator": "equals",
-                "value": "both"
-              }
-            ]
           }
         }
       ]
@@ -440,7 +381,6 @@
       "creation_mode": "{{pull_requests.creation_mode}}",
       "review": {
         "required": "{{pull_requests.review.required}}",
-        "reviewers": "{{pull_requests.review.reviewers}}",
         "agent_must_read_comments": "{{pull_requests.review.agent_must_read_comments}}",
         "agent_must_reply_to_comments": "{{pull_requests.review.agent_must_reply_to_comments}}",
         "agent_must_apply_accepted_feedback": "{{pull_requests.review.agent_must_apply_accepted_feedback}}"
@@ -449,8 +389,7 @@
         "squash_commits": "{{pull_requests.merge.squash_commits}}",
         "integration_method": "{{pull_requests.merge.integration_method}}",
         "min_approvals": "{{pull_requests.merge.min_approvals}}",
-        "require_green_checks": "{{pull_requests.merge.require_green_checks}}",
-        "allow_agent_self_merge": "{{pull_requests.merge.allow_agent_self_merge}}"
+        "require_green_checks": "{{pull_requests.merge.require_green_checks}}"
       }
     },
     "project_map": {
