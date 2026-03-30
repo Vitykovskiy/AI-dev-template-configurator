@@ -158,6 +158,11 @@ export const messages = {
         },
         'pull_requests.enabled': { label: 'Use pull requests' },
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
+        pull_requests_disabled_note: {
+          label: 'Pull requests are disabled',
+          help_text:
+            'Review and merge options are unavailable because the pull-request workflow is turned off.',
+        },
         'pull_requests.review.required': { label: 'Require review' },
         'pull_requests.review.agent_must_read_comments': {
           label: 'Agent must read review comments',
@@ -415,6 +420,11 @@ export const messages = {
         'pull_requests.enabled': { label: 'Использовать пул-реквесты' },
         'pull_requests.creation_mode': {
           label: 'Правило для пул-реквестов по задачам',
+        },
+        pull_requests_disabled_note: {
+          label: 'Пул-реквесты отключены',
+          help_text:
+            'Опции ревью и слияния недоступны, потому что workflow через пул-реквесты выключен.',
         },
         'pull_requests.review.required': { label: 'Требовать ревью' },
         'pull_requests.review.agent_must_read_comments': {
