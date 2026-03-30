@@ -115,6 +115,10 @@ function toString(value: FormStateValue, fallback = ''): string {
   return typeof value === 'string' ? value : fallback
 }
 
+function toNumber(value: FormStateValue, fallback = 0): number {
+  return typeof value === 'number' ? value : fallback
+}
+
 const generatedConfig = computed<GeneratedConfig>(() => {
   const pullRequestsEnabled = toBoolean(
     formState.value['pull_requests.enabled'],
@@ -126,6 +130,9 @@ const generatedConfig = computed<GeneratedConfig>(() => {
   const reviewers = reviewRequired
     ? toString(formState.value['pull_requests.review.reviewers'], 'human')
     : 'human'
+  const reviewPolicyActive = pullRequestsEnabled && reviewRequired
+  const aiReviewerActive =
+    pullRequestsEnabled && (reviewers === 'ai' || reviewers === 'both')
 
   return {
     config_version: 1,
@@ -158,6 +165,26 @@ const generatedConfig = computed<GeneratedConfig>(() => {
       review: {
         required: reviewRequired,
         reviewers,
+        agent_must_read_comments: reviewPolicyActive
+          ? toBoolean(
+              formState.value['pull_requests.review.agent_must_read_comments'],
+              true,
+            )
+          : false,
+        agent_must_reply_to_comments: reviewPolicyActive
+          ? toBoolean(
+              formState.value['pull_requests.review.agent_must_reply_to_comments'],
+              true,
+            )
+          : false,
+        agent_must_apply_accepted_feedback: reviewPolicyActive
+          ? toBoolean(
+              formState.value[
+                'pull_requests.review.agent_must_apply_accepted_feedback'
+              ],
+              true,
+            )
+          : false,
       },
       merge: {
         squash_commits: pullRequestsEnabled
@@ -172,32 +199,29 @@ const generatedConfig = computed<GeneratedConfig>(() => {
               'merge',
             )
           : 'merge',
+        min_approvals: reviewPolicyActive
+          ? toNumber(formState.value['pull_requests.merge.min_approvals'], 1)
+          : 0,
         require_green_checks: pullRequestsEnabled
           ? toBoolean(
               formState.value['pull_requests.merge.require_green_checks'],
               true,
             )
           : false,
-        allow_agent_self_merge:
-          pullRequestsEnabled && reviewers === 'ai'
-            ? toBoolean(
-                formState.value['pull_requests.merge.allow_agent_self_merge'],
-                false,
-              )
-            : false,
-        agent_configure_branch_protection:
-          pullRequestsEnabled && reviewRequired
-            ? toBoolean(
-                formState.value[
-                  'pull_requests.merge.agent_configure_branch_protection'
-                ],
-                false,
-              )
-            : false,
+        allow_agent_self_merge: aiReviewerActive
+          ? toBoolean(
+              formState.value['pull_requests.merge.allow_agent_self_merge'],
+              false,
+            )
+          : false,
       },
     },
     project_map: {
       enabled: toBoolean(formState.value['project_map.enabled'], true),
+    },
+    github: {
+      required_token_scopes: ['repo', 'project'],
+      recommended_token_scopes: ['read:org', 'workflow'],
     },
   }
 })

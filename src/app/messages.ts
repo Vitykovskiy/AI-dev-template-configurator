@@ -49,8 +49,6 @@ export const messages = {
           'Scopes do not guarantee repository-specific write access.',
           'Branch protection and project write permissions must still be checked separately.',
         ],
-        branchProtectionAdminNote:
-          'Agent will configure branch protection: the token user must have admin access to the repository.',
       },
     },
     summary: {
@@ -70,11 +68,14 @@ export const messages = {
         creation: 'Creation mode',
         required: 'Review required',
         reviewers: 'Reviewers',
+        readComments: 'Agent reads comments',
+        replyComments: 'Agent replies to comments',
+        applyFeedback: 'Agent applies accepted feedback',
         squash: 'Squash commits',
         integration: 'Integration method',
+        minApprovals: 'Minimum approvals',
         greenChecks: 'Green checks required',
         selfMerge: 'Agent self-merge',
-        configureBranchProtection: 'Agent configures branch protection',
         projectMapEnabled: 'Maintain project map',
       },
     },
@@ -164,6 +165,15 @@ export const messages = {
         'pull_requests.creation_mode': { label: 'PR policy for tasks' },
         'pull_requests.review.required': { label: 'Require review' },
         'pull_requests.review.reviewers': { label: 'Reviewer type' },
+        'pull_requests.review.agent_must_read_comments': {
+          label: 'Agent must read review comments',
+        },
+        'pull_requests.review.agent_must_reply_to_comments': {
+          label: 'Agent must reply to review comments',
+        },
+        'pull_requests.review.agent_must_apply_accepted_feedback': {
+          label: 'Agent must apply accepted feedback',
+        },
         ai_reviewer_note: {
           label: 'External AI reviewer required',
           help_text:
@@ -177,6 +187,9 @@ export const messages = {
         'pull_requests.merge.integration_method': {
           label: 'Branch integration method',
         },
+        'pull_requests.merge.min_approvals': {
+          label: 'Minimum approvals',
+        },
         'pull_requests.merge.require_green_checks': {
           label: 'Require green checks before merge',
         },
@@ -187,16 +200,6 @@ export const messages = {
           label: 'Branch protection required',
           help_text:
             'These review and merge rules are enforced by the agent only. GitHub branch protection is still required to enforce them technically.',
-        },
-        'pull_requests.merge.agent_configure_branch_protection': {
-          label: 'Let agent configure branch protection',
-          help_text:
-            'If enabled, the agent will apply branch protection rules to main automatically using the GitHub API.',
-        },
-        branch_protection_creation_mode_warning: {
-          label: 'Branch protection overrides PR creation mode',
-          help_text:
-            'When branch protection is active, direct pushes to main are blocked, so the agent will create a PR for every task.',
         },
         'project_map.enabled': {
           label: 'Maintain project map',
@@ -213,10 +216,10 @@ export const messages = {
             description:
               'Agent works iteratively through tasks without stopping between stages.',
           },
-          staged: {
-            label: 'Staged',
+          manual: {
+            label: 'Manual',
             description:
-              'Agent pauses between work stages and waits for explicit human confirmation before continuing.',
+              'Agent may complete one bounded routing wave and then stop cleanly until the next explicit execution session.',
           },
         },
         'architecture.use_fsd': {
@@ -331,8 +334,6 @@ export const messages = {
           'Набор scopes сам по себе не гарантирует доступ на запись в конкретный репозиторий.',
           'Защиту веток и права записи в GitHub Project нужно проверять отдельно.',
         ],
-        branchProtectionAdminNote:
-          'Если агент настраивает branch protection, у владельца токена должны быть права администратора репозитория.',
       },
     },
     summary: {
@@ -356,7 +357,10 @@ export const messages = {
         integration: 'Способ встраивания',
         greenChecks: 'Только при успешных проверках',
         selfMerge: 'Самослияние агентом',
-        configureBranchProtection: 'Агент настраивает защиту ветки',
+        readComments: 'Агент читает комментарии',
+        replyComments: 'Агент отвечает на комментарии',
+        applyFeedback: 'Агент применяет принятую обратную связь',
+        minApprovals: 'Минимум approvals',
         projectMapEnabled: 'Поддерживать карту проекта',
       },
     },
@@ -449,6 +453,15 @@ export const messages = {
         },
         'pull_requests.review.required': { label: 'Требовать ревью' },
         'pull_requests.review.reviewers': { label: 'Кто проводит ревью' },
+        'pull_requests.review.agent_must_read_comments': {
+          label: 'Агент должен читать комментарии ревью',
+        },
+        'pull_requests.review.agent_must_reply_to_comments': {
+          label: 'Агент должен отвечать на комментарии ревью',
+        },
+        'pull_requests.review.agent_must_apply_accepted_feedback': {
+          label: 'Агент должен применять принятое замечание',
+        },
         ai_reviewer_note: {
           label: 'Требуется внешний ИИ-ревьювер',
           help_text:
@@ -462,6 +475,9 @@ export const messages = {
         'pull_requests.merge.integration_method': {
           label: 'Способ встраивания ветки задачи',
         },
+        'pull_requests.merge.min_approvals': {
+          label: 'Минимум approvals',
+        },
         'pull_requests.merge.require_green_checks': {
           label: 'Требовать зелёные проверки перед слиянием',
         },
@@ -472,16 +488,6 @@ export const messages = {
           label: 'Требуется branch protection',
           help_text:
             'Правила ревью и слияния с этого экрана агент соблюдает логически, но GitHub branch protection всё равно нужен для технического enforcement.',
-        },
-        'pull_requests.merge.agent_configure_branch_protection': {
-          label: 'Разрешить агенту настраивать branch protection',
-          help_text:
-            'Если включено, агент сможет автоматически настроить правила защиты ветки main через GitHub API.',
-        },
-        branch_protection_creation_mode_warning: {
-          label: 'Защита ветки переопределяет правило создания PR',
-          help_text:
-            'Если branch protection запрещает прямые push в main, агент будет создавать PR для каждой задачи.',
         },
         'project_map.enabled': {
           label: 'Поддерживать карту проекта',
@@ -498,10 +504,10 @@ export const messages = {
             description:
               'Агент работает итеративно и не останавливается между стадиями без необходимости.',
           },
-          staged: {
-            label: 'Поэтапный',
+          manual: {
+            label: 'Ручной',
             description:
-              'Агент останавливается между стадиями и ждёт явного подтверждения перед продолжением.',
+              'Агент может завершить одну ограниченную волну маршрутизации и остановиться до следующей явной execution-сессии.',
           },
         },
         'architecture.use_fsd': {

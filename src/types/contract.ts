@@ -117,16 +117,23 @@ export interface GeneratedConfig {
     review: {
       required: boolean
       reviewers: string
+      agent_must_read_comments: boolean
+      agent_must_reply_to_comments: boolean
+      agent_must_apply_accepted_feedback: boolean
     }
     merge: {
       squash_commits: boolean
       integration_method: string
+      min_approvals: number
       require_green_checks: boolean
       allow_agent_self_merge: boolean
-      agent_configure_branch_protection: boolean
     }
   }
   project_map: {
     enabled: boolean
+  }
+  github: {
+    required_token_scopes: string[]
+    recommended_token_scopes: string[]
   }
 }

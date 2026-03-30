@@ -75,9 +75,9 @@
               "description": "Continuous delivery loop: after closing each task the agent immediately picks the next one. Stops only on a real blocker, configured checkpoint, or empty backlog."
             },
             {
-              "value": "staged",
-              "label": "Staged",
-              "description": "Agent pauses between work stages and waits for explicit human confirmation before continuing."
+              "value": "manual",
+              "label": "Manual",
+              "description": "Agent may complete one bounded routing wave and then stop cleanly until the next explicit execution session."
             }
           ]
         }
@@ -215,15 +215,60 @@
           ]
         },
         {
+          "id": "pull_requests.review.agent_must_read_comments",
+          "component": "switch",
+          "label": "Agent must read review comments",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "pull_requests.review.required",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
+          "id": "pull_requests.review.agent_must_reply_to_comments",
+          "component": "switch",
+          "label": "Agent must reply to review comments",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "pull_requests.review.required",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
+          "id": "pull_requests.review.agent_must_apply_accepted_feedback",
+          "component": "switch",
+          "label": "Agent must apply accepted feedback",
+          "required": true,
+          "default": true,
+          "visibility": {
+            "field": "pull_requests.review.required",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
           "id": "ai_reviewer_note",
           "component": "info_banner",
           "label": "ai_reviewer_note",
           "required": false,
           "default": "",
           "visibility": {
-            "field": "pull_requests.review.reviewers",
-            "operator": "equals",
-            "value": "ai"
+            "any_of": [
+              {
+                "field": "pull_requests.review.reviewers",
+                "operator": "equals",
+                "value": "ai"
+              },
+              {
+                "field": "pull_requests.review.reviewers",
+                "operator": "equals",
+                "value": "both"
+              }
+            ]
           }
         },
         {
@@ -256,6 +301,20 @@
           ]
         },
         {
+          "id": "pull_requests.merge.min_approvals",
+          "component": "stepper",
+          "label": "Minimum approvals",
+          "required": true,
+          "default": 1,
+          "min": 1,
+          "max": 5,
+          "visibility": {
+            "field": "pull_requests.review.required",
+            "operator": "equals",
+            "value": true
+          }
+        },
+        {
           "id": "pull_requests.merge.require_green_checks",
           "component": "switch",
           "label": "Require green checks before merge",
@@ -274,70 +333,16 @@
           "required": true,
           "default": false,
           "visibility": {
-            "field": "pull_requests.review.reviewers",
-            "operator": "equals",
-            "value": "ai"
-          }
-        },
-        {
-          "id": "branch_protection_note",
-          "component": "info_banner",
-          "label": "branch_protection_note",
-          "required": false,
-          "default": "",
-          "visibility": {
-            "all_of": [
+            "any_of": [
               {
-                "field": "pull_requests.enabled",
+                "field": "pull_requests.review.reviewers",
                 "operator": "equals",
-                "value": true
+                "value": "ai"
               },
               {
-                "field": "pull_requests.review.required",
+                "field": "pull_requests.review.reviewers",
                 "operator": "equals",
-                "value": true
-              }
-            ]
-          }
-        },
-        {
-          "id": "pull_requests.merge.agent_configure_branch_protection",
-          "component": "switch",
-          "label": "Let agent configure branch protection",
-          "required": true,
-          "default": false,
-          "visibility": {
-            "all_of": [
-              {
-                "field": "pull_requests.enabled",
-                "operator": "equals",
-                "value": true
-              },
-              {
-                "field": "pull_requests.review.required",
-                "operator": "equals",
-                "value": true
-              }
-            ]
-          }
-        },
-        {
-          "id": "branch_protection_creation_mode_warning",
-          "component": "info_banner",
-          "label": "branch_protection_creation_mode_warning",
-          "required": false,
-          "default": "",
-          "visibility": {
-            "all_of": [
-              {
-                "field": "pull_requests.merge.agent_configure_branch_protection",
-                "operator": "equals",
-                "value": true
-              },
-              {
-                "field": "pull_requests.creation_mode",
-                "operator": "not_equals",
-                "value": "for_every_task"
+                "value": "both"
               }
             ]
           }
@@ -435,18 +440,25 @@
       "creation_mode": "{{pull_requests.creation_mode}}",
       "review": {
         "required": "{{pull_requests.review.required}}",
-        "reviewers": "{{pull_requests.review.reviewers}}"
+        "reviewers": "{{pull_requests.review.reviewers}}",
+        "agent_must_read_comments": "{{pull_requests.review.agent_must_read_comments}}",
+        "agent_must_reply_to_comments": "{{pull_requests.review.agent_must_reply_to_comments}}",
+        "agent_must_apply_accepted_feedback": "{{pull_requests.review.agent_must_apply_accepted_feedback}}"
       },
       "merge": {
         "squash_commits": "{{pull_requests.merge.squash_commits}}",
         "integration_method": "{{pull_requests.merge.integration_method}}",
+        "min_approvals": "{{pull_requests.merge.min_approvals}}",
         "require_green_checks": "{{pull_requests.merge.require_green_checks}}",
-        "allow_agent_self_merge": "{{pull_requests.merge.allow_agent_self_merge}}",
-        "agent_configure_branch_protection": "{{pull_requests.merge.agent_configure_branch_protection}}"
+        "allow_agent_self_merge": "{{pull_requests.merge.allow_agent_self_merge}}"
       }
     },
     "project_map": {
       "enabled": "{{project_map.enabled}}"
+    },
+    "github": {
+      "required_token_scopes": ["repo", "project"],
+      "recommended_token_scopes": ["read:org", "workflow"]
     }
   }
 }
