@@ -121,10 +121,7 @@ export interface GeneratedConfig {
       agent_must_apply_accepted_feedback: boolean
     }
     merge: {
-      squash_commits: boolean
       integration_method: string
-      min_approvals: number
-      require_green_checks: boolean
     }
   }
   project_map: {

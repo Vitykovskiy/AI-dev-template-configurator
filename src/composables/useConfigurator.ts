@@ -115,10 +115,6 @@ function toString(value: FormStateValue, fallback = ''): string {
   return typeof value === 'string' ? value : fallback
 }
 
-function toNumber(value: FormStateValue, fallback = 0): number {
-  return typeof value === 'number' ? value : fallback
-}
-
 const generatedConfig = computed<GeneratedConfig>(() => {
   const pullRequestsEnabled = toBoolean(
     formState.value['pull_requests.enabled'],
@@ -181,27 +177,12 @@ const generatedConfig = computed<GeneratedConfig>(() => {
           : false,
       },
       merge: {
-        squash_commits: pullRequestsEnabled
-          ? toBoolean(
-              formState.value['pull_requests.merge.squash_commits'],
-              true,
-            )
-          : false,
         integration_method: pullRequestsEnabled
           ? toString(
               formState.value['pull_requests.merge.integration_method'],
               'merge',
             )
           : 'merge',
-        min_approvals: reviewPolicyActive
-          ? toNumber(formState.value['pull_requests.merge.min_approvals'], 1)
-          : 0,
-        require_green_checks: pullRequestsEnabled
-          ? toBoolean(
-              formState.value['pull_requests.merge.require_green_checks'],
-              true,
-            )
-          : false,
       },
     },
     project_map: {

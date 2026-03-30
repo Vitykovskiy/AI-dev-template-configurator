@@ -70,10 +70,7 @@ export const messages = {
         readComments: 'Agent reads comments',
         replyComments: 'Agent replies to comments',
         applyFeedback: 'Agent applies accepted feedback',
-        squash: 'Squash commits',
         integration: 'Integration method',
-        minApprovals: 'Minimum approvals',
-        greenChecks: 'Green checks required',
         projectMapEnabled: 'Maintain project map',
       },
     },
@@ -171,19 +168,8 @@ export const messages = {
         'pull_requests.review.agent_must_apply_accepted_feedback': {
           label: 'Agent must apply accepted feedback',
         },
-        'pull_requests.merge.squash_commits': {
-          label: 'Squash commits before merge',
-          help_text:
-            'If enabled, multiple commits from the task branch are combined into one before merge.',
-        },
         'pull_requests.merge.integration_method': {
           label: 'Branch integration method',
-        },
-        'pull_requests.merge.min_approvals': {
-          label: 'Minimum approvals',
-        },
-        'pull_requests.merge.require_green_checks': {
-          label: 'Require green checks before merge',
         },
         branch_protection_note: {
           label: 'Branch protection required',
@@ -336,13 +322,10 @@ export const messages = {
         enabled: 'Используются',
         creation: 'Когда создавать',
         required: 'Ревью обязательно',
-        squash: 'Схлопывать коммиты',
         integration: 'Способ встраивания',
-        greenChecks: 'Только при успешных проверках',
         readComments: 'Агент читает комментарии',
         replyComments: 'Агент отвечает на комментарии',
         applyFeedback: 'Агент применяет принятую обратную связь',
-        minApprovals: 'Минимум approvals',
         projectMapEnabled: 'Поддерживать карту проекта',
       },
     },
@@ -443,19 +426,8 @@ export const messages = {
         'pull_requests.review.agent_must_apply_accepted_feedback': {
           label: 'Агент должен применять принятое замечание',
         },
-        'pull_requests.merge.squash_commits': {
-          label: 'Схлопывать коммиты перед слиянием',
-          help_text:
-            'Если включено, несколько коммитов из ветки задачи будут объединены в один перед merge.',
-        },
         'pull_requests.merge.integration_method': {
           label: 'Способ встраивания ветки задачи',
-        },
-        'pull_requests.merge.min_approvals': {
-          label: 'Минимум approvals',
-        },
-        'pull_requests.merge.require_green_checks': {
-          label: 'Требовать зелёные проверки перед слиянием',
         },
         branch_protection_note: {
           label: 'Требуется branch protection',

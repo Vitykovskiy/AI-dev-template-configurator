@@ -380,12 +380,9 @@ const summaryCards = computed(() => [
                   `${t('summary.fields.readComments')}: ${formatBoolean(generatedConfig.value.pull_requests.review.agent_must_read_comments)}`,
                   `${t('summary.fields.replyComments')}: ${formatBoolean(generatedConfig.value.pull_requests.review.agent_must_reply_to_comments)}`,
                   `${t('summary.fields.applyFeedback')}: ${formatBoolean(generatedConfig.value.pull_requests.review.agent_must_apply_accepted_feedback)}`,
-                  `${t('summary.fields.minApprovals')}: ${String(generatedConfig.value.pull_requests.merge.min_approvals)}`,
                 ]
               : []),
-            `${t('summary.fields.squash')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.squash_commits']))}`,
             `${t('summary.fields.integration')}: ${formatOptionValue('pull_requests.merge.integration_method', String(formState.value['pull_requests.merge.integration_method']))}`,
-            `${t('summary.fields.greenChecks')}: ${formatBoolean(Boolean(formState.value['pull_requests.merge.require_green_checks']))}`,
           ],
         },
       ]

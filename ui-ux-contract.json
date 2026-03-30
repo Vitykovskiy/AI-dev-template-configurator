@@ -234,19 +234,6 @@
           }
         },
         {
-          "id": "pull_requests.merge.squash_commits",
-          "component": "checkbox",
-          "label": "Squash commits before merge",
-          "required": true,
-          "default": true,
-          "help_text": "If enabled, multiple commits from the task branch are combined into one before merge.",
-          "visibility": {
-            "field": "pull_requests.enabled",
-            "operator": "equals",
-            "value": true
-          }
-        },
-        {
           "id": "pull_requests.merge.integration_method",
           "component": "segmented_control",
           "label": "Branch integration method",
@@ -261,32 +248,6 @@
             { "value": "merge", "label": "Merge commit" },
             { "value": "rebase", "label": "Rebase" }
           ]
-        },
-        {
-          "id": "pull_requests.merge.min_approvals",
-          "component": "stepper",
-          "label": "Minimum approvals",
-          "required": true,
-          "default": 1,
-          "min": 1,
-          "max": 5,
-          "visibility": {
-            "field": "pull_requests.review.required",
-            "operator": "equals",
-            "value": true
-          }
-        },
-        {
-          "id": "pull_requests.merge.require_green_checks",
-          "component": "switch",
-          "label": "Require green checks before merge",
-          "required": true,
-          "default": true,
-          "visibility": {
-            "field": "pull_requests.enabled",
-            "operator": "equals",
-            "value": true
-          }
         }
       ]
     },
@@ -386,10 +347,7 @@
         "agent_must_apply_accepted_feedback": "{{pull_requests.review.agent_must_apply_accepted_feedback}}"
       },
       "merge": {
-        "squash_commits": "{{pull_requests.merge.squash_commits}}",
-        "integration_method": "{{pull_requests.merge.integration_method}}",
-        "min_approvals": "{{pull_requests.merge.min_approvals}}",
-        "require_green_checks": "{{pull_requests.merge.require_green_checks}}"
+        "integration_method": "{{pull_requests.merge.integration_method}}"
       }
     },
     "project_map": {
